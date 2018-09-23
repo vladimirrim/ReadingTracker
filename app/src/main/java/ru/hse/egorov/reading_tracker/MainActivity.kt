@@ -1,4 +1,4 @@
-package ru.hse.egorov.readingtracker
+package ru.hse.egorov.reading_tracker
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Example of a call to a native method
-        sample_text.text = stringFromJNI()
+       // sample_text.text = stringFromJNI()
     }
 
     /**

@@ -1,4 +1,4 @@
-package ru.hse.egorov.readingtracker
+package ru.hse.egorov.reading_tracker
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
