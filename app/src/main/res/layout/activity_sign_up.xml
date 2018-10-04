@@ -12,6 +12,7 @@
     tools:context=".SignUpActivity">
 
     <!-- Login progress -->
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -64,6 +65,11 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/infoList"
+                android:layout_width="match_parent"
+                android:layout_height="321dp" />
+
             <Button
                 android:id="@+id/signUpButton"
                 style="?android:textAppearanceSmall"
@@ -75,4 +81,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
