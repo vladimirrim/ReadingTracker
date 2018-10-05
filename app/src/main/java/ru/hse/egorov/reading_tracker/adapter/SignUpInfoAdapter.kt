@@ -4,12 +4,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import ru.hse.egorov.reading_tracker.R
-import ru.hse.egorov.reading_tracker.listener.OnItemClickListener
 
-class SignUpInfoAdapter() : RecyclerView.Adapter<SignUpInfoAdapter.SignUpInfoViewHolder>() {
+class SignUpInfoAdapter : RecyclerView.Adapter<SignUpInfoAdapter.SignUpInfoViewHolder>() {
     private var userInfo: TextView? = null
     private val userInfoList = ArrayList<String>()
 
@@ -20,6 +18,10 @@ class SignUpInfoAdapter() : RecyclerView.Adapter<SignUpInfoAdapter.SignUpInfoVie
 
     fun set(items: Collection<String>) {
         userInfoList.addAll(items)
+    }
+
+    fun get(): ArrayList<String> {
+        return userInfoList
     }
 
     fun clear() {
@@ -39,7 +41,10 @@ class SignUpInfoAdapter() : RecyclerView.Adapter<SignUpInfoAdapter.SignUpInfoVie
             userInfo = itemView?.findViewById(R.id.userInfo)
         }
 
-        public fun bind(info: String) {
+        fun getTextView(): TextView? {
+            return userInfo
+        }
+        fun bind(info: String) {
             userInfo?.hint = info
         }
     }
