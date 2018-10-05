@@ -1,23 +1,46 @@
 package ru.hse.egorov.reading_tracker.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.TextView
+import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.listener.OnItemClickListener
 
-class SignUpInfoAdapter : RecyclerView.Adapter<SignUpInfoAdapter.SignUpInfoViewHolder>() {
+class SignUpInfoAdapter() : RecyclerView.Adapter<SignUpInfoAdapter.SignUpInfoViewHolder>() {
+    private var userInfo: TextView? = null
+    private val userInfoList = ArrayList<String>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SignUpInfoViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.user_signup_info, parent, false)
+        return SignUpInfoViewHolder(view)
+    }
+
+    fun set(items: Collection<String>) {
+        userInfoList.addAll(items)
+    }
+
+    fun clear() {
+        userInfoList.clear()
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return userInfoList.size
     }
 
     override fun onBindViewHolder(holder: SignUpInfoViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.bind(userInfoList[position])
     }
 
-    class SignUpInfoViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        //TODO
+    inner class SignUpInfoViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+        init {
+            userInfo = itemView?.findViewById(R.id.userInfo)
+        }
+
+        public fun bind(info: String) {
+            userInfo?.hint = info
+        }
     }
 }
