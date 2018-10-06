@@ -3,12 +3,11 @@ package ru.hse.egorov.reading_tracker
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
 
 
 class SplashActivity : AppCompatActivity() {
-
-    private val authManager: FirebaseAuth? = FirebaseAuth.getInstance()
+    private val db = DatabaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.SplashScreenTheme)
@@ -19,9 +18,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun chooseActivity() {
-        val currentUser = authManager?.currentUser
 
-        if (currentUser == null) {
+        if (db.isAuth()) {
             val intent = Intent(this,
                     SignInActivity::class.java)
             startActivity(intent)

@@ -41,14 +41,16 @@ class SignUpActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
+            } else {
+                Toast.makeText(this, "Please fill all fields.",
+                        Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun checkAllFieldsFilled(): Boolean {
         for (i in 0 until userInfoAdapter.itemCount) {
-            val holder = infoList.findViewHolderForAdapterPosition(i) as SignUpInfoAdapter.SignUpInfoViewHolder
-            holder.getTextView() ?: return false
+            return getTextFromHolderByPosition(i) != ""
         }
         return email.text != null &&
                 password.text != null
@@ -67,18 +69,34 @@ class SignUpActivity : AppCompatActivity() {
         return list
     }
 
-    private fun getInfo(): MutableMap<String, String> {
-        val map = HashMap<String, String>()
-        //TODO("get user data")
-        map["gender"] = ("Пол")
-        map["degree"] = ("Образование (ступень)")
-        map["major"] = ("Направление образования")
-        map["occupation"] = "Род занятий (должность)"
-        map["favorite books and authors"] = "Любимые авторы/книги"
-        map["favorite book format"] = "Любимый формат книги (бумажная/телефон/планшет/читалка)"
+    private fun getInfo(): HashMap<String, String?> {
+        val map = HashMap<String, String?>()
+        map["gender"] = getGender()
+        map["degree"] = getDegree()
+        map["major"] = getMajor()
+        map["occupation"] = getOccupation()
+        map["favorite books and authors"] = getFavBooksAndAuthors()
+        map["favorite book format"] = getFavBookFormat()
         return map
-
     }
+
+    private fun getGender(): String? = getTextFromHolderByPosition(0)
+
+    private fun getDegree(): String? = getTextFromHolderByPosition(1)
+
+    private fun getMajor(): String? = getTextFromHolderByPosition(2)
+
+    private fun getOccupation(): String? = getTextFromHolderByPosition(3)
+
+    private fun getFavBooksAndAuthors(): String? = getTextFromHolderByPosition(4)
+
+    private fun getFavBookFormat(): String? = getTextFromHolderByPosition(5)
+
+    private fun getTextFromHolderByPosition(position: Int): String {
+        val holder = infoList.findViewHolderForAdapterPosition(position) as SignUpInfoAdapter.SignUpInfoViewHolder
+        return holder.getTextView()?.text.toString()
+    }
+
 
     companion object {
         private const val TAG = "SIGN UP"

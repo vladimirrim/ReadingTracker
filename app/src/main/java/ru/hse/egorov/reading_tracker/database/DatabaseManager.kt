@@ -15,12 +15,11 @@ class DatabaseManager {
         return authManager?.createUserWithEmailAndPassword(email, password)
     }
 
-    fun addUserInfo(info: Map<String, String>): Task<DocumentReference> {
-        val data = HashMap<String, Any?>()
-        for (item in info.iterator()) {
-            data[item.key] = item.value
-        }
+    fun addUserInfo(info: Map<String, Any?>): Task<DocumentReference> {
+        return db.collection("users").add(info)
+    }
 
-        return db.collection("users").add(data)
+    fun isAuth(): Boolean {
+        return authManager?.currentUser != null
     }
 }
