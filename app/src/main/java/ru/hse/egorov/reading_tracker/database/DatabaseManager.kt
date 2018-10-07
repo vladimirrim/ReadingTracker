@@ -22,4 +22,8 @@ class DatabaseManager {
     fun isAuth(): Boolean {
         return authManager?.currentUser != null
     }
+
+    fun signIn(email:String, password: String): Task<AuthResult>? {
+        return authManager?.signInWithEmailAndPassword(email, password)
+    }
 }

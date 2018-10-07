@@ -1,8 +1,9 @@
-package ru.hse.egorov.reading_tracker
+package ru.hse.egorov.reading_tracker.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 
 
@@ -21,11 +22,11 @@ class SplashActivity : AppCompatActivity() {
 
         if (db.isAuth()) {
             val intent = Intent(this,
-                    SignInActivity::class.java)
+                    MainActivity::class.java)
             startActivity(intent)
         } else {
             val intent = Intent(this,
-                    MainActivity::class.java)
+                    SignInActivity::class.java)
             startActivity(intent)
         }
     }

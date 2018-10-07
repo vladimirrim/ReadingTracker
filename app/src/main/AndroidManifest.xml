@@ -15,14 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
@@ -32,16 +32,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignInActivity"
+            android:name=".ui.SignInActivity"
             android:label="@string/title_activity_sign_in"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ui.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReadingSessionActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".ui.session.ReadingSessionActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.session.EndOfSessionActivity" />
+        <activity android:name=".ui.book_library.BookLibraryActivity" />
+        <activity android:name=".ui.book_library.BookInfoActivity" />
+        <activity android:name=".ui.session.SessionLibraryActivity" />
+        <activity android:name=".ui.session.SessionInfoActivity" />
+        <activity android:name=".ui.AllTimeStatisticsActivity"></activity>
     </application>
 
 </manifest>

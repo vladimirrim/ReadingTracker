@@ -1,4 +1,4 @@
-package ru.hse.egorov.reading_tracker
+package ru.hse.egorov.reading_tracker.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import ru.hse.egorov.reading_tracker.adapter.SignUpInfoAdapter
+import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.adapter.SignUpInfoAdapter
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 
 /**

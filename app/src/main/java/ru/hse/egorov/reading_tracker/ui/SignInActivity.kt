@@ -1,4 +1,4 @@
-package ru.hse.egorov.reading_tracker
+package ru.hse.egorov.reading_tracker.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,12 +7,14 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
 
 /**
  * A login screen that offers login via email/password.
  */
 class SignInActivity : AppCompatActivity() {
-    private val authManager: FirebaseAuth? = FirebaseAuth.getInstance()
+    private val dbManager = DatabaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +26,11 @@ class SignInActivity : AppCompatActivity() {
         }
 
         signInButton.setOnClickListener { _ ->
-            if (email.text != null && password.text != null) {
-                authManager?.signInWithEmailAndPassword(email.text.toString(), password.text.toString())?.addOnCompleteListener(this
+            if (email.text.toString() != "" && password.text.toString() != "") {
+                dbManager.signIn(email.text.toString(), password.text.toString())?.addOnCompleteListener(this
                 ) {
                     if (it.isSuccessful) {
                         Log.d(TAG, "signInWithEmail:success")
-                        val user = authManager.currentUser
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {

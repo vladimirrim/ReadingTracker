@@ -1,4 +1,4 @@
-package ru.hse.egorov.reading_tracker.adapter
+package ru.hse.egorov.reading_tracker.ui.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
