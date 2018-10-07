@@ -1,4 +1,4 @@
-package ru.hse.egorov.readingtracker
+package ru.hse.egorov.reading_tracker
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
