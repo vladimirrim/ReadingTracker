@@ -47,7 +47,8 @@
         <activity android:name=".ui.book_library.BookInfoActivity" />
         <activity android:name=".ui.session.SessionLibraryActivity" />
         <activity android:name=".ui.session.SessionInfoActivity" />
-        <activity android:name=".ui.AllTimeStatisticsActivity"></activity>
+        <activity android:name=".ui.AllTimeStatisticsActivity" />
+        <activity android:name=".ui.book_library.AddingBookActivity"></activity>
     </application>
 
 </manifest>
