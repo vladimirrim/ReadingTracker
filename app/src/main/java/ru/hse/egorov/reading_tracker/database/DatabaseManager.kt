@@ -8,8 +8,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class DatabaseManager {
-    private val db = FirebaseFirestore.getInstance()
-    private val authManager: FirebaseAuth? = FirebaseAuth.getInstance()
 
     fun auth(email: String, password: String): Task<AuthResult>? {
         return authManager?.createUserWithEmailAndPassword(email, password)
@@ -25,5 +23,10 @@ class DatabaseManager {
 
     fun signIn(email:String, password: String): Task<AuthResult>? {
         return authManager?.signInWithEmailAndPassword(email, password)
+    }
+
+    companion object {
+        private val db = FirebaseFirestore.getInstance()
+        private val authManager = FirebaseAuth.getInstance()
     }
 }

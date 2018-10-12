@@ -1,14 +1,14 @@
-package ru.hse.egorov.reading_tracker.ui
+package ru.hse.egorov.reading_tracker.ui.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.MainActivity
 
 /**
  * A login screen that offers login via email/password.
