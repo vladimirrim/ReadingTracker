@@ -13,16 +13,17 @@ import ru.hse.egorov.reading_tracker.ui.MainActivity
 import ru.hse.egorov.reading_tracker.ui.adapter.SignUpInfoAdapter
 
 class SignUpPersonalInfoActivity : AppCompatActivity() {
-    private val userInfoAdapter = SignUpInfoAdapter()
+    private val infoMap = HashMap<String, String?>()
+    private val userInfoAdapter = SignUpInfoAdapter(infoMap)
     private val dbManager = DatabaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_personal_info)
 
+        userInfoAdapter.set(getHintsInfo(), getInfoKeys())
         infoList.adapter = userInfoAdapter
         infoList.layoutManager = LinearLayoutManager(this)
-        userInfoAdapter.set(getHintsInfo())
 
         signUpButton.setOnClickListener { _ ->
             if (checkAllFieldsFilled()) {
@@ -32,15 +33,36 @@ class SignUpPersonalInfoActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             } else {
-                Toast.makeText(this, "Please fill all fields.",
+                Toast.makeText(this, "Please fill all fields.\n $" +
+                        "${getGender()}" +
+                        "${getDegree()}" +
+                        "${getMajor()}" +
+                        "${getOccupation()}" +
+                        "${getFavBooksAndAuthors()}" +
+                        "${getFavBookFormat()}",
                         Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun checkAllFieldsFilled(): Boolean {
-        for (i in 0 until userInfoAdapter.itemCount) {
-            return getTextFromHolderByPosition(i) != ""
+        if (getGender() == null) {
+            return false
+        }
+        if (getDegree() == null) {
+            return false
+        }
+        if (getMajor() == null) {
+            return false
+        }
+        if (getOccupation() == null) {
+            return false
+        }
+        if (getFavBooksAndAuthors() == null) {
+            return false
+        }
+        if (getFavBookFormat() == null) {
+            return false
         }
         return true
     }
@@ -56,33 +78,43 @@ class SignUpPersonalInfoActivity : AppCompatActivity() {
         return list
     }
 
-    private fun getInfo(): HashMap<String, String?> {
-        val map = HashMap<String, String?>()
-        map["gender"] = getGender()
-        map["degree"] = getDegree()
-        map["major"] = getMajor()
-        map["occupation"] = getOccupation()
-        map["favorite books and authors"] = getFavBooksAndAuthors()
-        map["favorite book format"] = getFavBookFormat()
-        return map
+    private fun getInfoKeys(): Collection<String> {
+        val list = ArrayList<String>()
+        list.add("gender")
+        list.add("degree")
+        list.add("major")
+        list.add("occupation")
+        list.add("favorite books and authors")
+        list.add("favorite book format")
+        return list
     }
 
-    private fun getGender(): String? = getTextFromHolderByPosition(0)
+    private fun getInfo(): HashMap<String, String?> {
+        return infoMap
+    }
 
-    private fun getDegree(): String? = getTextFromHolderByPosition(1)
+    private fun getGender(): String? {
+        return infoMap["gender"]
+    }
 
-    private fun getMajor(): String? = getTextFromHolderByPosition(2)
+    private fun getDegree(): String? {
+        return infoMap["degree"]
+    }
 
-    private fun getOccupation(): String? = getTextFromHolderByPosition(3)
+    private fun getMajor(): String? {
+        return infoMap["major"]
+    }
 
-    private fun getFavBooksAndAuthors(): String? = getTextFromHolderByPosition(4)
+    private fun getOccupation(): String? {
+        return infoMap["occupation"]
+    }
 
-    private fun getFavBookFormat(): String? = getTextFromHolderByPosition(5)
+    private fun getFavBooksAndAuthors(): String? {
+        return infoMap["favorite books and authors"]
+    }
 
-    private fun getTextFromHolderByPosition(position: Int): String {
-        //TODO fix NPE when items not visible
-        val holder = infoList.getChildViewHolder(infoList.getChildAt(position)) as SignUpInfoAdapter.SignUpInfoViewHolder
-        return holder.getTextView()?.text.toString()
+    private fun getFavBookFormat(): String? {
+        return infoMap["favorite book format"]
     }
 
     companion object {
