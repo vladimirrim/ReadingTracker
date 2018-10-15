@@ -9,6 +9,7 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookActivity
 import ru.hse.egorov.reading_tracker.ui.book_library.BookLibraryActivity
 import ru.hse.egorov.reading_tracker.ui.session.ReadingSessionActivity
+import ru.hse.egorov.reading_tracker.ui.session.SessionLibraryActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +46,13 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+
+                R.id.toSessionLibrary ->{
+                    val intent = Intent(this, SessionLibraryActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
                 else -> false
             }
         }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/fontColor"/>
+
+    <View
+        android:id="@+id/delimiterView1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/fontColor">
+
+    </View>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/fontColor"
+        android:textAlignment="textEnd"/>
+
+    <View
+        android:id="@+id/delimiterView2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/fontColor">
+
+    </View>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:numStars="5"
+        android:progressTint="@color/gold"/>
+
+    <View
+        android:id="@+id/delimiterView"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/fontColor">
+
+    </View>
+</LinearLayout>
