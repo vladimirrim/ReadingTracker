@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent" android:layout_width="match_parent">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <item android:drawable="@color/colorPrimary"/>
+    <item android:drawable="@color/colorPrimary" />
 
     <!-- Set the Background Image-->
-    <item android:gravity="center" android:width="70dp" android:height="70dp">
+    <item
+        android:gravity="center"
+        android:bottom="@dimen/activity_vertical_margin">
         <bitmap
             android:gravity="fill_horizontal|fill_vertical"
-            android:src="@drawable/splash_screen"/>
+            android:src="@drawable/reading_tracker_logo" />
     </item>
 </layer-list>
