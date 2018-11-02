@@ -30,10 +30,12 @@
             android:name=".ui.login.SignInActivity"
             android:label="@string/title_activity_sign_in"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoTitle"
             android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name=".ui.login.SignUpActivity"
             android:label="@string/title_activity_sign_up"
+            android:theme="@style/Theme.NoTitle"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.session.ReadingSessionActivity"
