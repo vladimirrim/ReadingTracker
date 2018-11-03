@@ -20,13 +20,14 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        signUpSwitchButton.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
+        signUpButton.setOnClickListener {
+            val intent = Intent(this, ChooseSignUpWayActivity::class.java)
             startActivity(intent)
         }
 
         signInButton.setOnClickListener { _ ->
-            if (email.text.toString() != "" && password.text.toString() != "") {
+            TODO("waiting for sign in screen design.")
+            /*  if (email.text.toString() != "" && password.text.toString() != "") {
                 dbManager.signIn(email.text.toString(), password.text.toString())?.addOnCompleteListener(this
                 ) {
                     if (it.isSuccessful) {
@@ -39,7 +40,7 @@ class SignInActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
+            }*/
         }
     }
 

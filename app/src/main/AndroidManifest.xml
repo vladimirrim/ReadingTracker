@@ -31,12 +31,12 @@
             android:label="@string/title_activity_sign_in"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.NoTitle"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ui.login.SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:theme="@style/Theme.NoTitle"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoTitle" />
         <activity
             android:name=".ui.session.ReadingSessionActivity"
             android:screenOrientation="portrait" />
@@ -49,7 +49,8 @@
         <activity android:name=".ui.book_library.AddingBookActivity" />
         <activity
             android:name=".ui.login.SignUpPersonalInfoActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".ui.login.ChooseSignUpWayActivity"></activity>
     </application>
 
 </manifest>
