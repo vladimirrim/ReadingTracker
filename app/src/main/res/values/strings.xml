@@ -15,4 +15,9 @@
         completions."
     </string>
     <string name="title_activity_sign_up">Sign up</string>
+    <string name="email">Адрес электронной почты</string>
+    <string name="sign_up_action">Зарегистрироваться</string>
+    <string name="password">Пароль</string>
+    <string name="participation_code">Код участника</string>
+    <string name="sing_up_with_email">Логин и пароль</string>
 </resources>

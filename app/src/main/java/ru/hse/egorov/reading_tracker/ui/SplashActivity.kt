@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
-import ru.hse.egorov.reading_tracker.ui.login.SignInActivity
+import ru.hse.egorov.reading_tracker.ui.login.SignUpSignInActivity
 
 
 class SplashActivity : AppCompatActivity() {
@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
         } else {
             val intent = Intent(this,
-                    SignInActivity::class.java)
+                    SignUpSignInActivity::class.java)
             startActivity(intent)
         }
     }

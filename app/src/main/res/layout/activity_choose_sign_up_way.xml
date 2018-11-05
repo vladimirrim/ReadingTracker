@@ -6,4 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.ChooseSignUpWayActivity">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="85dp"
+        app:layout_constraintBottom_toTopOf="@+id/signUpWithCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/reading_tracker_logo" />
+
+    <Button
+        android:id="@+id/signUpWithCode"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/participation_code"
+        android:elevation="4dp"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/participation_code"
+        android:textAlignment="center"
+        android:textAppearance="@style/participation_code"
+        app:layout_constraintBottom_toTopOf="@+id/signUpWithEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <Button
+        android:id="@+id/signUpWithEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="135dp"
+        android:background="@drawable/sign_up_with_email"
+        android:elevation="4dp"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/sing_up_with_email"
+        android:textAlignment="center"
+        android:textAppearance="@style/sign_up_with_email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpWithCode" />
+
+
 </android.support.constraint.ConstraintLayout>

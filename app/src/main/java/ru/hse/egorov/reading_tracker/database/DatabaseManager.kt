@@ -20,7 +20,7 @@ class DatabaseManager {
     }
 
     fun isAuth(): Boolean {
-        return authManager?.currentUser != null
+        return false//authManager?.currentUser != null
     }
 
     fun signIn(email:String, password: String): Task<AuthResult>? {
