@@ -1,13 +1,82 @@
 package ru.hse.egorov.reading_tracker.ui.login
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.MainActivity
 
 class SignInActivity : AppCompatActivity() {
+
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private val dbManager = DatabaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ACTION_BAR_TITLE
+
+        signInGoogle.setOnClickListener {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+            googleSignInClient = GoogleSignIn.getClient(this, gso)
+            signIn()
+        }
+    }
+
+    private fun signIn() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id!!)
+        dbManager.signUpWithGoogle(acct).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                Log.d(TAG, "signInWithCredential:success")
+                Snackbar.make(findViewById(android.R.id.content), "Authentication succeeded.", Snackbar.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Log.w(TAG, "signInWithCredential:failure", task.exception)
+                Snackbar.make(findViewById(android.R.id.content), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account!!)
+                Snackbar.make(findViewById(android.R.id.content), "Authentication succeeded.", Snackbar.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } catch (e: ApiException) {
+                Log.w(TAG, "Google sign in failed", e)
+            }
+        }
+    }
+
+    companion object {
+        private const val RC_SIGN_IN = 1
+        private const val TAG = "Sign in"
+        private const val ACTION_BAR_TITLE = "Вход"
     }
 }

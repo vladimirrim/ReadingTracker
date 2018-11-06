@@ -54,7 +54,10 @@
         <activity
             android:name=".ui.login.ChooseSignUpWayActivity"
             android:theme="@style/Theme.NoTitle" />
-        <activity android:name=".ui.login.SignInActivity" />
+        <activity
+            android:name=".ui.login.SignInActivity"
+            android:theme="@style/Theme.LightDarkTitle"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.login.SignUpCodeActivity"></activity>
     </application>
 

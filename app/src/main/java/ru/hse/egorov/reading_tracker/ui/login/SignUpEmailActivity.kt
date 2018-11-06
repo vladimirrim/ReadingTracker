@@ -1,10 +1,7 @@
 package ru.hse.egorov.reading_tracker.ui.login
 
-import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_sign_up_email.*
 import ru.hse.egorov.reading_tracker.R
@@ -21,9 +18,9 @@ class SignUpEmailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up_email)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Регистрация"
+        supportActionBar?.title = actionBarTitle
 
-        signUpButton.setOnClickListener {
+        signInEmail.setOnClickListener {
             if (checkAllFieldsFilled()) {
               /*  dbManager.auth(email.text.toString(), password.text.toString())?.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -54,5 +51,6 @@ class SignUpEmailActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "SIGN UP"
+        private const val actionBarTitle = "Регистрация"
     }
 }

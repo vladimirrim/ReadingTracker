@@ -25,7 +25,7 @@ class SignUpPersonalInfoActivity : AppCompatActivity() {
         infoList.adapter = userInfoAdapter
         infoList.layoutManager = LinearLayoutManager(this)
 
-        signUpButton.setOnClickListener { _ ->
+        signInEmail.setOnClickListener { _ ->
             if (checkAllFieldsFilled()) {
                 dbManager.addUserInfo(getInfo()).addOnSuccessListener {
                     Log.d(TAG, "addUserSignUpInfo:success")

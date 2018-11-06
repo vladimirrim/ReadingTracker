@@ -57,7 +57,7 @@
         android:layout_marginTop="10dp"
         android:paddingBottom="10dp"
         android:background="@color/light"
-        app:layout_constraintBottom_toTopOf="@+id/signUpButton"
+        app:layout_constraintBottom_toTopOf="@+id/signInEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
 
 
     <Button
-        android:id="@+id/signUpButton"
+        android:id="@+id/signInEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
