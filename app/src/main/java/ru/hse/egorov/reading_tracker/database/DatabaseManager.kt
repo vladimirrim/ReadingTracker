@@ -29,7 +29,6 @@ class DatabaseManager {
     }
 
     fun signUpWithGoogle(acct: GoogleSignInAccount): Task<AuthResult> {
-
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         return authManager.signInWithCredential(credential)
     }
