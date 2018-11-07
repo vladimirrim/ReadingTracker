@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -38,9 +37,13 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Snackbar.make(findViewById(android.R.id.content), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(findViewById(android.R.id.content), "Authentication Failed.Reason:${task.exception?.localizedMessage}"
+                                , Snackbar.LENGTH_SHORT).show()
                     }
                 }
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), "Please fill all fields."
+                        , Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -69,7 +72,8 @@ class SignInActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 Log.w(TAG, "signInWithCredential:failure", task.exception)
-                Snackbar.make(findViewById(android.R.id.content), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(findViewById(android.R.id.content), "Authentication Failed.Reason:${task.exception?.localizedMessage}",
+                        Snackbar.LENGTH_SHORT).show()
             }
         }
     }

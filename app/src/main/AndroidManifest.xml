@@ -59,7 +59,7 @@
             android:theme="@style/Theme.LightDarkTitle"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:fitsSystemWindows="true"/>
-        <activity android:name=".ui.login.SignUpCodeActivity"></activity>
+        <activity android:name=".ui.login.SignUpCodeActivity" />
     </application>
 
 </manifest>

@@ -21,4 +21,5 @@
     <string name="participation_code">Код участника</string>
     <string name="sing_up_with_email">Логин и пароль</string>
     <string name="sign_in_action">Войти</string>
+    <string name="confirm_password">Подтверждение пароля</string>
 </resources>
