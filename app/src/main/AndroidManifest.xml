@@ -56,10 +56,11 @@
             android:theme="@style/Theme.NoTitle" />
         <activity
             android:name=".ui.login.SignInActivity"
+            android:fitsSystemWindows="true"
             android:theme="@style/Theme.LightDarkTitle"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:fitsSystemWindows="true"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".ui.login.SignUpCodeActivity" />
+        <activity android:name=".ui.book_library.LibraryWelcomeActivity"></activity>
     </application>
 
 </manifest>
