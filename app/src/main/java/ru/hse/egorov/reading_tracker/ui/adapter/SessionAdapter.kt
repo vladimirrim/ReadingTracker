@@ -35,11 +35,11 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         holder.bind(userSessions[position])
     }
 
-    inner class SessionViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            date = itemView?.findViewById(R.id.date)
-            time = itemView?.findViewById(R.id.time)
-            ratingBar = itemView?.findViewById(R.id.ratingBar)
+            date = itemView.findViewById(R.id.date)
+            time = itemView.findViewById(R.id.time)
+            ratingBar = itemView.findViewById(R.id.ratingBar)
         }
 
         fun bind(session:Session) {

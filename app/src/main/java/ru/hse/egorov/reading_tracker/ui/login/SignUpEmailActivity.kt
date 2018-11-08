@@ -67,7 +67,7 @@ class SignUpEmailActivity : AppCompatActivity() {
     }
 
     private fun hideProgressBar(){
-        progressBar.visibility = View.INVISIBLE
+        progressBar.visibility = View.GONE
         signUpEmail.visibility = View.VISIBLE
     }
 

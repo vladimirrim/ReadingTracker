@@ -42,7 +42,9 @@
             android:name=".ui.session.ReadingSessionActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.session.EndOfSessionActivity" />
-        <activity android:name=".ui.book_library.BookLibraryActivity" />
+        <activity
+            android:name=".ui.book_library.BookLibraryActivity"
+            android:theme="@style/Theme.LightDarkTitle" />
         <activity android:name=".ui.book_library.BookInfoActivity" />
         <activity android:name=".ui.session.SessionLibraryActivity" />
         <activity android:name=".ui.session.SessionInfoActivity" />
@@ -60,7 +62,10 @@
             android:theme="@style/Theme.LightDarkTitle"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".ui.login.SignUpCodeActivity" />
-        <activity android:name=".ui.book_library.LibraryWelcomeActivity"></activity>
+        <activity android:name=".ui.book_library.LibraryWelcomeActivity" />
+        <activity
+            android:name=".ui.session.StartOfSessionActivity"
+            android:label="@string/title_activity_start_of_session"></activity>
     </application>
 
 </manifest>

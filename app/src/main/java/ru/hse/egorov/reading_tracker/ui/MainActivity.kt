@@ -10,6 +10,7 @@ import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookActivity
 import ru.hse.egorov.reading_tracker.ui.book_library.BookLibraryActivity
 import ru.hse.egorov.reading_tracker.ui.session.ReadingSessionActivity
 import ru.hse.egorov.reading_tracker.ui.session.SessionLibraryActivity
+import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         startSessionButton.setOnClickListener {
-            val intent = Intent(this, ReadingSessionActivity::class.java)
+            val intent = Intent(this, StartOfSessionActivity::class.java)
             startActivity(intent)
         }
 
