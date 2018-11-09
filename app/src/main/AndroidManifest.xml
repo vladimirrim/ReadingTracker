@@ -65,7 +65,7 @@
         <activity android:name=".ui.book_library.LibraryWelcomeActivity" />
         <activity
             android:name=".ui.session.StartOfSessionActivity"
-            android:label="@string/title_activity_start_of_session"></activity>
+            android:label="@string/title_activity_start_of_session" />
     </application>
 
 </manifest>

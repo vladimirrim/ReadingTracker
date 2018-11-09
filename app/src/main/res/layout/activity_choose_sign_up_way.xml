@@ -35,7 +35,7 @@
         android:lineSpacingExtra="4sp"
         android:text="@string/participation_code"
         android:textAlignment="center"
-        android:textAppearance="@style/participation_code"
+        android:textAppearance="@style/dark_20sp"
         app:layout_constraintBottom_toTopOf="@+id/signUpWithEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

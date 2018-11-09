@@ -40,8 +40,6 @@ class SignUpInfoAdapter(private val infoMap: MutableMap<String, String?>) : Recy
     inner class SignUpInfoViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         init {
             userInfo = itemView?.findViewById(R.id.userInfo)
-
-
         }
 
         fun bind(info: String, key: String) {
