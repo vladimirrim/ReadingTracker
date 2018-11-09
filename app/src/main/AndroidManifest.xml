@@ -64,7 +64,7 @@
         <activity android:name=".ui.login.SignUpCodeActivity" />
         <activity android:name=".ui.book_library.LibraryWelcomeActivity" />
         <activity
-            android:name=".ui.session.StartOfSessionActivity"
+            android:name=".ui.session.StartOfSessionFragment"
             android:label="@string/title_activity_start_of_session" />
     </application>
 

@@ -61,4 +61,9 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="gray_42sp">
+        <item name="android:textSize">42sp</item>
+        <item name="android:textColor">#BDBDBD</item>
+    </style>
+
 </resources>

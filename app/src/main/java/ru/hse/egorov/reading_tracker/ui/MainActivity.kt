@@ -1,63 +1,67 @@
 package ru.hse.egorov.reading_tracker.ui
 
-import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.widget.PopupMenu
+import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.hse.egorov.reading_tracker.R
-import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookActivity
-import ru.hse.egorov.reading_tracker.ui.book_library.BookLibraryActivity
-import ru.hse.egorov.reading_tracker.ui.session.ReadingSessionActivity
-import ru.hse.egorov.reading_tracker.ui.session.SessionLibraryActivity
-import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionActivity
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 
 
 class MainActivity : AppCompatActivity() {
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        var selectedFragment: Fragment? = null
+        when (item.itemId) {
+            R.id.navigation_session -> {
+                selectedFragment = StartOfSessionFragment.newInstance()
+                item.isChecked = true
+                fab.hide()
+            }
+            R.id.navigation_profile -> {
+                selectedFragment = LibraryFragment.newInstance()
+                item.isChecked = true
+                fab.hide()
+            }
+            R.id.navigation_library -> {
+                selectedFragment = LibraryFragment.newInstance()
+                item.isChecked = true
+                fab.show()
+            }
+        }
+        openFragment(selectedFragment!!)
+        true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startSessionButton.setOnClickListener {
-            val intent = Intent(this, StartOfSessionActivity::class.java)
-            startActivity(intent)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ACTION_BAR_TITLE
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 
-        popupMenuButton.setOnClickListener {
-            showPopupMenu()
-        }
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.menu.getItem(1).isChecked = true
+
+        val fragment = StartOfSessionFragment.newInstance()
+        openFragment(fragment)
     }
 
-    private fun showPopupMenu() {
-        val popup = PopupMenu(this, popupMenuButton)
-        popup.menuInflater
-                .inflate(R.menu.main_activity_menu, popup.menu)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.action_bar, menu)
+        return true
+    }
 
-        popup.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.toLibrary -> {
-                    val intent = Intent(this, BookLibraryActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
+    private fun openFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment, fragment).addToBackStack(null).commit()
+    }
 
-                R.id.toBookAdding -> {
-                    val intent = Intent(this, AddingBookActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.toSessionLibrary ->{
-                    val intent = Intent(this, SessionLibraryActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                else -> false
-            }
-        }
-
-        popup.show()
+    companion object {
+        private const val ACTION_BAR_TITLE = "Новая запись о чтении"
     }
 }

@@ -28,7 +28,7 @@ class SignUpEmailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up_email)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = actionBarTitle
+        supportActionBar?.title = ACTION_BAR_TITLE
         signUpEmail.setOnClickListener {
             if (checkAllFieldsFilled()) {
                 showProgressBar()
@@ -81,6 +81,6 @@ class SignUpEmailActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "SIGN UP"
-        private const val actionBarTitle = "Регистрация"
+        private const val ACTION_BAR_TITLE = "Регистрация"
     }
 }
