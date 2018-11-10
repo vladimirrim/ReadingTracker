@@ -62,7 +62,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="114dp"
         android:layout_marginEnd="113dp"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="113dp"
         android:background="@drawable/ic_start_session"
         android:gravity="center"
         android:lineSpacingExtra="-10sp"
@@ -70,7 +70,57 @@
         android:textAppearance="@style/gray_42sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/stopwatch"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="114dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="113dp"
+        android:background="@color/light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.widget.Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_chronometer_background"
+            android:format=""
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="87dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="85dp"
+            android:background="@android:color/transparent"
+            android:text="0"
+            android:textAppearance="@style/pink_64sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/seconds"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/seconds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="95dp"
+            android:layout_marginBottom="100dp"
+            android:background="@android:color/transparent"
+            android:text="0"
+            android:textAppearance="@style/pink_36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/minutes" />
+
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

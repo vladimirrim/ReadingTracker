@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import kotlinx.android.synthetic.main.activity_reading_session.*
 import kotlinx.android.synthetic.main.fragment_start_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.MainActivity
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment
+import android.os.SystemClock
+
 
 class StartOfSessionFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -19,7 +22,34 @@ class StartOfSessionFragment : Fragment() {
         view.addBook.setOnClickListener {
             openFragment(AddingBookFragment.newInstance(), activity as AppCompatActivity)
         }
+
+
+        view.startSession.setOnClickListener {
+            view.startSession.visibility = View.INVISIBLE
+            chronometer.start()
+        }
+
+        var isChronometerRunning = false
+
+        view.chronometer.setOnClickListener {
+            if (isChronometerRunning) {
+                isChronometerRunning = false
+                chronometer.stop()
+            } else {
+                isChronometerRunning = true
+                chronometer.start()
+            }
+        }
+
+        view.chronometer.setOnChronometerTickListener {
+            val time = SystemClock.elapsedRealtime() - it.base
+            val m = time / 60000
+            val s = (time - m * 60000) / 1000
+            view.minutes.text = m.toString()
+            view.seconds.text = s.toString()
+        }
     }
+
     companion object {
         fun newInstance(): StartOfSessionFragment = StartOfSessionFragment()
     }
