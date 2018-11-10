@@ -14,7 +14,8 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.LightDarkTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -49,7 +50,6 @@
         <activity android:name=".ui.session.SessionLibraryActivity" />
         <activity android:name=".ui.session.SessionInfoActivity" />
         <activity android:name=".ui.AllTimeStatisticsActivity" />
-        <activity android:name=".ui.book_library.AddingBookActivity" />
         <activity
             android:name=".ui.login.SignUpPersonalInfoActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
@@ -63,9 +63,6 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".ui.login.SignUpCodeActivity" />
         <activity android:name=".ui.book_library.LibraryWelcomeActivity" />
-        <activity
-            android:name=".ui.session.StartOfSessionFragment"
-            android:label="@string/title_activity_start_of_session" />
     </application>
 
 </manifest>

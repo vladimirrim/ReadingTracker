@@ -36,4 +36,6 @@
     <string name="start_session">Начать чтение</string>
     <string name="start_session_add_book">Для начала добавьте книгу, которую сейчас читаете</string>
     <string name="done">done</string>
+    <string name="author_name">Автор</string>
+    <string name="book_name">Название книги</string>
 </resources>

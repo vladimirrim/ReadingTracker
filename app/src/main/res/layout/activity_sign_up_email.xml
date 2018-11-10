@@ -109,7 +109,6 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:lineSpacingExtra="4sp"
-            android:maxLines="1"
             android:singleLine="true"
             android:textAppearance="@style/sign_up_form" />
     </android.support.design.widget.TextInputLayout>
