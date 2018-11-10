@@ -34,9 +34,11 @@ class StartOfSessionFragment : Fragment() {
         view.chronometer.setOnClickListener {
             if (isChronometerRunning) {
                 isChronometerRunning = false
+                chronometer.setBackgroundResource(R.drawable.ic_session_start)
                 chronometer.stop()
             } else {
                 isChronometerRunning = true
+                chronometer.setBackgroundResource(R.drawable.ic_session_pause)
                 chronometer.start()
             }
         }
