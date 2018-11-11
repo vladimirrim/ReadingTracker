@@ -16,7 +16,7 @@ class ReadingSessionActivity : AppCompatActivity() {
 
         doneButton.setOnClickListener {
             chronometer.stop()
-            val intent = Intent(this, EndOfSessionActivity::class.java)
+            val intent = Intent(this, EndOfSessionFragment::class.java)
             intent.putExtra(SESSION_TIME, chronometer.text.toString())
             startActivity(intent)
         }

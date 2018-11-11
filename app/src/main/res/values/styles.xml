@@ -16,6 +16,18 @@
         <item name="android:listSelector">@drawable/spinner_ripple</item>
     </style>
 
+    <style name="Theme.ManualTimeSessionTimeChange" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
+        <item name="android:listSelector">@drawable/spinner_ripple</item>
+        <item name="android:textSize">64sp</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorPrimaryInverse">@color/colorPrimary</item>
+    </style>
+
+
     <style name="Theme.NoTitle" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

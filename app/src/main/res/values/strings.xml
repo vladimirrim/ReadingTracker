@@ -38,4 +38,6 @@
     <string name="done">done</string>
     <string name="author_name">Автор</string>
     <string name="book_name">Название книги</string>
+    <string name="to_manual_time_change">Указать время вручную</string>
+    <string name="to_session">Вернуться к таймеру</string>
 </resources>

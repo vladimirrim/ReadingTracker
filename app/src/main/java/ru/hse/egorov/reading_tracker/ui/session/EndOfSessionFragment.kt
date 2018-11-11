@@ -9,7 +9,7 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity
 
-class EndOfSessionActivity : AppCompatActivity() {
+class EndOfSessionFragment : AppCompatActivity() {
 
     private val db = DatabaseManager()
 

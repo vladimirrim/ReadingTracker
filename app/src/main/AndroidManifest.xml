@@ -42,7 +42,7 @@
         <activity
             android:name=".ui.session.ReadingSessionActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.session.EndOfSessionActivity" />
+        <activity android:name=".ui.session.EndOfSessionFragment" />
         <activity
             android:name=".ui.book_library.BookLibraryActivity"
             android:theme="@style/Theme.LightDarkTitle" />
