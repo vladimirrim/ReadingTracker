@@ -1,9 +1,8 @@
-package ru.hse.egorov.reading_tracker.ui.session
+package ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments
 
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +27,9 @@ class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         view.toSession.setOnClickListener {
             val args = Bundle()
             args.putInt("minutes", view.sessionTime.hour * 60 + view.sessionTime.minute)
-            val newFrag = StartOfSessionFragment.newInstance()
+            val newFrag = AutoSessionTimeChangeFragment.newInstance()
             newFrag.arguments = args
-            openFragment(newFrag, activity as AppCompatActivity)
+            openInnerFragment(newFrag, parentFragment!!, R.id.sessionFragment)
         }
     }
 
