@@ -1,12 +1,9 @@
 package ru.hse.egorov.reading_tracker.ui.adapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import ru.hse.egorov.reading_tracker.R
@@ -40,7 +37,7 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
     }
 
     inner class LibraryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        var author: TextView? = itemView?.findViewById(R.id.author)
+        var author: TextView? = itemView?.findViewById(R.id.comment)
         var name: TextView? = itemView?.findViewById(R.id.name)
         var cover: ImageView? = itemView?.findViewById(R.id.cover)
 

@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/author"
+        android:id="@+id/comment"
         android:layout_width="266dp"
         android:layout_height="19dp"
         android:layout_alignParentStart="true"

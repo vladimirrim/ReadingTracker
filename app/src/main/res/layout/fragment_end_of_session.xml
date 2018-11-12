@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.session.EndOfSessionFragment"
+    >
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="138dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/light"
+            android:paddingBottom="10dp"
+            android:textColorHint="#802F5870"
+            app:hintTextAppearance="@style/dark_14sp_80alpha"
+            app:layout_constraintBottom_toTopOf="@+id/sessionEmotion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/session_comment"
+                android:inputType="textMultiLine"
+                android:lineSpacingExtra="4sp"
+                android:singleLine="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sessionEmotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="113dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="113dp"
+            android:background="@android:color/transparent"
+            android:text="@string/to_manual_time_change"
+            android:textAppearance="@style/dark_14sp"
+            app:layout_constraintBottom_toTopOf="@+id/sessionLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sessionLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="113dp"
+            android:layout_marginTop="105dp"
+            android:layout_marginEnd="113dp"
+            android:background="@android:color/transparent"
+            android:text="@string/to_manual_time_change"
+            android:textAppearance="@style/dark_14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sessionEmotion" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

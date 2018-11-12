@@ -40,4 +40,5 @@
     <string name="book_name">Название книги</string>
     <string name="to_manual_time_change">Указать время вручную</string>
     <string name="to_session">Вернуться к таймеру</string>
+    <string name="session_comment">Комментарий к прочитанному</string>
 </resources>

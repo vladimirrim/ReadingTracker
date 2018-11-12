@@ -25,11 +25,7 @@ class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         view.sessionTime.setIs24HourView(true)
 
         view.toSession.setOnClickListener {
-            val args = Bundle()
-            args.putInt("minutes", view.sessionTime.hour * 60 + view.sessionTime.minute)
-            val newFrag = AutoSessionTimeChangeFragment.newInstance()
-            newFrag.arguments = args
-            openInnerFragment(newFrag, parentFragment!!, R.id.sessionFragment)
+            openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), parentFragment!!, R.id.sessionFragment)
         }
     }
 

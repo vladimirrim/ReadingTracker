@@ -55,7 +55,7 @@
         app:hintTextAppearance="@style/dark_14sp_80alpha">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/author"
+            android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/author_name"

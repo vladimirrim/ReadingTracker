@@ -31,6 +31,6 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
 
 
     companion object {
-        fun newInstance(): StartOfSessionFragment = StartOfSessionFragment()
+        fun newInstance() = StartOfSessionFragment()
     }
 }
