@@ -11,7 +11,7 @@
     <style name="Theme.LightDarkTitle" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
         <item name="android:listSelector">@drawable/spinner_ripple</item>
     </style>

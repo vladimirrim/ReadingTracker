@@ -27,6 +27,7 @@
             app:hintTextAppearance="@style/dark_14sp_80alpha"
             app:layout_constraintBottom_toTopOf="@+id/sessionEmotion"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -49,29 +50,106 @@
             android:layout_marginStart="113dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="113dp"
+            android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
-            android:text="@string/to_manual_time_change"
+            android:text="@string/session_emotion"
             android:textAppearance="@style/dark_14sp"
-            app:layout_constraintBottom_toTopOf="@+id/sessionLocation"
+            app:layout_constraintBottom_toTopOf="@+id/emotions"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
+
+        <RadioGroup
+            android:id="@+id/emotions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="102dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="102dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/sessionLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sessionEmotion">
+
+            <RadioButton
+                android:id="@+id/emotionHappy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_emotion_happy"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/emotionIndifferent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/ic_emotion_indifferent"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/emotionSad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_emotion_sad"
+                android:button="@android:color/transparent" />
+        </RadioGroup>
+
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/sessionLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="113dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="113dp"
+            android:layout_marginBottom="11dp"
             android:background="@android:color/transparent"
-            android:text="@string/to_manual_time_change"
+            android:text="@string/session_location"
             android:textAppearance="@style/dark_14sp"
+            app:layout_constraintBottom_toTopOf="@+id/locations"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sessionEmotion" />
+            app:layout_constraintTop_toBottomOf="@+id/emotions" />
+
+        <RadioGroup
+            android:id="@+id/locations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="115dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sessionLocation">
+
+            <RadioButton
+                android:id="@+id/locationHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_location_home"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/locationTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/ic_location_transport"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/locationWork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_location_work"
+                android:button="@android:color/transparent" />
+        </RadioGroup>
 
 
     </android.support.constraint.ConstraintLayout>

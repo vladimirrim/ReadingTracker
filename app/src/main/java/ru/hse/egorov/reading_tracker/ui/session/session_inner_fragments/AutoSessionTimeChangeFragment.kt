@@ -15,6 +15,8 @@ import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
 
 class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     private lateinit var doneButton: MenuItem
+    private var isChronometerRunning = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +32,12 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        view.chronometer.stop()
         view.startSession.setOnClickListener {
             view.startSession.visibility = View.INVISIBLE
+            chronometer.base = SystemClock.elapsedRealtime()
             chronometer.start()
+            isChronometerRunning = true
             if(!doneButton.isEnabled) {
                 doneButton.isEnabled = true
                 doneButton.setIcon(R.drawable.ic_done_enabled)
@@ -51,7 +56,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     }
 
     private fun setChronometerListener(view: View) {
-        var isChronometerRunning = false
+        view.chronometer.stop()
 
         view.chronometer.setOnClickListener {
             if (isChronometerRunning) {

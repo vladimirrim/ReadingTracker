@@ -41,4 +41,6 @@
     <string name="to_manual_time_change">Указать время вручную</string>
     <string name="to_session">Вернуться к таймеру</string>
     <string name="session_comment">Комментарий к прочитанному</string>
+    <string name="session_emotion">Эмоция от чтения</string>
+    <string name="session_location">Место чтения</string>
 </resources>
