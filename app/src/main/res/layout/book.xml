@@ -6,7 +6,7 @@
     android:background="@color/light">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/title"
         android:layout_width="266dp"
         android:layout_height="54dp"
         android:layout_alignParentStart="true"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/comment"
+        android:id="@+id/author"
         android:layout_width="266dp"
         android:layout_height="19dp"
         android:layout_alignParentStart="true"
@@ -37,7 +37,7 @@
         android:background="@color/light"
         app:layout_constraintEnd_toStartOf="@+id/cover"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <ImageView
         android:id="@+id/cover"
@@ -49,7 +49,7 @@
         android:contentDescription="@string/cover"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View

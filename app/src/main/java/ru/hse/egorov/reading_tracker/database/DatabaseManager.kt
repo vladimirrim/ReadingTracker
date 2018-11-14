@@ -5,8 +5,10 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.StorageReference
 
 
 class DatabaseManager {
@@ -38,6 +40,11 @@ class DatabaseManager {
         map["sessions"] = listOf(time)
         return db.collection("users").document(authManager.uid as String).update("sessions",
                 FieldValue.arrayUnion("${System.currentTimeMillis()} $time"))
+    }
+
+    fun addBookToLibrary(book: Map<String,Any?>): Task<DocumentReference> {
+        return db.collection("books").document("libraries").collection(authManager.uid as String)
+                .add(book)
     }
 
     companion object {

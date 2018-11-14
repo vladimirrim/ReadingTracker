@@ -37,8 +37,8 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
     }
 
     inner class LibraryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        var author: TextView? = itemView?.findViewById(R.id.comment)
-        var name: TextView? = itemView?.findViewById(R.id.name)
+        var author: TextView? = itemView?.findViewById(R.id.author)
+        var name: TextView? = itemView?.findViewById(R.id.title)
         var cover: ImageView? = itemView?.findViewById(R.id.cover)
 
         fun bind(book: LibraryFragment.Book) {

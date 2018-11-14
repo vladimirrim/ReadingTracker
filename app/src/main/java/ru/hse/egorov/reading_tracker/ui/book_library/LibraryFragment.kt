@@ -16,9 +16,10 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_library.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
+import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 
 
-class LibraryFragment : Fragment() {
+class LibraryFragment : Fragment(),BitmapEncoder {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_library, container, false)
@@ -40,24 +41,6 @@ class LibraryFragment : Fragment() {
         list.add(Book("Роберт Ланца", "Фату-ХиваЖвозврат к природе",
                 getBitmap(context!!, R.drawable.ic_stab_cover)))
         return list
-    }
-
-    private fun getBitmap(vectorDrawable: VectorDrawable): Bitmap {
-        val bitmap = Bitmap.createBitmap(vectorDrawable.intrinsicWidth,
-                vectorDrawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
-        vectorDrawable.draw(canvas)
-        return bitmap
-    }
-
-    private fun getBitmap(context: Context, drawableId: Int): Bitmap {
-        val drawable = ContextCompat.getDrawable(context, drawableId)
-        return when (drawable) {
-            is BitmapDrawable -> BitmapFactory.decodeResource(context.resources, drawableId)
-            is VectorDrawable -> getBitmap((drawable as VectorDrawable?)!!)
-            else -> throw IllegalArgumentException("unsupported drawable type")
-        }
     }
 
     companion object {

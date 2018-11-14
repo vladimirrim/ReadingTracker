@@ -1,15 +1,22 @@
 package ru.hse.egorov.reading_tracker.ui.book_library
 
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 
-class AddingBookFragment : Fragment() {
+class AddingBookFragment : Fragment(),BitmapEncoder {
+    private val dbManager = DatabaseManager()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_adding_book, container, false)
@@ -40,6 +47,16 @@ class AddingBookFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
         inflater?.inflate(R.menu.action_bar_enabled, menu)
+        menu?.getItem(0)?.setOnMenuItemClickListener {
+            val book = HashMap<String,Any?>()
+            book["author"] = author.text.toString()
+            book["title"] = title.text.toString()
+           // book["cover"] = getBitmap(cover.background as VectorDrawable)
+            dbManager.addBookToLibrary(book).addOnSuccessListener {
+                (activity as AppCompatActivity).supportFragmentManager.popBackStack()
+            }
+            true
+        }
     }
 
     companion object {

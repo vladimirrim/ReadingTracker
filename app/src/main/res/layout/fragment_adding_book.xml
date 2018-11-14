@@ -26,7 +26,7 @@
         app:hintTextAppearance="@style/dark_14sp_80alpha">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/name"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/book_name"
@@ -55,7 +55,7 @@
         app:hintTextAppearance="@style/dark_14sp_80alpha">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/comment"
+            android:id="@+id/author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/author_name"
@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
 
     <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/cover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"

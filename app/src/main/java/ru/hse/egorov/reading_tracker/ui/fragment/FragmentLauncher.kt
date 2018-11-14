@@ -7,7 +7,7 @@ import ru.hse.egorov.reading_tracker.R
 interface FragmentLauncher {
 
     fun openFragment(fragment: Fragment, activity: AppCompatActivity, fragmentID: Int) {
-        activity.supportFragmentManager.beginTransaction().replace(fragmentID, fragment).commit()
+        activity.supportFragmentManager.beginTransaction().replace(fragmentID, fragment).addToBackStack(null).commit()
     }
 
     fun openInnerFragment(innerFragment: Fragment, outerFragment: Fragment, fragmentID: Int) {
