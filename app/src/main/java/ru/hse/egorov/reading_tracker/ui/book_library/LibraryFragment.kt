@@ -61,7 +61,7 @@ class LibraryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): LibraryFragment = LibraryFragment()
+        fun newInstance() = LibraryFragment()
     }
 
     data class Book(var author: String, var name: String, var cover: Bitmap)

@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryWelcomeFragment
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 
 
@@ -22,9 +24,9 @@ class MainActivity : AppCompatActivity() {
                 fab.hide()
             }
             R.id.navigation_profile -> {
-                selectedFragment = LibraryFragment.newInstance()
+                selectedFragment = LibraryWelcomeFragment.newInstance()
                 item.isChecked = true
-                fab.hide()
+                fab.show()
             }
             R.id.navigation_library -> {
                 selectedFragment = LibraryFragment.newInstance()
@@ -47,8 +49,12 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.menu.getItem(1).isChecked = true
 
-        val fragment = StartOfSessionFragment.newInstance()
-        openFragment(fragment)
+        fab.setOnClickListener {
+            openFragment(AddingBookFragment.newInstance())
+            fab.hide()
+        }
+
+        openFragment(StartOfSessionFragment.newInstance())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

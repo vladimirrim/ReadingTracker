@@ -43,4 +43,5 @@
     <string name="session_comment">Комментарий к прочитанному</string>
     <string name="session_emotion">Эмоция от чтения</string>
     <string name="session_location">Место чтения</string>
+    <string name="library_welcome">Для начала добавьте книги, которые сейчас читаете</string>
 </resources>
