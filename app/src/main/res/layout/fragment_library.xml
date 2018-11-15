@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light"
-    tools:context=".ui.book_library.BookLibraryActivity">
+    tools:context=".ui.book_library.LibraryFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/library"

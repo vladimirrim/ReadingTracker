@@ -24,8 +24,19 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         notifyDataSetChanged()
     }
 
-    fun get(): ArrayList<LibraryFragment.Book> {
-        return library
+    fun get(position: Int): LibraryFragment.Book {
+        return library[position]
+    }
+
+    fun removeItem(position: Int) {
+        library.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, library.size)
+    }
+
+    fun restoreItem(book: LibraryFragment.Book, position: Int) {
+        library.add(position, book)
+        notifyItemInserted(position)
     }
 
     override fun getItemCount(): Int {

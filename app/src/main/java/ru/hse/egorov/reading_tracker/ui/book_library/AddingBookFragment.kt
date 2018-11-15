@@ -1,5 +1,6 @@
 package ru.hse.egorov.reading_tracker.ui.book_library
 
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
@@ -13,8 +14,10 @@ import kotlinx.android.synthetic.main.fragment_adding_book.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 
-class AddingBookFragment : Fragment(),BitmapEncoder {
+class AddingBookFragment : Fragment(), BitmapEncoder {
     private val dbManager = DatabaseManager()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,7 +43,7 @@ class AddingBookFragment : Fragment(),BitmapEncoder {
         }
     }
 
-    private fun updateActionBar(activity: AppCompatActivity){
+    private fun updateActionBar(activity: AppCompatActivity) {
         activity.supportActionBar?.title = ACTION_BAR_TITLE
     }
 
@@ -48,10 +51,11 @@ class AddingBookFragment : Fragment(),BitmapEncoder {
         menu?.clear()
         inflater?.inflate(R.menu.action_bar_enabled, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
-            val book = HashMap<String,Any?>()
+            val book = HashMap<String, Any?>()
             book["author"] = author.text.toString()
             book["title"] = title.text.toString()
-           // book["cover"] = getBitmap(cover.background as VectorDrawable)
+            val baos = ByteArrayOutputStream()
+            getBitmap(cover.background as VectorDrawable).compress(Bitmap.CompressFormat.PNG, 100, baos)
             dbManager.addBookToLibrary(book).addOnSuccessListener {
                 (activity as AppCompatActivity).supportFragmentManager.popBackStack()
             }

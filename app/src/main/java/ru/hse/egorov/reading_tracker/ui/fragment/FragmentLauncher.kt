@@ -2,7 +2,6 @@ package ru.hse.egorov.reading_tracker.ui.fragment
 
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import ru.hse.egorov.reading_tracker.R
 
 interface FragmentLauncher {
 
