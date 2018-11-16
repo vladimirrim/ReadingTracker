@@ -42,10 +42,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ACTION_BAR_TITLE
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.menu.getItem(1).isChecked = true
 
@@ -67,7 +63,4 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.fragment, fragment).addToBackStack(null).commit()
     }
 
-    companion object {
-        private const val ACTION_BAR_TITLE = "Новая запись о чтении"
-    }
 }

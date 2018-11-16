@@ -4,14 +4,13 @@ import android.graphics.*
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_library.view.*
 import ru.hse.egorov.reading_tracker.R
@@ -30,11 +29,20 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+         setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        (activity as AppCompatActivity).supportActionBar?.setCustomView(R.layout.action_bar)
+
         view.library.layoutManager = LinearLayoutManager(context)
         libraryAdapter.set(getLibrary())
         enableSwipe(view.library, libraryAdapter)
         view.library.adapter = libraryAdapter
         libraryAdapter.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu?.getItem(0)?.isVisible = false
     }
 
     private fun getLibrary(): Collection<Book> {
@@ -114,6 +122,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
 
     companion object {
         private const val TAG = "Library"
+        private const val ACTION_BAR_TITLE = "Книги"
         fun newInstance() = LibraryFragment()
         private val libraryAdapter = LibraryAdapter()
         fun getAdapter() = libraryAdapter

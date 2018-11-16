@@ -1,5 +1,6 @@
 package ru.hse.egorov.reading_tracker.ui.session
 
+import android.app.ActionBar
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -20,6 +21,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpActionBar()
 
         view.addBook.setOnClickListener {
             openFragment(AddingBookFragment.newInstance(), activity as AppCompatActivity, R.id.fragment)
@@ -28,9 +30,17 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
     }
 
+    private fun setUpActionBar() {
+        val supportedActivity = activity as AppCompatActivity
+        supportedActivity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
+        supportedActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportedActivity.supportActionBar?.title = ACTION_BAR_TITLE
+        supportedActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+    }
 
 
     companion object {
         fun newInstance() = StartOfSessionFragment()
+        private const val ACTION_BAR_TITLE = "Новая запись о чтении"
     }
 }

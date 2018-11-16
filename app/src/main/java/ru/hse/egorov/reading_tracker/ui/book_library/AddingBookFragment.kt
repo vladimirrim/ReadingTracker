@@ -1,7 +1,6 @@
 package ru.hse.egorov.reading_tracker.ui.book_library
 
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -14,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_adding_book.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
-import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
 class AddingBookFragment : Fragment(), BitmapEncoder {
