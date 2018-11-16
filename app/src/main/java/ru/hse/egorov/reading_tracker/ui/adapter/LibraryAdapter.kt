@@ -24,6 +24,11 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         notifyDataSetChanged()
     }
 
+    fun add(book: LibraryFragment.Book) {
+        library.add(book)
+        notifyDataSetChanged()
+    }
+
     fun get(position: Int): LibraryFragment.Book {
         return library[position]
     }

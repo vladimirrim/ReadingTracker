@@ -8,18 +8,21 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_library.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 
 
 class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
+    private val dbManager = DatabaseManager()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_library, container, false)
@@ -28,7 +31,6 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
         super.onViewCreated(view, savedInstanceState)
 
         view.library.layoutManager = LinearLayoutManager(context)
-        val libraryAdapter = LibraryAdapter()
         libraryAdapter.set(getLibrary())
         enableSwipe(view.library, libraryAdapter)
         view.library.adapter = libraryAdapter
@@ -37,9 +39,9 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
 
     private fun getLibrary(): Collection<Book> {
         val list = ArrayList<Book>()
-        list.add(Book("Тур Хейердал", "Биоцентризм.Как жизнь создает вселенную",
+        list.add(Book("Тур Хейердал", "Биоцентризм.Как жизнь создает вселенную", "1",
                 getBitmap(context!!, R.drawable.ic_stab_cover)))
-        list.add(Book("Роберт Ланца", "Фату-ХиваЖвозврат к природе",
+        list.add(Book("Роберт Ланца", "Фату-Хива:возврат к природе", "2",
                 getBitmap(context!!, R.drawable.ic_stab_cover)))
         return list
     }
@@ -55,13 +57,24 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
                 val position = viewHolder.adapterPosition
 
                 if (direction == ItemTouchHelper.RIGHT) {
-                    val deletedModel = libraryAdapter.get(position)
+                    val deletedBook = libraryAdapter.get(position)
                     libraryAdapter.removeItem(position)
                     val snackbar = Snackbar.make(activity!!.placeSnackBar,
                             "Нажмите, чтобы восстановить", Snackbar.LENGTH_LONG)
                     snackbar.setAction("UNDO") {
-                        libraryAdapter.restoreItem(deletedModel, position)
+                        libraryAdapter.restoreItem(deletedBook, position)
                     }
+                    snackbar.addCallback(object : Snackbar.Callback() {
+
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            super.onDismissed(transientBottomBar, event)
+
+                            if (event != DISMISS_EVENT_ACTION)
+                                dbManager.deleteBookFromLibrary(deletedBook.id).addOnSuccessListener {
+                                    Log.d(TAG, "Successful deletion of book ${deletedBook.name}")
+                                }
+                        }
+                    })
                     snackbar.setActionTextColor(Color.YELLOW)
                     snackbar.show()
                 } else {
@@ -77,16 +90,14 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
 
                 if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                     val itemView = viewHolder.itemView
-                    val height = itemView.bottom.toFloat() - itemView.top.toFloat()
-                    val width = height / 3
+                    val width = itemView.height.toFloat() / 3
+                    paint.color = Color.parseColor("#FFFFFF")
 
                     if (dX > 0) {
-                        paint.color = Color.parseColor("#FFFFFF")
                         background = RectF(itemView.left.toFloat(), itemView.top.toFloat(), dX, itemView.bottom.toFloat())
                         icon = getBitmap(context!!, R.drawable.ic_delete)
                         iconDestination = RectF(itemView.left.toFloat() + width, itemView.top.toFloat() + width, itemView.left.toFloat() + 2 * width, itemView.bottom.toFloat() - width)
                     } else {
-                        paint.color = Color.parseColor("#FFFFFF")
                         background = RectF(itemView.right.toFloat() + dX, itemView.top.toFloat(), itemView.right.toFloat(), itemView.bottom.toFloat())
                         icon = getBitmap(context!!, R.drawable.ic_edit)
                         iconDestination = RectF(itemView.right.toFloat() - 2 * width, itemView.top.toFloat() + width, itemView.right.toFloat() - width, itemView.bottom.toFloat() - width)
@@ -102,8 +113,11 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
     }
 
     companion object {
+        private const val TAG = "Library"
         fun newInstance() = LibraryFragment()
+        private val libraryAdapter = LibraryAdapter()
+        fun getAdapter() = libraryAdapter
     }
 
-    data class Book(var author: String, var name: String, var cover: Bitmap)
+    data class Book(var author: String, var name: String, var id: String, var cover: Bitmap)
 }

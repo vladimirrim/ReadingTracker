@@ -42,10 +42,16 @@ class DatabaseManager {
                 FieldValue.arrayUnion("${System.currentTimeMillis()} $time"))
     }
 
-    fun addBookToLibrary(book: Map<String,Any?>): Task<DocumentReference> {
+    fun addBookToLibrary(book: Map<String, Any?>): Task<DocumentReference> {
         return db.collection("books").document("libraries").collection(authManager.uid as String)
                 .add(book)
     }
+
+    fun deleteBookFromLibrary(bookId: String): Task<Void> {
+        return db.collection("books").document("libraries").collection(authManager.uid as String).document(bookId).delete()
+    }
+
+    fun getLibrary() = db.collection("books").document("libraries").collection(authManager.uid as String).get()
 
     companion object {
         private val authManager = FirebaseAuth.getInstance()
