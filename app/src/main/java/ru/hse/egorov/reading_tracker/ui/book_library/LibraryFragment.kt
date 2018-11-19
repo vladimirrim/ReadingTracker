@@ -35,23 +35,12 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
         (activity as AppCompatActivity).supportActionBar?.setCustomView(R.layout.action_bar)
 
         view.library.layoutManager = LinearLayoutManager(context)
-        libraryAdapter.set(getLibrary())
         enableSwipe(view.library, libraryAdapter)
         view.library.adapter = libraryAdapter
-        libraryAdapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.getItem(0)?.isVisible = false
-    }
-
-    private fun getLibrary(): Collection<Book> {
-        val list = ArrayList<Book>()
-        list.add(Book("Тур Хейердал", "Биоцентризм.Как жизнь создает вселенную", "1",
-                getBitmap(context!!, R.drawable.ic_stab_cover)))
-        list.add(Book("Роберт Ланца", "Фату-Хива:возврат к природе", "2",
-                getBitmap(context!!, R.drawable.ic_stab_cover)))
-        return list
     }
 
     private fun enableSwipe(library: RecyclerView, libraryAdapter: LibraryAdapter) {
