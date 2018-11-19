@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
 import ru.hse.egorov.reading_tracker.R
@@ -55,7 +56,8 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
             val baos = ByteArrayOutputStream()
             getBitmap(cover.background as VectorDrawable).compress(Bitmap.CompressFormat.PNG, 100, baos)
             dbManager.addBookToLibrary(book).addOnSuccessListener {
-                (activity as AppCompatActivity).supportFragmentManager.popBackStack()
+                activity?.fragmentPager?.visibility = View.VISIBLE
+                activity?.temporaryFragment?.visibility = View.GONE
             }
             true
         }
