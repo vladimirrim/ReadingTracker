@@ -24,7 +24,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
         setUpActionBar()
 
         view.addBook.setOnClickListener {
-            openFragment(AddingBookFragment.newInstance(), activity as AppCompatActivity, R.id.fragment)
+            openTemporaryFragment(activity as AppCompatActivity, AddingBookFragment.newInstance(), R.id.temporaryFragment)
         }
 
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)

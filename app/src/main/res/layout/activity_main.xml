@@ -17,8 +17,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <FrameLayout
-            android:id="@+id/fragment"
+            android:id="@+id/temporaryFragment"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:background="@color/light"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:layout_editor_absoluteX="178dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ru.hse.egorov.reading_tracker.ui.pager.FragmentViewPager
+            android:id="@+id/fragmentPager"
             android:layout_width="match_parent"
             android:background="@color/light"
             android:layout_height="match_parent"

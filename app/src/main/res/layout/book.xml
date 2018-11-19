@@ -8,41 +8,41 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="266dp"
+        android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
+        android:background="@color/light"
         android:lineSpacingExtra="4sp"
         android:maxLines="2"
         android:textAppearance="@style/dark_20sp"
-        android:background="@color/light"
         app:layout_constraintEnd_toStartOf="@+id/cover"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/author"
-        android:layout_width="266dp"
+        android:layout_width="0dp"
         android:layout_height="19dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
+        android:background="@color/light"
         android:lineSpacingExtra="2sp"
         android:maxLines="1"
         android:textAppearance="@style/dark_14sp"
-        android:background="@color/light"
         app:layout_constraintEnd_toStartOf="@+id/cover"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <ImageView
         android:id="@+id/cover"
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"

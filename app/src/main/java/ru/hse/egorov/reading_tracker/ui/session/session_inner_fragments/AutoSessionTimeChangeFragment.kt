@@ -2,11 +2,9 @@ package ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments
 
 import android.os.Bundle
 import android.os.SystemClock
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_auto_session_time_change.*
 import kotlinx.android.synthetic.main.fragment_auto_session_time_change.view.*
 import ru.hse.egorov.reading_tracker.R
@@ -42,7 +40,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
                 doneButton.isEnabled = true
                 doneButton.setIcon(R.drawable.ic_done_enabled)
                 doneButton.setOnMenuItemClickListener {
-                    openFragment(EndOfSessionFragment.newInstance(), activity as AppCompatActivity, R.id.fragment)
+                    openTemporaryFragment(activity as AppCompatActivity,EndOfSessionFragment.newInstance(),R.id.temporaryFragment)
                     true
                 }
             }

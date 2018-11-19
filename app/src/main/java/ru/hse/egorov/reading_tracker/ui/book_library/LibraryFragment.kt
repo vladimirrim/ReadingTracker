@@ -30,7 +30,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-         setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         (activity as AppCompatActivity).supportActionBar?.setCustomView(R.layout.action_bar)
 
@@ -86,7 +86,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
                     snackbar.setActionTextColor(Color.YELLOW)
                     snackbar.show()
                 } else {
-                    openFragment(AddingBookFragment.newInstance(), activity as AppCompatActivity, R.id.fragment)
+                    openTemporaryFragment(activity as AppCompatActivity, EditBookFragment.newInstance(), R.id.temporaryFragment)
                 }
             }
 
@@ -122,7 +122,6 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
 
     companion object {
         private const val TAG = "Library"
-        private const val ACTION_BAR_TITLE = "Книги"
         fun newInstance() = LibraryFragment()
         private val libraryAdapter = LibraryAdapter()
         fun getAdapter() = libraryAdapter
