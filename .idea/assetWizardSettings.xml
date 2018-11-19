@@ -14,11 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="70" />
-                            <entry key="outputName" value="ic_delete" />
+                            <entry key="height" value="240" />
+                            <entry key="outputName" value="ic_session_start_enabled" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\delete.svg" />
-                            <entry key="width" value="70" />
+                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\session_start_enabled.svg" />
+                            <entry key="width" value="240" />
                           </map>
                         </option>
                       </PersistentState>

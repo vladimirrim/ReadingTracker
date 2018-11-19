@@ -19,7 +19,9 @@ import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
+import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import java.io.ByteArrayOutputStream
 
 
@@ -69,7 +71,7 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
         activity.supportActionBar?.title = ACTION_BAR_TITLE
     }
 
-    private fun showProgressBar(){
+    private fun showProgressBar() {
         cover.visibility = View.GONE
         progressBar.visibility = View.VISIBLE
     }
@@ -93,6 +95,13 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
             getBitmap(cover.background as VectorDrawable).compress(Bitmap.CompressFormat.PNG, 100, baos)
             showProgressBar()
             dbManager.addBookToLibrary(book).addOnSuccessListener {
+                arguments?.let { bundle ->
+                    if (bundle.getBoolean("set book")) {
+                        (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                                + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(book["author"] as String, book["title"] as String,
+                                cover.background)
+                    }
+                }
                 activity?.fragmentPager?.visibility = View.VISIBLE
                 activity?.temporaryFragment?.visibility = View.GONE
             }

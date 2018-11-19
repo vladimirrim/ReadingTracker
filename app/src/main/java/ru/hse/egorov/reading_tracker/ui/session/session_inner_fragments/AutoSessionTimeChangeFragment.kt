@@ -14,7 +14,7 @@ import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
 class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     private lateinit var doneButton: MenuItem
     private var isChronometerRunning = false
-
+    private var isBookSet = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +36,17 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             chronometer.base = SystemClock.elapsedRealtime()
             chronometer.start()
             isChronometerRunning = true
-            if(!doneButton.isEnabled) {
+            if (!doneButton.isEnabled) {
                 doneButton.isEnabled = true
                 doneButton.setIcon(R.drawable.ic_done_enabled)
                 doneButton.setOnMenuItemClickListener {
-                    openTemporaryFragment(activity as AppCompatActivity,EndOfSessionFragment.newInstance(),R.id.temporaryFragment)
+                    openTemporaryFragment(activity as AppCompatActivity, EndOfSessionFragment.newInstance(), R.id.temporaryFragment)
                     true
                 }
             }
         }
 
+        view.startSession.isEnabled = isBookSet
         view.toManualTimeChange.setOnClickListener {
             openInnerFragment(ManualSessionTimeChangeFragment.newInstance(), parentFragment!!, R.id.sessionFragment)
         }
@@ -54,8 +55,6 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     }
 
     private fun setChronometerListener(view: View) {
-        view.chronometer.stop()
-
         view.chronometer.setOnClickListener {
             if (isChronometerRunning) {
                 isChronometerRunning = false
