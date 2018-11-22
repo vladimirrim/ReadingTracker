@@ -10,7 +10,7 @@ import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.login.SignUpSignInActivity
 
 
-class SplashActivity : AppCompatActivity(),BitmapEncoder {
+class SplashActivity : AppCompatActivity(), BitmapEncoder {
     private val db = DatabaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,13 +22,11 @@ class SplashActivity : AppCompatActivity(),BitmapEncoder {
     }
 
     private fun chooseActivity() {
-
         if (db.isAuth()) {
             db.getLibrary().addOnSuccessListener {
                 val libraryAdapter = LibraryFragment.getAdapter()
                 for (book in it.documents) {
-                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String,book["title"] as String,book.id,0,
-                            getBitmap(baseContext, R.drawable.ic_stab_cover)))
+                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String, book["title"] as String, book.id, 0, null))
                 }
             }
             val intent = Intent(this,

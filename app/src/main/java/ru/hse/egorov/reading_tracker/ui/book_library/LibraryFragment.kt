@@ -124,5 +124,5 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
         fun getAdapter() = libraryAdapter
     }
 
-    data class Book(var author: String, var name: String, var id: String, var mediaType: Int, var cover: Bitmap)
+    data class Book(var author: String, var name: String, var id: String, var mediaType: Int, var cover: Bitmap?)
 }
