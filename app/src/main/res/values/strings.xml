@@ -45,4 +45,5 @@
     <string name="session_location">Место чтения</string>
     <string name="library_welcome">Для начала добавьте книги, которые сейчас читаете</string>
     <string name="library_title">Книги</string>
+    <string name="cover_header">Обложка</string>
 </resources>

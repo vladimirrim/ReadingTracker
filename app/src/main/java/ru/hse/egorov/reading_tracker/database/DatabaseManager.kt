@@ -1,5 +1,6 @@
 package ru.hse.egorov.reading_tracker.database
 
+import android.graphics.Bitmap
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -8,7 +9,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 
 
 class DatabaseManager {
@@ -47,6 +50,10 @@ class DatabaseManager {
                 .add(book)
     }
 
+    fun addBookCover(cover: ByteArray, bookId: String): UploadTask {
+        return storageReference.child("covers").child(authManager.uid as String).child("$bookId/cover.png").putBytes(cover)
+    }
+
     fun deleteBookFromLibrary(bookId: String): Task<Void> {
         return db.collection("books").document("libraries").collection(authManager.uid as String).document(bookId).delete()
     }
@@ -54,6 +61,7 @@ class DatabaseManager {
     fun getLibrary() = db.collection("books").document("libraries").collection(authManager.uid as String).get()
 
     companion object {
+        private val storageReference = FirebaseStorage.getInstance().reference
         private val authManager = FirebaseAuth.getInstance()
     }
 }

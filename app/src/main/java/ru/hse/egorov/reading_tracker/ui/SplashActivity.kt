@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity(),BitmapEncoder {
             db.getLibrary().addOnSuccessListener {
                 val libraryAdapter = LibraryFragment.getAdapter()
                 for (book in it.documents) {
-                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String,book["title"] as String,book.id,
+                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String,book["title"] as String,book.id,0,
                             getBitmap(baseContext, R.drawable.ic_stab_cover)))
                 }
             }

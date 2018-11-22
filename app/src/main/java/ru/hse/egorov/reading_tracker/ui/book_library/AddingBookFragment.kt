@@ -91,21 +91,30 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
             val book = HashMap<String, Any?>()
             book["author"] = author.text.toString()
             book["title"] = title.text.toString()
+            book["media"] = 0 // TODO get position from spinner
             val baos = ByteArrayOutputStream()
             getBitmap(cover.background as VectorDrawable).compress(Bitmap.CompressFormat.PNG, 100, baos)
             showProgressBar()
-            dbManager.addBookToLibrary(book).addOnSuccessListener {
-                arguments?.let { bundle ->
-                    if (bundle.getBoolean("set book")) {
-                        (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
-                                + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(book["author"] as String, book["title"] as String,
-                                cover.background)
-                    }
+            dbManager.addBookToLibrary(book).addOnSuccessListener { uploadedBook ->
+                dbManager.addBookCover(baos.toByteArray(), uploadedBook.id).addOnSuccessListener {
+                    setBookToSession()
+                    activity?.fragmentPager?.visibility = View.VISIBLE
+                    activity?.temporaryFragment?.visibility = View.GONE
+                }.addOnFailureListener {
+                    //TODO
                 }
-                activity?.fragmentPager?.visibility = View.VISIBLE
-                activity?.temporaryFragment?.visibility = View.GONE
             }
             true
+        }
+    }
+
+    private fun setBookToSession() {
+        arguments?.let { bundle ->
+            if (bundle.getBoolean("set book")) {
+                (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                        + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(author.text.toString(), title.text.toString(),
+                        cover.background)
+            }
         }
     }
 

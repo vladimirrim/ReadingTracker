@@ -52,14 +52,14 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-
+                val selectedBook = libraryAdapter.get(position)
+                
                 if (direction == ItemTouchHelper.RIGHT) {
-                    val deletedBook = libraryAdapter.get(position)
                     libraryAdapter.removeItem(position)
                     val snackbar = Snackbar.make(activity!!.placeSnackBar,
                             "Нажмите, чтобы восстановить", Snackbar.LENGTH_LONG)
                     snackbar.setAction("UNDO") {
-                        libraryAdapter.restoreItem(deletedBook, position)
+                        libraryAdapter.restoreItem(selectedBook, position)
                     }
                     snackbar.addCallback(object : Snackbar.Callback() {
 
@@ -67,15 +67,23 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
                             super.onDismissed(transientBottomBar, event)
 
                             if (event != DISMISS_EVENT_ACTION)
-                                dbManager.deleteBookFromLibrary(deletedBook.id).addOnSuccessListener {
-                                    Log.d(TAG, "Successful deletion of book ${deletedBook.name}")
+                                dbManager.deleteBookFromLibrary(selectedBook.id).addOnSuccessListener {
+                                    Log.d(TAG, "Successful deletion of book ${selectedBook.name}")
                                 }
                         }
                     })
                     snackbar.setActionTextColor(Color.YELLOW)
                     snackbar.show()
                 } else {
-                    openTemporaryFragment(activity as AppCompatActivity, EditBookFragment.newInstance(), R.id.temporaryFragment)
+                    val dispatchFragment = EditBookFragment.newInstance()
+                    val bundle = Bundle()
+                    bundle.putParcelable("cover", selectedBook.cover)
+                    bundle.putString("title",selectedBook.name)
+                    bundle.putString("author",selectedBook.author)
+                    bundle.putInt("media",selectedBook.mediaType)
+                    dispatchFragment.arguments = bundle
+                    openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
+                    (activity as AppCompatActivity).fab.hide()
                 }
             }
 
@@ -116,5 +124,5 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
         fun getAdapter() = libraryAdapter
     }
 
-    data class Book(var author: String, var name: String, var id: String, var cover: Bitmap)
+    data class Book(var author: String, var name: String, var id: String, var mediaType: Int, var cover: Bitmap)
 }
