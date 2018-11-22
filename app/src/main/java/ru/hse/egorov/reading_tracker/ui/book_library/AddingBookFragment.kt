@@ -17,9 +17,11 @@ import android.widget.Spinner
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
+import kotlinx.android.synthetic.main.fragment_library.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
+import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import java.io.ByteArrayOutputStream
@@ -93,11 +95,14 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
             book["title"] = title.text.toString()
             book["media"] = 0 // TODO get position from spinner
             val baos = ByteArrayOutputStream()
-            getBitmap(cover.background as VectorDrawable).compress(Bitmap.CompressFormat.PNG, 100, baos)
+            getBitmap(cover.background).compress(Bitmap.CompressFormat.PNG, 100, baos)
             showProgressBar()
             dbManager.addBookToLibrary(book).addOnSuccessListener { uploadedBook ->
                 dbManager.addBookCover(baos.toByteArray(), uploadedBook.id).addOnSuccessListener {
                     setBookToSession()
+                    (activity!!.library.adapter as LibraryAdapter).add(LibraryFragment.Book(author.text.toString(), title.text.toString(), uploadedBook.id,
+                            0, getBitmap(cover.background)
+                    ))
                     activity?.fragmentPager?.visibility = View.VISIBLE
                     activity?.temporaryFragment?.visibility = View.GONE
                 }.addOnFailureListener {

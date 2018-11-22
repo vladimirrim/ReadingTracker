@@ -53,7 +53,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val selectedBook = libraryAdapter.get(position)
-                
+
                 if (direction == ItemTouchHelper.RIGHT) {
                     libraryAdapter.removeItem(position)
                     val snackbar = Snackbar.make(activity!!.placeSnackBar,
@@ -78,9 +78,9 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
                     val dispatchFragment = EditBookFragment.newInstance()
                     val bundle = Bundle()
                     bundle.putParcelable("cover", selectedBook.cover)
-                    bundle.putString("title",selectedBook.name)
-                    bundle.putString("author",selectedBook.author)
-                    bundle.putInt("media",selectedBook.mediaType)
+                    bundle.putString("title", selectedBook.name)
+                    bundle.putString("author", selectedBook.author)
+                    bundle.putInt("media", selectedBook.mediaType)
                     dispatchFragment.arguments = bundle
                     openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
                     (activity as AppCompatActivity).fab.hide()
@@ -100,11 +100,11 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
 
                     if (dX > 0) {
                         background = RectF(itemView.left.toFloat(), itemView.top.toFloat(), dX, itemView.bottom.toFloat())
-                        icon = getBitmap(context!!, R.drawable.ic_delete)
+                        icon = getBitmap(resources.getDrawable(R.drawable.ic_delete, context?.theme))
                         iconDestination = RectF(itemView.left.toFloat() + width, itemView.top.toFloat() + width, itemView.left.toFloat() + 2 * width, itemView.bottom.toFloat() - width)
                     } else {
                         background = RectF(itemView.right.toFloat() + dX, itemView.top.toFloat(), itemView.right.toFloat(), itemView.bottom.toFloat())
-                        icon = getBitmap(context!!, R.drawable.ic_edit)
+                        icon = getBitmap(resources.getDrawable(R.drawable.ic_edit, context?.theme))
                         iconDestination = RectF(itemView.right.toFloat() - 2 * width, itemView.top.toFloat() + width, itemView.right.toFloat() - width, itemView.bottom.toFloat() - width)
                     }
                     c.drawRect(background, paint)
@@ -112,7 +112,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
                 }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
-        }
+        }/**/
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
         itemTouchHelper.attachToRecyclerView(library)
     }

@@ -1,18 +1,26 @@
 package ru.hse.egorov.reading_tracker.ui.adapter
 
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 
 
 class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() {
-
     private val library = ArrayList<LibraryFragment.Book>()
+    private val dbManager = DatabaseManager()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.book, parent, false)
@@ -56,11 +64,29 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         var author: TextView? = itemView?.findViewById(R.id.author)
         var name: TextView? = itemView?.findViewById(R.id.title)
         var cover: ImageView? = itemView?.findViewById(R.id.cover)
+        var progressBar: ProgressBar? = itemView?.findViewById(R.id.progressBar)
 
         fun bind(book: LibraryFragment.Book) {
             author?.text = book.author
             name?.text = book.name
-            cover?.setImageBitmap(book.cover)
+            if (book.cover == null) {
+                progressBar?.visibility = View.VISIBLE
+                dbManager.getBookCover(book.id, cover!!.context).override(70, 100).listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                                                 dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        progressBar?.visibility = View.GONE
+                        return false
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        progressBar?.visibility = View.GONE
+                        return false
+                    }
+
+                }).into(cover!!)
+            } else {
+                cover?.setImageBitmap(book.cover)
+            }
         }
     }
 }

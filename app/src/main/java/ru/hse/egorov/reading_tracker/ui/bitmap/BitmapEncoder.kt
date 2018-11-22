@@ -1,12 +1,10 @@
 package ru.hse.egorov.reading_tracker.ui.bitmap
 
-import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
-import android.support.v4.content.ContextCompat
 
 interface BitmapEncoder {
     fun getBitmap(vectorDrawable: VectorDrawable): Bitmap {
@@ -18,11 +16,10 @@ interface BitmapEncoder {
         return bitmap
     }
 
-    fun getBitmap(context: Context, drawableId: Int): Bitmap {
-        val drawable = ContextCompat.getDrawable(context, drawableId)
+    fun getBitmap(drawable:Drawable): Bitmap {
         return when (drawable) {
-            is BitmapDrawable -> BitmapFactory.decodeResource(context.resources, drawableId)
-            is VectorDrawable -> getBitmap((drawable as VectorDrawable?)!!)
+            is BitmapDrawable -> drawable.bitmap
+            is VectorDrawable -> getBitmap(drawable)
             else -> throw IllegalArgumentException("unsupported drawable type")
         }
     }
