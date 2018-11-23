@@ -2,9 +2,7 @@ package ru.hse.egorov.reading_tracker.ui.session
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_end_of_session.*
 import kotlinx.android.synthetic.main.fragment_end_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
@@ -22,19 +20,19 @@ class EndOfSessionFragment : Fragment() {
             when (i) {
                 R.id.emotionHappy -> {
                     setBackgroundsForEmotions(R.drawable.ic_emotion_happy_enabled,
-                            R.drawable.ic_emotion_indifferent,
+                            R.drawable.ic_emotion_neutral,
                             R.drawable.ic_emotion_sad)
                 }
 
-                R.id.emotionIndifferent -> {
+                R.id.emotionNeutral -> {
                     setBackgroundsForEmotions(R.drawable.ic_emotion_happy,
-                            R.drawable.ic_emotion_indifferent_enabled,
+                            R.drawable.ic_emotion_neutral_enabled,
                             R.drawable.ic_emotion_sad)
                 }
 
                 R.id.emotionSad -> {
                     setBackgroundsForEmotions(R.drawable.ic_emotion_happy,
-                            R.drawable.ic_emotion_indifferent,
+                            R.drawable.ic_emotion_neutral,
                             R.drawable.ic_emotion_sad_enabled)
                 }
             }
@@ -63,9 +61,18 @@ class EndOfSessionFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu?.clear()
+        inflater?.inflate(R.menu.action_bar_enabled, menu)
+        menu?.getItem(0)?.setOnMenuItemClickListener {
+
+            true
+        }
+    }
+
     private fun setBackgroundsForEmotions(backgroundHappy: Int, backgroundIndifferent: Int, backgroundSad: Int) {
         emotionHappy.setBackgroundResource(backgroundHappy)
-        emotionIndifferent.setBackgroundResource(backgroundIndifferent)
+        emotionNeutral.setBackgroundResource(backgroundIndifferent)
         emotionSad.setBackgroundResource(backgroundSad)
     }
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_start_of_session.*
 import kotlinx.android.synthetic.main.fragment_start_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.LIBRARY_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments.AutoSessionTimeChangeFragment
@@ -31,6 +32,10 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
             bundle.putBoolean("set book", true)
             dispatchFragment.arguments = bundle
             openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
+        }
+
+        view.bookContainer.setOnClickListener {
+            openPagerFragment(activity as AppCompatActivity, LIBRARY_FRAGMENT_POSITION)
         }
 
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)

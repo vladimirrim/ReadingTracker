@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 
 
@@ -47,6 +48,11 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         notifyItemRangeChanged(position, library.size)
     }
 
+    fun replaceItem(position: Int, newBook:LibraryFragment.Book){
+        library[position] = newBook
+        notifyDataSetChanged()
+    }
+
     fun restoreItem(book: LibraryFragment.Book, position: Int) {
         library.add(position, book)
         notifyItemInserted(position)
@@ -60,7 +66,7 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         holder.bind(library[position])
     }
 
-    inner class LibraryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+    inner class LibraryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!), BitmapEncoder {
         var author: TextView? = itemView?.findViewById(R.id.author)
         var name: TextView? = itemView?.findViewById(R.id.title)
         var cover: ImageView? = itemView?.findViewById(R.id.cover)
@@ -75,6 +81,7 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
                                                  dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         progressBar?.visibility = View.GONE
+                        book.cover = getBitmap(resource!!)
                         return false
                     }
 

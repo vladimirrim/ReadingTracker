@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
@@ -62,11 +61,6 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
                     MediaStore.Images.Media.getBitmap(activity?.contentResolver, imageUri), dipToPixels(context!!, 155f),
                     dipToPixels(context!!, 222f), false))
         }
-    }
-
-    private fun dipToPixels(context: Context, dipValue: Float): Int {
-        val metrics = context.resources.displayMetrics
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics).toInt()
     }
 
     private fun updateActionBar(activity: AppCompatActivity) {

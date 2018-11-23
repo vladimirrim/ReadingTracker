@@ -40,16 +40,18 @@ class DatabaseManager {
         return authManager.signInWithCredential(credential)
     }
 
-    fun addSession(time: String): Task<Void> {
-        val map = HashMap<String, List<String>>()
-        map["sessions"] = listOf(time)
-        return db.collection("users").document(authManager.uid as String).update("sessions",
-                FieldValue.arrayUnion("${System.currentTimeMillis()} $time"))
+    fun addSession(session: Map<String, Any?>): Task<Void> {
+        return db.collection("sessions").document(authManager.uid as String).set(session)
     }
 
     fun addBookToLibrary(book: Map<String, Any?>): Task<DocumentReference> {
         return db.collection("books").document("libraries").collection(authManager.uid as String)
                 .add(book)
+    }
+
+    fun updateBook(book: Map<String, Any?>, bookId: String): Task<Void> {
+        return db.collection("books").document("libraries").collection(authManager.uid as String)
+                .document(bookId).update(book)
     }
 
     fun addBookCover(cover: ByteArray, bookId: String): UploadTask {

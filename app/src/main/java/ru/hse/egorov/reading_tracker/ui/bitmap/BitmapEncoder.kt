@@ -1,10 +1,12 @@
 package ru.hse.egorov.reading_tracker.ui.bitmap
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
+import android.util.TypedValue
 
 interface BitmapEncoder {
     fun getBitmap(vectorDrawable: VectorDrawable): Bitmap {
@@ -22,5 +24,10 @@ interface BitmapEncoder {
             is VectorDrawable -> getBitmap(drawable)
             else -> throw IllegalArgumentException("unsupported drawable type")
         }
+    }
+
+    fun dipToPixels(context: Context, dipValue: Float): Int {
+        val metrics = context.resources.displayMetrics
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics).toInt()
     }
 }

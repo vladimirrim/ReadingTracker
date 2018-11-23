@@ -29,18 +29,25 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).supportActionBar?.setCustomView(R.layout.action_bar)
+        setUpActionBar()
+        setUpLibrary(view)
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu?.getItem(0)?.isVisible = false
+    }
+
+    private fun setUpLibrary(view: View) {
         view.library.layoutManager = LinearLayoutManager(context)
         enableSwipe(view.library, libraryAdapter)
         view.library.adapter = libraryAdapter
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        menu?.getItem(0)?.isVisible = false
+    private fun setUpActionBar() {
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        (activity as AppCompatActivity).supportActionBar?.setCustomView(R.layout.action_bar)
     }
 
     private fun enableSwipe(library: RecyclerView, libraryAdapter: LibraryAdapter) {
@@ -77,14 +84,20 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
                 } else {
                     val dispatchFragment = EditBookFragment.newInstance()
                     val bundle = Bundle()
-                    bundle.putParcelable("cover", selectedBook.cover)
-                    bundle.putString("title", selectedBook.name)
-                    bundle.putString("author", selectedBook.author)
-                    bundle.putInt("media", selectedBook.mediaType)
+                    setUpBundle(bundle, selectedBook, position)
                     dispatchFragment.arguments = bundle
                     openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
                     (activity as AppCompatActivity).fab.hide()
                 }
+            }
+
+            private fun setUpBundle(bundle: Bundle, selectedBook: Book, position: Int) {
+                bundle.putParcelable("cover", selectedBook.cover)
+                bundle.putString("title", selectedBook.name)
+                bundle.putString("author", selectedBook.author)
+                bundle.putString("bookId", selectedBook.id)
+                bundle.putInt("media", selectedBook.mediaType)
+                bundle.putInt("bookPosition", position)
             }
 
             override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
@@ -112,7 +125,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
                 }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
-        }/**/
+        }
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
         itemTouchHelper.attachToRecyclerView(library)
     }
