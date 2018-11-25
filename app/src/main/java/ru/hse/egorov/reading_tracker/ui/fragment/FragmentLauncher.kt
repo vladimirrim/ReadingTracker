@@ -9,6 +9,7 @@ interface FragmentLauncher {
 
     fun openPagerFragment(activity: AppCompatActivity, fragmentPosition: Int) {
         activity.fragmentPager.currentItem = fragmentPosition
+        activity.navigation.menu.getItem(fragmentPosition).isChecked = true
         activity.fragmentPager.visibility = View.VISIBLE
         activity.temporaryFragment.visibility = View.GONE
     }

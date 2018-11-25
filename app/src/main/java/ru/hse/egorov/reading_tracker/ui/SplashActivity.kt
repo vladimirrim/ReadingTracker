@@ -3,11 +3,13 @@ package ru.hse.egorov.reading_tracker.ui
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.google.firebase.Timestamp
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.login.SignUpSignInActivity
+import java.util.*
 
 
 class SplashActivity : AppCompatActivity(), BitmapEncoder {
@@ -26,7 +28,8 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
             db.getLibrary().addOnSuccessListener {
                 val libraryAdapter = LibraryFragment.getAdapter()
                 for (book in it.documents) {
-                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String, book["title"] as String, book.id, 0, null))
+                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String, book["title"] as String, book.id, 0, null,
+                            book["last updated"] as Date))
                 }
             }
             val intent = Intent(this,

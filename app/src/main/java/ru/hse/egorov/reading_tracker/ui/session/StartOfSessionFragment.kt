@@ -5,9 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_start_of_session.*
 import kotlinx.android.synthetic.main.fragment_start_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
@@ -18,6 +16,8 @@ import ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments.AutoSess
 
 
 class StartOfSessionFragment : Fragment(), FragmentLauncher {
+    private lateinit var doneButton: MenuItem
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_start_of_session, container, false)
 
@@ -50,6 +50,13 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
         this.cover.background = cover
         this.cover.visibility = View.VISIBLE
         this.author.visibility = View.VISIBLE
+        doneButton.isEnabled = true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.action_bar, menu)
+        doneButton = menu!!.getItem(0)
+        doneButton.isEnabled = false
     }
 
     private fun setUpActionBar() {
@@ -58,6 +65,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
         supportedActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportedActivity.supportActionBar?.title = ACTION_BAR_TITLE
         supportedActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+        setHasOptionsMenu(true)
     }
 
 

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
@@ -22,6 +23,7 @@ import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 class AddingBookFragment : Fragment(), BitmapEncoder {
@@ -80,12 +82,13 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
-        inflater?.inflate(R.menu.action_bar_enabled, menu)
+        inflater?.inflate(R.menu.action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
             val book = HashMap<String, Any?>()
             book["author"] = author.text.toString()
             book["title"] = title.text.toString()
             book["media"] = 0 // TODO get position from spinner
+            book["last updated"] = Timestamp(Calendar.getInstance().time)
             val baos = ByteArrayOutputStream()
             getBitmap(cover.background).compress(Bitmap.CompressFormat.PNG, 100, baos)
             showProgressBar()
@@ -93,7 +96,7 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
                 dbManager.addBookCover(baos.toByteArray(), uploadedBook.id).addOnSuccessListener {
                     setBookToSession()
                     (activity!!.library.adapter as LibraryAdapter).add(LibraryFragment.Book(author.text.toString(), title.text.toString(), uploadedBook.id,
-                            0, getBitmap(cover.background)
+                            0, getBitmap(cover.background), (book["last updated"] as Timestamp).toDate()
                     ))
                     activity?.fragmentPager?.visibility = View.VISIBLE
                     activity?.temporaryFragment?.visibility = View.GONE

@@ -58,12 +58,6 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
         fragmentPager.currentItem = SESSION_FRAGMENT_POSITION
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.action_bar, menu)
-        return true
-    }
-
     companion object {
         const val PROFILE_FRAGMENT_POSITION = 0
         const val SESSION_FRAGMENT_POSITION = 1

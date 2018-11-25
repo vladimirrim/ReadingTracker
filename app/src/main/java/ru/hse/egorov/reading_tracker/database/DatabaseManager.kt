@@ -39,8 +39,8 @@ class DatabaseManager {
         return authManager.signInWithCredential(credential)
     }
 
-    fun addSession(session: Map<String, Any?>): Task<Void> {
-        return db.collection("sessions").document(authManager.uid as String).set(session)
+    fun addSession(session: Map<String, Any?>): Task<DocumentReference> {
+        return db.collection("statistics").document("sessions").collection(authManager.uid as String).add(session)
     }
 
     fun addBookToLibrary(book: Map<String, Any?>): Task<DocumentReference> {

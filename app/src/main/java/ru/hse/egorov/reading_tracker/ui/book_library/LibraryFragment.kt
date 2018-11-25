@@ -18,6 +18,7 @@ import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
+import java.util.*
 
 
 class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
@@ -137,5 +138,5 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
         fun getAdapter() = libraryAdapter
     }
 
-    data class Book(var author: String, var name: String, var id: String, var mediaType: Int, var cover: Bitmap?)
+    data class Book(var author: String, var name: String, var id: String, var mediaType: Int, var cover: Bitmap?, var lastUpdated: Date)
 }

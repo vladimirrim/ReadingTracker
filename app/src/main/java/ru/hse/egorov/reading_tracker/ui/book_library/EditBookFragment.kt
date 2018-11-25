@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
@@ -16,6 +17,7 @@ import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 class EditBookFragment : Fragment(), BitmapEncoder {
     private val dbManager = DatabaseManager()
@@ -47,12 +49,13 @@ class EditBookFragment : Fragment(), BitmapEncoder {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
-        inflater?.inflate(R.menu.action_bar_enabled, menu)
+        inflater?.inflate(R.menu.action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
             val book = HashMap<String, Any?>()
             book["author"] = author.text.toString()
             book["title"] = title.text.toString()
             book["media"] = 0 // TODO get position from spinner
+            book["last updated"] = Timestamp(Calendar.getInstance().time)
             val baos = ByteArrayOutputStream()
             getBitmap(cover.background).compress(Bitmap.CompressFormat.PNG, 100, baos)
             showProgressBar()
@@ -60,7 +63,7 @@ class EditBookFragment : Fragment(), BitmapEncoder {
                 dbManager.addBookCover(baos.toByteArray(), arguments!!["bookId"] as String).addOnSuccessListener {
                     (activity!!.library.adapter as LibraryAdapter).replaceItem(arguments!!["bookPosition"] as Int,
                             LibraryFragment.Book(author.text.toString(), title.text.toString(), arguments!!["bookId"] as String,
-                                    0, getBitmap(cover.background)
+                                    0, getBitmap(cover.background), book["last updated"] as Date
                             ))
                     activity?.fragmentPager?.visibility = View.VISIBLE
                     activity?.temporaryFragment?.visibility = View.GONE

@@ -12,7 +12,6 @@ import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
 
 class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
-    private lateinit var doneButton: MenuItem
     private var isChronometerRunning = false
     private var isBookSet = true
 
@@ -36,20 +35,6 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             chronometer.base = SystemClock.elapsedRealtime()
             chronometer.start()
             isChronometerRunning = true
-            if (!doneButton.isEnabled) {
-                doneButton.isEnabled = true
-                doneButton.setIcon(R.drawable.ic_done_enabled)
-                doneButton.setOnMenuItemClickListener {
-                    val dispatchFragment = EndOfSessionFragment.newInstance()
-                    val bundle = Bundle()
-                    bundle.putInt("startPage", view.startPage.text.toString().toIntOrNull() ?: -1)
-                    bundle.putInt("endPage", view.endPage.text.toString().toIntOrNull() ?: -1)
-                    bundle.putInt("sessionTime", view.minutes.text.toString().toInt() * 60 + view.seconds.text.toString().toInt())
-                    dispatchFragment.arguments = bundle
-                    openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
-                    true
-                }
-            }
         }
 
         view.startSession.isEnabled = isBookSet
@@ -58,6 +43,23 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         }
 
         setChronometerListener(view)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        //TODO rework done button block
+        val dispatchFragment = EndOfSessionFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putInt("startPage", startPage.text.toString().toIntOrNull() ?: -1)
+        bundle.putInt("endPage", endPage.text.toString().toIntOrNull() ?: -1)
+        bundle.putInt("sessionTime", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
+        dispatchFragment.arguments = bundle
+        openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu?.clear()
+        inflater?.inflate(R.menu.action_bar, menu)
     }
 
     private fun setChronometerListener(view: View) {
@@ -83,13 +85,6 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             view.minutes.text = m.toString()
             view.seconds.text = s.toString()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        doneButton = menu!!.getItem(0)
-        doneButton.isEnabled = false
     }
 
     companion object {
