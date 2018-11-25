@@ -46,4 +46,6 @@
     <string name="library_welcome">Для начала добавьте книги, которые сейчас читаете</string>
     <string name="library_title">Книги</string>
     <string name="cover_header">Обложка</string>
+    <string name="start_page"><font size="14">Начало</font></string>
+    <string name="end_page"><font size="14">Конец</font></string>
 </resources>

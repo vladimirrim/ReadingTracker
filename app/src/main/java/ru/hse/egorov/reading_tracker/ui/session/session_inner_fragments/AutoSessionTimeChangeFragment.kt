@@ -40,7 +40,13 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
                 doneButton.isEnabled = true
                 doneButton.setIcon(R.drawable.ic_done_enabled)
                 doneButton.setOnMenuItemClickListener {
-                    openTemporaryFragment(activity as AppCompatActivity, EndOfSessionFragment.newInstance(), R.id.temporaryFragment)
+                    val dispatchFragment = EndOfSessionFragment.newInstance()
+                    val bundle = Bundle()
+                    bundle.putInt("startPage", view.startPage.text.toString().toIntOrNull() ?: -1)
+                    bundle.putInt("endPage", view.endPage.text.toString().toIntOrNull() ?: -1)
+                    bundle.putInt("sessionTime", view.minutes.text.toString().toInt() * 60 + view.seconds.text.toString().toInt())
+                    dispatchFragment.arguments = bundle
+                    openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
                     true
                 }
             }
@@ -55,14 +61,17 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     }
 
     private fun setChronometerListener(view: View) {
+        var timeWhenStopped: Long = 0
         view.chronometer.setOnClickListener {
             if (isChronometerRunning) {
                 isChronometerRunning = false
                 chronometer.setBackgroundResource(R.drawable.ic_session_start)
+                timeWhenStopped = chronometer.base - SystemClock.elapsedRealtime()
                 chronometer.stop()
             } else {
                 isChronometerRunning = true
                 chronometer.setBackgroundResource(R.drawable.ic_session_pause)
+                chronometer.base = SystemClock.elapsedRealtime() + timeWhenStopped
                 chronometer.start()
             }
         }
