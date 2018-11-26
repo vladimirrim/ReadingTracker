@@ -48,4 +48,7 @@
     <string name="cover_header">Обложка</string>
     <string name="start_page"><font size="14">Начало</font></string>
     <string name="end_page"><font size="14">Конец</font></string>
+    <string name="camera">Камера</string>
+    <string name="gallery">Галлерея</string>
+    <string name="isbn">Сканировать ISBN</string>
 </resources>

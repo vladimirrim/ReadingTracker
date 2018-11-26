@@ -1,5 +1,6 @@
 package ru.hse.egorov.reading_tracker.ui.book_library
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
@@ -21,6 +22,7 @@ import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
+import ru.hse.egorov.reading_tracker.ui.dialog.AddCoverDialog
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -40,7 +42,7 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
         updateActionBar(activity as AppCompatActivity)
 
         cover.setOnClickListener {
-            dispatchTakePictureIntent()
+            AddCoverDialog().show(activity!!.supportFragmentManager, "AddCover")
         }
 
         val spinner: Spinner = view.mediaSpinner
@@ -54,15 +56,6 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val imageUri = data?.data
-            cover.background = BitmapDrawable(resources, Bitmap.createScaledBitmap(
-                    MediaStore.Images.Media.getBitmap(activity?.contentResolver, imageUri), dipToPixels(context!!, 155f),
-                    dipToPixels(context!!, 222f), false))
-        }
-    }
-
     private fun updateActionBar(activity: AppCompatActivity) {
         activity.supportActionBar?.title = ACTION_BAR_TITLE
     }
@@ -70,14 +63,6 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
     private fun showProgressBar() {
         cover.visibility = View.GONE
         progressBar.visibility = View.VISIBLE
-    }
-
-    private fun dispatchTakePictureIntent() {
-        Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -108,6 +93,21 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == Activity.RESULT_OK) {
+            val imageUri = data?.data
+            cover.background = BitmapDrawable(resources, Bitmap.createScaledBitmap(
+                    MediaStore.Images.Media.getBitmap(activity?.contentResolver, imageUri), dipToPixels(context!!, 155f),
+                    dipToPixels(context!!, 222f), false))
+        }
+
+        if (requestCode == REQUEST_IMAGE_CAMERA && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data!!.extras!!.get("data") as Bitmap
+            cover.background = BitmapDrawable(resources, Bitmap.createScaledBitmap(imageBitmap, dipToPixels(context!!, 155f),
+                    dipToPixels(context!!, 222f), false))
+        }
+    }
+
     private fun setBookToSession() {
         arguments?.let { bundle ->
             if (bundle.getBoolean("set book")) {
@@ -120,7 +120,8 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
 
     companion object {
         const val ACTION_BAR_TITLE = "Новая книга"
-        const val REQUEST_IMAGE_CAPTURE = 1
+        const val REQUEST_IMAGE_GALLERY = 1
+        const val REQUEST_IMAGE_CAMERA = 2
         fun newInstance(): AddingBookFragment = AddingBookFragment()
     }
 }

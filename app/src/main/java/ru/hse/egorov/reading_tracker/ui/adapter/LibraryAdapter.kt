@@ -48,7 +48,7 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         notifyItemRangeChanged(position, library.size)
     }
 
-    fun replaceItem(position: Int, newBook:LibraryFragment.Book){
+    fun replaceItem(position: Int, newBook: LibraryFragment.Book) {
         library[position] = newBook
         notifyDataSetChanged()
     }
@@ -56,6 +56,13 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
     fun restoreItem(book: LibraryFragment.Book, position: Int) {
         library.add(position, book)
         notifyItemInserted(position)
+    }
+
+    fun sortByLastUpdated() {
+        library.sortByDescending {
+            it.lastUpdated
+        }
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

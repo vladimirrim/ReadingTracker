@@ -3,7 +3,6 @@ package ru.hse.egorov.reading_tracker.ui
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter

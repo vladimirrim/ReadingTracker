@@ -31,6 +31,7 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                     libraryAdapter.add(LibraryFragment.Book(book["author"] as String, book["title"] as String, book.id, 0, null,
                             book["last updated"] as Date))
                 }
+                libraryAdapter.sortByLastUpdated()
             }
             val intent = Intent(this,
                     MainActivity::class.java)
