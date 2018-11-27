@@ -31,7 +31,9 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         super.onViewCreated(view, savedInstanceState)
 
         view.chronometer.stop()
+        view.stopwatch.visibility = View.INVISIBLE
         view.startSession.setOnClickListener {
+            view.stopwatch.visibility = View.VISIBLE
             view.startSession.visibility = View.INVISIBLE
             chronometer.base = SystemClock.elapsedRealtime()
             chronometer.start()
@@ -47,6 +49,15 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         }
 
         setChronometerListener(view)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val libraryAdapter = LibraryFragment.getAdapter()
+        if (libraryAdapter.itemCount == 0) {
+            startSession.isEnabled = false
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

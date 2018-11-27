@@ -10,6 +10,7 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.PROFILE_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
+import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
 
 class EndOfSessionFragment : Fragment(), FragmentLauncher {
     private val dbManager = DatabaseManager()
@@ -89,7 +90,7 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
             session["comment"] = comment.text.toString()
             progressBar.visibility = View.VISIBLE
             dbManager.addSession(session).addOnSuccessListener {
-                openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
+                openTemporaryFragment(activity as AppCompatActivity, OverallStatisticsFragment.newInstance(), R.id.temporaryFragment)
             }
             true
         }
@@ -109,6 +110,7 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
 
     companion object {
         fun newInstance() = EndOfSessionFragment()
+
         private enum class Mood {
             HAPPY, SAD, NEUTRAL
         }

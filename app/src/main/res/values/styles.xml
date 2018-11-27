@@ -91,7 +91,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#2F5870</item>
     </style>
+
     <style name="dark_20sp">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#2F5870</item>
+    </style>
+
+    <style name="dark_18sp">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#2F5870</item>
     </style>
