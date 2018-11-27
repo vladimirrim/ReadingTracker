@@ -1,7 +1,6 @@
 package ru.hse.egorov.reading_tracker.ui.book_library
 
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -70,7 +69,7 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
         inflater?.inflate(R.menu.action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
             val book = HashMap<String, Any?>()
-            book["author"] = author.text.toString()
+            book["author"] = comment.text.toString()
             book["title"] = title.text.toString()
             book["media"] = 0 // TODO get position from spinner
             book["last updated"] = Timestamp(Calendar.getInstance().time)
@@ -80,7 +79,7 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
             dbManager.addBookToLibrary(book).addOnSuccessListener { uploadedBook ->
                 dbManager.addBookCover(baos.toByteArray(), uploadedBook.id).addOnSuccessListener {
                     setBookToSession()
-                    (activity!!.library.adapter as LibraryAdapter).add(LibraryFragment.Book(author.text.toString(), title.text.toString(), uploadedBook.id,
+                    (activity!!.library.adapter as LibraryAdapter).add(LibraryFragment.Book(comment.text.toString(), title.text.toString(), uploadedBook.id,
                             0, getBitmap(cover.background), (book["last updated"] as Timestamp).toDate()
                     ))
                     activity?.fragmentPager?.visibility = View.VISIBLE
@@ -112,8 +111,8 @@ class AddingBookFragment : Fragment(), BitmapEncoder {
         arguments?.let { bundle ->
             if (bundle.getBoolean("set book")) {
                 (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
-                        + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(author.text.toString(), title.text.toString(),
-                        cover.background)
+                        + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(comment.text.toString(), title.text.toString(),"",
+                        getBitmap(cover.background))
             }
         }
     }

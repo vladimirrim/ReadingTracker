@@ -8,12 +8,13 @@ import android.view.*
 import kotlinx.android.synthetic.main.fragment_auto_session_time_change.*
 import kotlinx.android.synthetic.main.fragment_auto_session_time_change.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
 
 class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     private var isChronometerRunning = false
-    private var isBookSet = true
+    private lateinit var doneButton: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +36,12 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             chronometer.base = SystemClock.elapsedRealtime()
             chronometer.start()
             isChronometerRunning = true
+            doneButton.isEnabled = true
         }
-
-        view.startSession.isEnabled = isBookSet
+        val libraryAdapter = LibraryFragment.getAdapter()
+        if (libraryAdapter.itemCount == 0) {
+            view.startSession.isEnabled = false
+        }
         view.toManualTimeChange.setOnClickListener {
             openInnerFragment(ManualSessionTimeChangeFragment.newInstance(), parentFragment!!, R.id.sessionFragment)
         }
@@ -46,12 +50,12 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        //TODO rework done button block
         val dispatchFragment = EndOfSessionFragment.newInstance()
         val bundle = Bundle()
         bundle.putInt("startPage", startPage.text.toString().toIntOrNull() ?: -1)
         bundle.putInt("endPage", endPage.text.toString().toIntOrNull() ?: -1)
-        bundle.putInt("sessionTime", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
+        bundle.putInt("time", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
+        bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
         dispatchFragment.arguments = bundle
         openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
         return true
@@ -60,6 +64,8 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
         inflater?.inflate(R.menu.action_bar, menu)
+        doneButton = menu!!.getItem(0)
+        doneButton.isEnabled = false
     }
 
     private fun setChronometerListener(view: View) {

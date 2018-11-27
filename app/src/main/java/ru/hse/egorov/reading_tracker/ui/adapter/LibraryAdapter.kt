@@ -74,7 +74,7 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
     }
 
     inner class LibraryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!), BitmapEncoder {
-        var author: TextView? = itemView?.findViewById(R.id.author)
+        var author: TextView? = itemView?.findViewById(R.id.comment)
         var name: TextView? = itemView?.findViewById(R.id.title)
         var cover: ImageView? = itemView?.findViewById(R.id.cover)
         var progressBar: ProgressBar? = itemView?.findViewById(R.id.progressBar)

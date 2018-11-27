@@ -3,7 +3,6 @@ package ru.hse.egorov.reading_tracker.ui
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.google.firebase.Timestamp
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
@@ -32,10 +31,10 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                             book["last updated"] as Date))
                 }
                 libraryAdapter.sortByLastUpdated()
+                val intent = Intent(this,
+                        MainActivity::class.java)
+                startActivity(intent)
             }
-            val intent = Intent(this,
-                    MainActivity::class.java)
-            startActivity(intent)
         } else {
             val intent = Intent(this,
                     SignUpSignInActivity::class.java)

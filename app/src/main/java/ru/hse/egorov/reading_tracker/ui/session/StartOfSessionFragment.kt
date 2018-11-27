@@ -1,7 +1,7 @@
 package ru.hse.egorov.reading_tracker.ui.session
 
 import android.app.ActionBar
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -9,14 +9,18 @@ import android.view.*
 import kotlinx.android.synthetic.main.fragment_start_of_session.*
 import kotlinx.android.synthetic.main.fragment_start_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.LIBRARY_FRAGMENT_POSITION
+import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments.AutoSessionTimeChangeFragment
 
 
-class StartOfSessionFragment : Fragment(), FragmentLauncher {
+class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder {
     private lateinit var doneButton: MenuItem
+    private val dbManager = DatabaseManager()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_start_of_session, container, false)
@@ -25,6 +29,12 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
         super.onViewCreated(view, savedInstanceState)
 
         setUpActionBar()
+
+        val libraryAdapter = LibraryFragment.getAdapter()
+        if (libraryAdapter.itemCount != 0) {
+            val book = libraryAdapter.get(0)
+            setBook(book.author, book.name, book.id, book.cover)
+        }
 
         view.addBook.setOnClickListener {
             val dispatchFragment = AddingBookFragment.newInstance()
@@ -41,16 +51,20 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher {
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
     }
 
-    fun setBook(author: String, title: String, cover: Drawable) {
-        this.author.maxLines = 1
-        this.author.text = author
+    fun setBook(author: String, title: String, id: String, cover: Bitmap?) {
+        this.comment.maxLines = 1
+        this.comment.text = author
         this.title.maxLines = 2
         this.title.text = title
         this.addBook.visibility = View.INVISIBLE
-        this.cover.background = cover
+        if (cover == null) {
+            dbManager.getBookCover(id, context!!).override(dipToPixels(context!!, 70f), dipToPixels(context!!, 100f))
+                    .into(this.cover)
+        } else {
+            this.cover.setImageBitmap(cover)
+        }
         this.cover.visibility = View.VISIBLE
-        this.author.visibility = View.VISIBLE
-        doneButton.isEnabled = true
+        this.comment.visibility = View.VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

@@ -30,7 +30,7 @@ class EditBookFragment : Fragment(), BitmapEncoder {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        author.setText(arguments!!["author"] as String)
+        comment.setText(arguments!!["author"] as String)
         title.setText(arguments!!["title"] as String)
         cover.background = BitmapDrawable(resources, Bitmap.createScaledBitmap(arguments!!["cover"] as Bitmap, dipToPixels(context!!, 155f),
                 dipToPixels(context!!, 222f), false))
@@ -52,7 +52,7 @@ class EditBookFragment : Fragment(), BitmapEncoder {
         inflater?.inflate(R.menu.action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
             val book = HashMap<String, Any?>()
-            book["author"] = author.text.toString()
+            book["author"] = comment.text.toString()
             book["title"] = title.text.toString()
             book["media"] = 0 // TODO get position from spinner
             book["last updated"] = Timestamp(Calendar.getInstance().time)
@@ -62,7 +62,7 @@ class EditBookFragment : Fragment(), BitmapEncoder {
             dbManager.updateBook(book, arguments!!["bookId"] as String).addOnSuccessListener { uploadedBook ->
                 dbManager.addBookCover(baos.toByteArray(), arguments!!["bookId"] as String).addOnSuccessListener {
                     (activity!!.library.adapter as LibraryAdapter).replaceItem(arguments!!["bookPosition"] as Int,
-                            LibraryFragment.Book(author.text.toString(), title.text.toString(), arguments!!["bookId"] as String,
+                            LibraryFragment.Book(comment.text.toString(), title.text.toString(), arguments!!["bookId"] as String,
                                     0, getBitmap(cover.background), book["last updated"] as Date
                             ))
                     activity?.fragmentPager?.visibility = View.VISIBLE

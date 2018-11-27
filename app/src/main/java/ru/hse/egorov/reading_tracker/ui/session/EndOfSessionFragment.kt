@@ -27,18 +27,21 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         view.emotions.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.emotionHappy -> {
+                    mood = Mood.HAPPY.toString().toLowerCase()
                     setBackgroundsForEmotions(R.drawable.ic_emotion_happy_enabled,
                             R.drawable.ic_emotion_neutral,
                             R.drawable.ic_emotion_sad)
                 }
 
                 R.id.emotionNeutral -> {
+                    mood = Mood.NEUTRAL.toString().toLowerCase()
                     setBackgroundsForEmotions(R.drawable.ic_emotion_happy,
                             R.drawable.ic_emotion_neutral_enabled,
                             R.drawable.ic_emotion_sad)
                 }
 
                 R.id.emotionSad -> {
+                    mood = Mood.SAD.toString().toLowerCase()
                     setBackgroundsForEmotions(R.drawable.ic_emotion_happy,
                             R.drawable.ic_emotion_neutral,
                             R.drawable.ic_emotion_sad_enabled)
@@ -49,18 +52,21 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         view.locations.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.locationHome -> {
+                    place = Place.HOME.toString().toLowerCase()
                     setBackgroundsForLocations(R.drawable.ic_location_home_enabled,
                             R.drawable.ic_location_transport,
                             R.drawable.ic_location_work)
                 }
 
                 R.id.locationTransport -> {
+                    place = Place.TRANSPORT.toString().toLowerCase()
                     setBackgroundsForLocations(R.drawable.ic_location_home,
                             R.drawable.ic_location_transport_enabled,
                             R.drawable.ic_location_work)
                 }
 
                 R.id.locationWork -> {
+                    place = Place.WORK.toString().toLowerCase()
                     setBackgroundsForLocations(R.drawable.ic_location_home,
                             R.drawable.ic_location_transport,
                             R.drawable.ic_location_work_enabled)
@@ -79,6 +85,8 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
             session["time"] = arguments!!["time"]
             session["place"] = place
             session["mood"] = mood
+            session["book id"] = arguments!!["bookId"]
+            session["comment"] = comment.text.toString()
             progressBar.visibility = View.VISIBLE
             dbManager.addSession(session).addOnSuccessListener {
                 openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
@@ -101,5 +109,12 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
 
     companion object {
         fun newInstance() = EndOfSessionFragment()
+        private enum class Mood {
+            HAPPY, SAD, NEUTRAL
+        }
+
+        private enum class Place {
+            WORK, TRANSPORT, HOME
+        }
     }
 }
