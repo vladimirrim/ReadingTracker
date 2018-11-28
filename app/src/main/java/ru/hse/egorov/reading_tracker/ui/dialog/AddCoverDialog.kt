@@ -1,19 +1,15 @@
 package ru.hse.egorov.reading_tracker.ui.dialog
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
-import kotlinx.android.synthetic.main.fragment_adding_book.*
 import ru.hse.egorov.reading_tracker.R
-import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment.Companion.REQUEST_IMAGE_CAMERA
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment.Companion.REQUEST_IMAGE_GALLERY
+import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment.Companion.REQUEST_SCAN_ISBN
 
 
 class AddCoverDialog : DialogFragment() {
@@ -29,7 +25,7 @@ class AddCoverDialog : DialogFragment() {
                             dispatchTakePictureFromGalleryIntent()
                         }
                         ISBN_ID -> {
-                            //TODO
+                            dispatchScanISBNIntent()
                         }
                     }
                 }
@@ -48,6 +44,14 @@ class AddCoverDialog : DialogFragment() {
         Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).also { takePictureIntent ->
             takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
                 activity!!.supportFragmentManager.findFragmentById(R.id.temporaryFragment)!!.startActivityForResult(takePictureIntent, REQUEST_IMAGE_GALLERY)
+            }
+        }
+    }
+
+    private fun dispatchScanISBNIntent() {
+        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
+                activity!!.supportFragmentManager.findFragmentById(R.id.temporaryFragment)!!.startActivityForResult(takePictureIntent, REQUEST_SCAN_ISBN)
             }
         }
     }

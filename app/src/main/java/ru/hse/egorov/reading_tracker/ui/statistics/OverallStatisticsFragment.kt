@@ -8,9 +8,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_overall_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
-import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
-import ru.hse.egorov.reading_tracker.ui.book_library.LibraryWelcomeFragment
-import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 
 class OverallStatisticsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -20,9 +17,9 @@ class OverallStatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ViewPagerAdapter(activity!!.supportFragmentManager)
-        adapter.addFragment(LibraryWelcomeFragment.newInstance(), "Записи")
-        adapter.addFragment(StartOfSessionFragment.newInstance(), "По книгам")
-        adapter.addFragment(LibraryFragment.newInstance(), "Графики")
+        adapter.addFragment(SessionsStatisticsFragment.newInstance(), "Записи")
+        adapter.addFragment(BooksStatisticsFragment.newInstance(), "По книгам")
+        adapter.addFragment(GraphsFragment.newInstance(), "Графики")
         view.statisticsPager.adapter = adapter
     }
 

@@ -97,7 +97,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
                 bundle.putString("title", selectedBook.name)
                 bundle.putString("author", selectedBook.author)
                 bundle.putString("bookId", selectedBook.id)
-                bundle.putInt("media", selectedBook.mediaType)
+                bundle.putString("media", selectedBook.mediaType)
                 bundle.putInt("bookPosition", position)
             }
 
@@ -138,5 +138,5 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
         fun getAdapter() = libraryAdapter
     }
 
-    data class Book(var author: String, var name: String, var id: String, var mediaType: Int, var cover: Bitmap?, var lastUpdated: Date)
+    data class Book(var author: String, var name: String, var id: String, var mediaType: String, var cover: Bitmap?, var lastUpdated: Date)
 }

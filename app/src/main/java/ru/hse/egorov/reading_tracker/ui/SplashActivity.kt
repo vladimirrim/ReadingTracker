@@ -27,8 +27,8 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
             db.getLibrary().addOnSuccessListener {
                 val libraryAdapter = LibraryFragment.getAdapter()
                 for (book in it.documents) {
-                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String, book["title"] as String, book.id, 0, null,
-                            book["last updated"] as Date))
+                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String, book["title"] as String, book.id,
+                            book["media"] as String, null, book["last updated"] as Date))
                 }
                 libraryAdapter.sortByLastUpdated()
                 val intent = Intent(this,
