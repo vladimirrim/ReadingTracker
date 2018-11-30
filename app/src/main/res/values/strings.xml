@@ -52,4 +52,6 @@
     <string name="gallery">Галлерея</string>
     <string name="isbn">Сканировать ISBN</string>
     <string name="all_time">Всё время</string>
+    <string name="hours_static">час</string>
+    <string name="minutes_static">мин</string>
 </resources>

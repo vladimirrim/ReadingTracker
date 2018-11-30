@@ -42,6 +42,11 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
+    <style name="pink_18sp">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/pink</item>
+    </style>
+
     <style name="pink_36sp">
         <item name="android:textSize">36sp</item>
         <item name="android:textColor">@color/pink</item>
