@@ -111,11 +111,11 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
     companion object {
         fun newInstance() = EndOfSessionFragment()
 
-        private enum class Mood {
+        enum class Mood {
             HAPPY, SAD, NEUTRAL
         }
 
-        private enum class Place {
+        enum class Place {
             WORK, TRANSPORT, HOME
         }
     }

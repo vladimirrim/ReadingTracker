@@ -19,7 +19,6 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
         super.onCreate(savedInstanceState)
 
         chooseActivity()
-        finish()
     }
 
     private fun chooseActivity() {
@@ -34,11 +33,13 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                 val intent = Intent(this,
                         MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         } else {
             val intent = Intent(this,
                     SignUpSignInActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

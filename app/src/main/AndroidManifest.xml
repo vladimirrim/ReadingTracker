@@ -50,7 +50,6 @@
             android:name=".ui.login.SignUpEmailActivity"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/Theme.LightDarkTitle" />
-        <activity android:name=".ui.session.SessionLibraryActivity" />
         <activity android:name=".ui.session.SessionInfoActivity" />
         <activity android:name=".ui.AllTimeStatisticsActivity" />
         <activity

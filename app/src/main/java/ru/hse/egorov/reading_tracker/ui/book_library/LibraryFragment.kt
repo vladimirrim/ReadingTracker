@@ -133,8 +133,10 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
 
     companion object {
         private const val TAG = "Library"
-        fun newInstance() = LibraryFragment()
         private val libraryAdapter = LibraryAdapter()
+
+        fun newInstance() = LibraryFragment()
+
         fun getAdapter() = libraryAdapter
     }
 

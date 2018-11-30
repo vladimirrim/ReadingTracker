@@ -37,15 +37,7 @@ class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager)
         super.destroyItem(container, position, `object`)
     }
 
-    fun getFragment(position: Int): Fragment? {
-        return instantiatedFragments.get(position)?.get()
-    }
-
-    fun replaceFragment(position: Int, fragment: Fragment) {
-
-    }
-
     override fun getPageTitle(position: Int): CharSequence? {
-        return fragmentTitleList.get(position)
+        return fragmentTitleList[position]
     }
 }

@@ -6,6 +6,7 @@ import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_adding_book.*
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment.Book
 import ru.hse.egorov.reading_tracker.ui.book_library.BookFragment.Companion.MediaType.Companion.getMediaById
 import java.util.*
 
@@ -26,8 +27,8 @@ abstract class BookFragment : Fragment(), BitmapEncoder {
         return book
     }
 
-    protected fun setUpNewBook(lastUpdated: Timestamp, id: String): LibraryFragment.Book {
-        return LibraryFragment.Book(author.text.toString(), title.text.toString(), id,
+    protected fun setUpNewBook(lastUpdated: Timestamp, id: String): Book {
+        return Book(author.text.toString(), title.text.toString(), id,
                 mediaSpinner.selectedItem.toString(), getBitmap(cover.drawable),
                 lastUpdated.toDate())
     }

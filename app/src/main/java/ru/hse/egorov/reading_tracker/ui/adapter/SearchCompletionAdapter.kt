@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Filter
 import android.widget.Filterable
-import kotlinx.android.synthetic.main.book_info.view.*
 import ru.hse.egorov.reading_tracker.R
 import java.util.*
 
 
 class SearchCompletionAdapter(private val context: Context) : BaseAdapter(), Filterable {
+    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private val filter = ItemFilter()
     private val books = java.util.ArrayList<Book>(MAX_BOOK_LIST_SIZE)
@@ -30,15 +32,6 @@ class SearchCompletionAdapter(private val context: Context) : BaseAdapter(), Fil
         return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val curView = convertView
-                ?: LayoutInflater.from(context).inflate(R.layout.book_info, parent, false)
-
-        val book = books[position]
-        curView.bookName.text = book.bookName
-        curView.authorName.text = book.authorName
-        return curView
-    }
 
     class ViewHolder {
         internal var tvTitle: TextView? = null

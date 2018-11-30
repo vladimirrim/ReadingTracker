@@ -15,11 +15,11 @@ import com.bumptech.glide.request.target.Target
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
-import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment.Book
 
 
 class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() {
-    private val library = ArrayList<LibraryFragment.Book>()
+    private val library = ArrayList<Book>()
     private val dbManager = DatabaseManager()
 
 
@@ -28,17 +28,17 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         return LibraryViewHolder(view)
     }
 
-    fun set(books: Collection<LibraryFragment.Book>) {
+    fun set(books: Collection<Book>) {
         library.addAll(books)
         notifyDataSetChanged()
     }
 
-    fun add(book: LibraryFragment.Book) {
+    fun add(book: Book) {
         library.add(book)
         notifyDataSetChanged()
     }
 
-    fun get(position: Int): LibraryFragment.Book {
+    fun get(position: Int): Book {
         return library[position]
     }
 
@@ -48,12 +48,12 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         notifyItemRangeChanged(position, library.size)
     }
 
-    fun replaceItem(position: Int, newBook: LibraryFragment.Book) {
+    fun replaceItem(position: Int, newBook: Book) {
         library[position] = newBook
         notifyDataSetChanged()
     }
 
-    fun restoreItem(book: LibraryFragment.Book, position: Int) {
+    fun restoreItem(book: Book, position: Int) {
         library.add(position, book)
         notifyItemInserted(position)
     }
@@ -74,12 +74,12 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
     }
 
     inner class LibraryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!), BitmapEncoder {
-        var author: TextView? = itemView?.findViewById(R.id.comment)
-        var name: TextView? = itemView?.findViewById(R.id.title)
-        var cover: ImageView? = itemView?.findViewById(R.id.cover)
-        var progressBar: ProgressBar? = itemView?.findViewById(R.id.progressBar)
+        private var author: TextView? = itemView?.findViewById(R.id.comment)
+        private var name: TextView? = itemView?.findViewById(R.id.title)
+        private var cover: ImageView? = itemView?.findViewById(R.id.cover)
+        private var progressBar: ProgressBar? = itemView?.findViewById(R.id.progressBar)
 
-        fun bind(book: LibraryFragment.Book) {
+        fun bind(book: Book) {
             author?.text = book.author
             name?.text = book.name
             if (book.cover == null) {
