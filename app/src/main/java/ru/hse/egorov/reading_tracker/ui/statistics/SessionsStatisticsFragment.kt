@@ -30,6 +30,7 @@ class SessionsStatisticsFragment : Fragment() {
         view.sessions.layoutManager = LinearLayoutManager(context)
         sessionAdapter.set(statsManager.getSessions())
         view.sessions.adapter = sessionAdapter
+        view.sessions.isNestedScrollingEnabled = false
     }
 
     companion object {

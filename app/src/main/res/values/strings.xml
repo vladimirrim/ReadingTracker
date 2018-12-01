@@ -55,4 +55,6 @@
     <string name="hours_static">час</string>
     <string name="minutes_static">мин</string>
     <string name="page">Стр №</string>
+    <string name="longest_session">Самое продолжительное чтение</string>
+    <string name="all_sessions">Все записи о чтении</string>
 </resources>
