@@ -54,4 +54,5 @@
     <string name="all_time">Всё время</string>
     <string name="hours_static">час</string>
     <string name="minutes_static">мин</string>
+    <string name="page">Стр №</string>
 </resources>

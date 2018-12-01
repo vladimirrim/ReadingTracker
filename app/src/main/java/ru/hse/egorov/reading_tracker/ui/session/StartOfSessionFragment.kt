@@ -58,8 +58,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder {
         this.title.text = title
         this.addBook.visibility = View.INVISIBLE
         if (cover == null) {
-            dbManager.getBookCover(id, context!!).override(dipToPixels(context!!, 70f), dipToPixels(context!!, 100f))
-                    .into(this.cover)
+            dbManager.getBookCover(id, context!!).into(this.cover)
         } else {
             this.cover.setImageBitmap(cover)
         }

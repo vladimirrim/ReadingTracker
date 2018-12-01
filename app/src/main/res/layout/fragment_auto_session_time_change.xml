@@ -3,65 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/light"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        android:layout_width="wrap_content"
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/startPageStatic"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        android:background="@color/light"
-        android:paddingBottom="10dp"
-        android:textColorHint="#802F5870"
-        app:hintTextAppearance="@style/dark_14sp_80alpha"
-        app:layout_constraintBottom_toTopOf="@+id/startSession"
-        app:layout_constraintEnd_toStartOf="@+id/textInputLayout1"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="@string/start_page"
+        android:textAppearance="@style/dark_14sp_80alpha"
+        app:layout_constraintBottom_toTopOf="@+id/startPage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/startPage"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/start_page"
-            android:inputType="number"
-            android:lineSpacingExtra="4sp"
-            android:maxLines="1"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayout1"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/startPage"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="13dp"
+        android:hint="@string/page"
+        android:inputType="number"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:textAppearance="@style/dark_20sp"
+        android:textColorHint="@color/colorPrimary_80alpha"
+        app:layout_constraintBottom_toTopOf="@+id/startSession"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startPageStatic" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/endPageStatic"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
-        android:background="@color/light"
-        android:paddingBottom="10dp"
-        android:textColorHint="#802F5870"
-        app:hintTextAppearance="@style/dark_14sp_80alpha"
+        android:layout_marginBottom="15dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="@string/end_page"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/dark_14sp_80alpha"
+        app:layout_constraintBottom_toTopOf="@+id/endPage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/endPage"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:hint="@string/page"
+        android:inputType="number"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:textAppearance="@style/dark_20sp"
+        android:textColorHint="@color/colorPrimary_80alpha"
         app:layout_constraintBottom_toTopOf="@+id/stopwatch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/endPage"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/end_page"
-            android:inputType="number"
-            android:lineSpacingExtra="4sp"
-            android:maxLines="1"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-    </android.support.design.widget.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/endPageStatic" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/startSession"
@@ -81,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/startPage" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/stopwatch"
@@ -95,7 +101,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout1">
+        app:layout_constraintTop_toBottomOf="@+id/endPage">
 
         <android.widget.Chronometer
             android:id="@+id/chronometer"
