@@ -1,6 +1,7 @@
 package ru.hse.egorov.reading_tracker.ui.adapter
 
 import android.graphics.drawable.Drawable
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +13,13 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import kotlinx.android.synthetic.main.book.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment.Book
+import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 
 
 class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() {
@@ -73,15 +77,22 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         holder.bind(library[position])
     }
 
-    inner class LibraryViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!), BitmapEncoder {
-        private var author: TextView? = itemView?.findViewById(R.id.comment)
-        private var name: TextView? = itemView?.findViewById(R.id.title)
-        private var cover: ImageView? = itemView?.findViewById(R.id.cover)
-        private var progressBar: ProgressBar? = itemView?.findViewById(R.id.progressBar)
+    inner class LibraryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), BitmapEncoder, FragmentLauncher {
+        private val author: TextView? = itemView.comment
+        private val name: TextView? = itemView.title
+        private val cover: ImageView? = itemView.cover
+        private val progressBar: ProgressBar? = itemView.progressBar
+        private val container = itemView.bookContainer
 
         fun bind(book: Book) {
             author?.text = book.author
             name?.text = book.name
+
+            container.setOnClickListener {
+                openPagerFragment(it.context as AppCompatActivity, SESSION_FRAGMENT_POSITION)
+                //TODO transfer data to book
+            }
+
             if (book.cover == null) {
                 progressBar?.visibility = View.VISIBLE
                 dbManager.getBookCover(book.id, cover!!.context).override(70, 100).listener(object : RequestListener<Drawable> {
@@ -97,7 +108,7 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
                         return false
                     }
 
-                }).into(cover!!)
+                }).into(cover)
             } else {
                 cover?.setImageBitmap(book.cover)
             }

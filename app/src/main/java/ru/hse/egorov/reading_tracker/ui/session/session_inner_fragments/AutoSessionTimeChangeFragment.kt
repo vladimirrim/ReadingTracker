@@ -76,7 +76,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         menu?.clear()
         inflater?.inflate(R.menu.action_bar, menu)
         doneButton = menu!!.getItem(0)
-        doneButton.isEnabled = false
+        doneButton.isEnabled = startSession.visibility == View.INVISIBLE
     }
 
     private fun setChronometerListener(view: View) {

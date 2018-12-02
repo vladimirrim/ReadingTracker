@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_start_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.LIBRARY_FRAGMENT_POSITION
+import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
@@ -18,7 +19,7 @@ import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments.AutoSessionTimeChangeFragment
 
 
-class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder {
+class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, ActionBarSetter {
     private lateinit var doneButton: MenuItem
     private val dbManager = DatabaseManager()
 
@@ -27,8 +28,6 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setUpActionBar()
 
         val libraryAdapter = LibraryFragment.getAdapter()
         if (libraryAdapter.itemCount != 0) {
@@ -69,15 +68,14 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.action_bar, menu)
         doneButton = menu!!.getItem(0)
-        doneButton.isEnabled = false
+        doneButton.isEnabled = cover.visibility == View.VISIBLE
     }
 
-    private fun setUpActionBar() {
-        val supportedActivity = activity as AppCompatActivity
-        supportedActivity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
-        supportedActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportedActivity.supportActionBar?.title = ACTION_BAR_TITLE
-        supportedActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+    override fun setActionBar(activity: AppCompatActivity) {
+        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.title = ACTION_BAR_TITLE
+        activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
         setHasOptionsMenu(true)
     }
 

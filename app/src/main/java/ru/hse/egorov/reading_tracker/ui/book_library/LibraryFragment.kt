@@ -15,13 +15,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_library.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import java.util.*
 
 
-class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
+class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSetter {
     private val dbManager = DatabaseManager()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -30,7 +31,6 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpActionBar()
         setUpLibrary(view)
     }
 
@@ -44,11 +44,11 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher {
         view.library.adapter = libraryAdapter
     }
 
-    private fun setUpActionBar() {
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    override fun setActionBar(activity: AppCompatActivity) {
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity).supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        (activity as AppCompatActivity).supportActionBar?.setCustomView(R.layout.action_bar)
+        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        activity.supportActionBar?.setCustomView(R.layout.action_bar)
     }
 
     private fun enableSwipe(library: RecyclerView, libraryAdapter: LibraryAdapter) {
