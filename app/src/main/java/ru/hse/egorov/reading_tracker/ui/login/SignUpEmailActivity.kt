@@ -11,10 +11,6 @@ import kotlinx.android.synthetic.main.activity_sign_up_email.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity
-import android.view.animation.Animation
-import android.view.animation.LinearInterpolator
-import android.view.animation.RotateAnimation
-
 
 
 /**
@@ -55,14 +51,7 @@ class SignUpEmailActivity : AppCompatActivity() {
     }
 
     private fun showProgressBar(){
-        val animation = RotateAnimation(0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF, 0.49f, Animation.RELATIVE_TO_SELF,
-                0.53f)
-        animation.repeatCount = -1
-        animation.duration = 1000
-        animation.interpolator = LinearInterpolator()
         signUpEmail.visibility = View.INVISIBLE
-        progressBar.startAnimation(animation)
         progressBar.visibility = View.VISIBLE
     }
 
