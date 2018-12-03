@@ -1,13 +1,11 @@
 package ru.hse.egorov.reading_tracker.ui.adapter
 
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.session.view.*
 import ru.hse.egorov.reading_tracker.R
-import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Mood
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Place
@@ -74,6 +72,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
     }
 
     companion object {
-        data class Session(val date: Calendar, val time: Int, val emotion: Mood?, val place: Place?, val author: String, val comment: String?, val title: String)
+        data class Session(val date: Calendar, val time: Int, val emotion: Mood?,
+                           val place: Place?, val author: String, val comment: String?, val title: String)
     }
 }

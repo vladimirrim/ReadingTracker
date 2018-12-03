@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/light">
 
     <android.support.v7.widget.AppCompatTextView
@@ -28,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="15dp"
         android:background="@color/light"
         android:lineSpacingExtra="4sp"
@@ -43,7 +42,7 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/sessionsCount"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -56,9 +55,9 @@
         android:text="2"
         android:textAppearance="@style/dark_36sp_80alpha"
         app:layout_constraintBottom_toTopOf="@+id/line"
-        app:layout_constraintEnd_toStartOf="@+id/sessionsCountStatic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/author" />
+        app:layout_constraintTop_toBottomOf="@+id/author"
+        app:layout_constraintVertical_bias="1.0" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/hours"
@@ -72,13 +71,14 @@
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toStartOf="@+id/minutesStatic"
         app:layout_constraintStart_toEndOf="@+id/hoursStatic"
-        app:layout_constraintTop_toBottomOf="@id/author" />
+        app:layout_constraintTop_toBottomOf="@id/author"
+        app:layout_constraintVertical_bias="1.0" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/hoursStatic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="15dp"
         android:background="@android:color/transparent"
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="6dp"
         android:background="@android:color/transparent"
         android:text="00"
         android:textAppearance="@style/pink_36sp"
@@ -104,13 +104,14 @@
         app:layout_constraintEnd_toStartOf="@+id/hoursStatic"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/sessionsCountStatic"
-        app:layout_constraintTop_toBottomOf="@id/author" />
+        app:layout_constraintTop_toBottomOf="@id/author"
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/minutesStatic"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="15dp"
         android:background="@android:color/transparent"
@@ -118,9 +119,8 @@
         android:textAppearance="@style/pink_18sp"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hours"
         app:layout_constraintTop_toBottomOf="@id/author"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <android.support.v7.widget.AppCompatTextView
@@ -145,6 +145,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/separator_library"
         app:layout_constraintEnd_toEndOf="parent"

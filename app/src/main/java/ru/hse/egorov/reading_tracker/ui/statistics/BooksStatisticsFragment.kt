@@ -8,8 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_books_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
+import ru.hse.egorov.reading_tracker.ui.adapter.BookStatisticsAdapter
 
-class BooksStatisticsFragment:Fragment() {
+class BooksStatisticsFragment : Fragment() {
+    private val statsManager = StatisticsManager()
+    private val bookStatisticsAdapter = BookStatisticsAdapter()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_books_statistics, container, false)
@@ -20,9 +25,11 @@ class BooksStatisticsFragment:Fragment() {
         setUpBooks(view)
     }
 
-    private fun setUpBooks(view:View){
+    private fun setUpBooks(view: View) {
         view.books.layoutManager = LinearLayoutManager(context)
-        //TODO
+        bookStatisticsAdapter.set(statsManager.getBookStatistics())
+        view.books.adapter = bookStatisticsAdapter
+        view.books.isNestedScrollingEnabled = false
     }
 
     companion object {
