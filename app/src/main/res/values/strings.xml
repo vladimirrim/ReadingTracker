@@ -58,4 +58,7 @@
     <string name="longest_session">Самое продолжительное чтение</string>
     <string name="all_sessions">Все записи о чтении</string>
     <string name="sessions_count">подхода</string>
+    <string name="most_sessions">Больше всего подходов</string>
+    <string name="longest_reading_time">Дольше всего читаете</string>
+    <string name="all_books">Все книги</string>
 </resources>
