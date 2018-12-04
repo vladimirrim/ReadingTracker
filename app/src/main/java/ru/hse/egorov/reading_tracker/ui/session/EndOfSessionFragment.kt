@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_end_of_session.*
 import kotlinx.android.synthetic.main.fragment_end_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
-import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.PROFILE_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
+import java.util.*
 
 class EndOfSessionFragment : Fragment(), FragmentLauncher {
     private val dbManager = DatabaseManager()
@@ -83,10 +84,11 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
             val session = HashMap<String, Any?>()
             session["start page"] = arguments!!["startPage"]
             session["end page"] = arguments!!["endPage"]
-            session["time"] = arguments!!["time"]
+            session["duration"] = arguments!!["duration"]
             session["place"] = place
             session["mood"] = mood
             session["book id"] = arguments!!["bookId"]
+            session["start time"] = Timestamp(Date((arguments!!["startTime"] as Long)))
             session["comment"] = comment.text.toString()
             progressBar.visibility = View.VISIBLE
             dbManager.addSession(session).addOnSuccessListener {
@@ -112,11 +114,23 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         fun newInstance() = EndOfSessionFragment()
 
         enum class Mood {
-            HAPPY, SAD, NEUTRAL
+            HAPPY, SAD, NEUTRAL;
+
+            companion object {
+                fun getMoodByName(name: String?): Mood? {
+                    return values().firstOrNull { it.name.toLowerCase() == name }
+                }
+            }
         }
 
         enum class Place {
-            WORK, TRANSPORT, HOME
+            WORK, TRANSPORT, HOME;
+
+            companion object {
+                fun getPlaceByName(name: String?): Place? {
+                    return values().firstOrNull { it.name.toLowerCase() == name }
+                }
+            }
         }
     }
 }

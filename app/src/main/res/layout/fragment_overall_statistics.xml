@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/light">
 
     <android.support.v7.widget.AppCompatTextView
@@ -37,8 +37,9 @@
     <ru.hse.egorov.reading_tracker.ui.pager.FragmentViewPager
         android:id="@+id/statisticsPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="195dp"
         android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatImageView">
@@ -46,9 +47,9 @@
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode= "fixed"
+            android:layout_gravity="top|center"
             app:tabGravity="fill"
-            android:layout_gravity="top|center" />
+            app:tabMode="fixed" />
 
     </ru.hse.egorov.reading_tracker.ui.pager.FragmentViewPager>
 

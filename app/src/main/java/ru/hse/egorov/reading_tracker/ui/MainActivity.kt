@@ -14,6 +14,7 @@ import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryWelcomeFragment
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
 
 
 class MainActivity : AppCompatActivity(), FragmentLauncher {
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
         navigation.menu.getItem(1).isChecked = true
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        fragments.add(LibraryWelcomeFragment.newInstance())
+        fragments.add(SessionsStatisticsFragment.newInstance())
         fragments.add(StartOfSessionFragment.newInstance())
         fragments.add(LibraryFragment.newInstance())
         adapter.addFragment(fragments[PROFILE_FRAGMENT_POSITION] as Fragment, "profile")

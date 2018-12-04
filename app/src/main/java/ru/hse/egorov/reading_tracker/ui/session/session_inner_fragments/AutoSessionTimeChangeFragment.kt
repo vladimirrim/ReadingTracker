@@ -65,8 +65,9 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         val bundle = Bundle()
         bundle.putInt("startPage", startPage.text.toString().toIntOrNull() ?: -1)
         bundle.putInt("endPage", endPage.text.toString().toIntOrNull() ?: -1)
-        bundle.putInt("time", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
+        bundle.putInt("duration", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
         bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
+        bundle.putLong("startTime", chronometer.base)
         dispatchFragment.arguments = bundle
         openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
         return true

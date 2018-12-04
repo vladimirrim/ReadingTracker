@@ -24,6 +24,11 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         notifyDataSetChanged()
     }
 
+    fun add(session: Session) {
+        sessions.add(session)
+        notifyDataSetChanged()
+    }
+
     fun get(): ArrayList<Session> {
         return sessions
     }
@@ -49,10 +54,10 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         private val container = itemView.sessionContainer
 
         fun bind(session: Session) {
-            date.text = session.date.get(Calendar.MONTH).toString()
-            dayOfTheWeek.text = session.date.get(Calendar.DAY_OF_WEEK).toString()
-            minutes.text = (session.time % 60).toString()
-            hours.text = (session.time / 60).toString()
+            date.text = session.startTime.get(Calendar.MONTH).toString()
+            dayOfTheWeek.text = session.startTime.get(Calendar.DAY_OF_WEEK).toString()
+            minutes.text = (session.duration % 60).toString()
+            hours.text = (session.duration / 60).toString()
             author.text = session.author
             title.text = session.title
             if (session.comment == null) {
@@ -72,7 +77,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
     }
 
     companion object {
-        data class Session(val date: Calendar, val time: Int, val emotion: Mood?,
+        data class Session(val startTime: Calendar, val duration: Int, val emotion: Mood?,
                            val place: Place?, val author: String, val comment: String?, val title: String)
     }
 }
