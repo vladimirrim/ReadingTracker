@@ -122,6 +122,11 @@
         <item name="android:textColor">#802F5870</item>
     </style>
 
+    <style name="dark_36sp">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">#2F5870</item>
+    </style>
+
     <style name="dark_36sp_80alpha">
         <item name="android:textSize">36sp</item>
         <item name="android:textColor">#802F5870</item>

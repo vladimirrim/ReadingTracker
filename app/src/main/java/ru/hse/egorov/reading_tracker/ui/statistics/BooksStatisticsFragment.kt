@@ -26,10 +26,10 @@ class BooksStatisticsFragment : Fragment() {
     }
 
     private fun setUpBooks(view: View) {
+        view.books.isNestedScrollingEnabled = false
         view.books.layoutManager = LinearLayoutManager(context)
         bookStatisticsAdapter.set(statsManager.getBookStatistics())
         view.books.adapter = bookStatisticsAdapter
-        view.books.isNestedScrollingEnabled = false
     }
 
     companion object {

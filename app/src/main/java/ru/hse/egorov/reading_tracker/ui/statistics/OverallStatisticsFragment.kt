@@ -2,14 +2,20 @@ package ru.hse.egorov.reading_tracker.ui.statistics
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_overall_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
 
-class OverallStatisticsFragment : Fragment() {
+class OverallStatisticsFragment : Fragment(),ActionBarSetter {
+    override fun setActionBar(activity: AppCompatActivity) {
+
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_overall_statistics, container, false)
 
