@@ -62,4 +62,5 @@
     <string name="longest_reading_time">Дольше всего читаете</string>
     <string name="all_books">Все книги</string>
     <string name="books_count_static">книг</string>
+    <string name="statistics_title">Статистика</string>
 </resources>

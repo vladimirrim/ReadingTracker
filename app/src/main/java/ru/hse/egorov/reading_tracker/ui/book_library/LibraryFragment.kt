@@ -35,7 +35,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        menu?.getItem(0)?.isVisible = false
+        menu?.clear()
     }
 
     private fun setUpLibrary(view: View) {
