@@ -1,5 +1,6 @@
 package ru.hse.egorov.reading_tracker.ui.adapter
 
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Mood
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Place
+import ru.hse.egorov.reading_tracker.ui.statistics.EditSessionFragment
 import java.util.*
 
 class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
@@ -71,7 +73,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             }
 
             container.setOnClickListener {
-                //TODO
+                openTemporaryFragment(it.context as AppCompatActivity, EditSessionFragment.newInstance(), R.id.temporaryFragment)
             }
         }
     }

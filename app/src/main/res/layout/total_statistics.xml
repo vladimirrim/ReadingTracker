@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/booksCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/appCompatImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="172dp"
+        android:elevation="2dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="7"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/dark_36sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/booksCountStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/booksCount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="160dp"
+        android:elevation="2dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="@string/books_count_static"
+        android:textAppearance="@style/dark_18sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/totalHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/totalSessionsCount"
+        android:layout_alignStart="@id/appCompatImageView"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="-1dp"
+        android:elevation="2dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="120"
+        android:textAppearance="@style/pink_36sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/totalHoursStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_above="@+id/totalSessionsCount"
+        android:layout_below="@id/booksCountStatic"
+        android:layout_alignEnd="@+id/booksCountStatic"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@id/totalHours"
+        android:elevation="2dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="@string/hours_static"
+        android:textAppearance="@style/pink_18sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/totalMinutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/totalSessionsCount"
+        android:layout_marginStart="-1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="-1dp"
+        android:layout_toEndOf="@id/totalHoursStatic"
+        android:elevation="2dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="57"
+        android:textAppearance="@style/pink_36sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/totalMinutesStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_above="@id/totalSessionsCount"
+        android:layout_alignEnd="@id/appCompatImageView"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@id/totalMinutes"
+        android:elevation="2dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="@string/minutes_static"
+        android:textAlignment="textEnd"
+        android:textAppearance="@style/pink_18sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/totalSessionsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/totalSessionsStatic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="148dp"
+        android:elevation="2dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="213"
+        android:textAppearance="@style/dark_36sp_80alpha" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/totalSessionsStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/appCompatImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="37dp"
+        android:background="@android:color/transparent"
+        android:elevation="2dp"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="@string/sessions_count"
+        android:textAppearance="@style/dark_18sp_80alpha" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="fill"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="72dp"
+        android:src="@drawable/ic_statistics_overall_panel" />
+</RelativeLayout>

@@ -9,8 +9,9 @@ import kotlinx.android.synthetic.main.fragment_overall_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
+import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 
-class OverallStatisticsFragment : Fragment(), ActionBarSetter {
+class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_overall_statistics, container, false)
 
