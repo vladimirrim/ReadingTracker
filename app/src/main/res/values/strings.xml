@@ -63,4 +63,6 @@
     <string name="all_books">Все книги</string>
     <string name="books_count_static">книг</string>
     <string name="statistics_title">Статистика</string>
+    <string name="separator">:</string>
+    <string name="dash">-</string>
 </resources>

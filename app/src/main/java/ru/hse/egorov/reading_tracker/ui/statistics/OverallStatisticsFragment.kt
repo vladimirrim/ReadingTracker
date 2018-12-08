@@ -22,7 +22,7 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
     }
 
     private fun setUpViewPager(view: View) {
-        val adapter = ViewPagerAdapter(activity!!.supportFragmentManager)
+        val adapter = ViewPagerAdapter(childFragmentManager)
         adapter.addFragment(SessionsStatisticsFragment.newInstance(), "Записи")
         adapter.addFragment(BooksStatisticsFragment.newInstance(), "По книгам")
         adapter.addFragment(GraphsFragment.newInstance(), "Графики")

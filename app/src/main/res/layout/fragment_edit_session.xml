@@ -1,14 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.statistics.EditSessionFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/light"
+        tools:context=".ui.statistics.EditSessionFragment">
 
-</FrameLayout>
+        <include
+            android:id="@+id/include"
+            layout="@layout/book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp"
+            android:text="15 декабря"
+            android:textAppearance="@style/dark_20sp"
+            app:layout_constraintBottom_toTopOf="@+id/minutes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/dayOfTheWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="20dp"
+            android:text="вторник"
+            android:textAppearance="@style/dark_14sp_80alpha"
+            app:layout_constraintBottom_toTopOf="@+id/minutes"
+            app:layout_constraintStart_toEndOf="@+id/date"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="11"
+            android:textAppearance="@style/pink_48sp"
+            app:layout_constraintBottom_toTopOf="@+id/startTime"
+            app:layout_constraintEnd_toStartOf="@+id/minutesStatic"
+            app:layout_constraintStart_toEndOf="@+id/hoursStatic"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/minutesStatic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="25dp"
+            android:text="@string/minutes_static"
+            android:textAppearance="@style/pink_24sp"
+            app:layout_constraintBottom_toTopOf="@+id/endTime"
+            app:layout_constraintStart_toEndOf="@+id/minutes"
+            app:layout_constraintTop_toBottomOf="@+id/dayOfTheWeek" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp"
+            android:text="2"
+            android:textAppearance="@style/pink_48sp"
+            app:layout_constraintBottom_toTopOf="@+id/startTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/hoursStatic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="25dp"
+            android:text="@string/hours_static"
+            android:textAppearance="@style/pink_24sp"
+            app:layout_constraintBottom_toTopOf="@+id/startTime"
+            app:layout_constraintEnd_toStartOf="@+id/minutes"
+            app:layout_constraintStart_toEndOf="@+id/hours"
+            app:layout_constraintTop_toBottomOf="@+id/date" />
+
+        <include
+            android:id="@+id/startTime"
+            layout="@layout/session_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/readPages"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/minutes" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/dash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/dash"
+            android:textAppearance="@style/dark_24sp_80alpha"
+            app:layout_constraintBottom_toTopOf="@+id/readPages"
+            app:layout_constraintEnd_toStartOf="@+id/endTime"
+            app:layout_constraintStart_toEndOf="@+id/startTime"
+            app:layout_constraintTop_toBottomOf="@+id/minutes" />
+
+        <include
+            android:id="@+id/endTime"
+            layout="@layout/session_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/readPages"
+            app:layout_constraintStart_toEndOf="@+id/dash"
+            app:layout_constraintTop_toBottomOf="@+id/minutes" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/readPages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="24dp"
+            android:text="20 страниц, 2-22"
+            android:textAppearance="@style/dark_24sp"
+            app:layout_constraintBottom_toTopOf="@+id/emotionFlag"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/emotionFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_emotion_neutral"
+            app:layout_constraintBottom_toTopOf="@+id/comment"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/placeFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="254dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_location_transport"
+            app:layout_constraintBottom_toTopOf="@+id/comment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/emotionFlag" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/session_comment"
+            android:textAppearance="@style/dark_20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
