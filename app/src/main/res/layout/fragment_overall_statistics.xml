@@ -24,20 +24,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/totalStatistics"
-        layout="@layout/total_statistics"
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/arrowDown"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_arrow_down"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2" />
 
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/arrowRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="2dp"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/totalStatistics"
+        layout="@layout/total_statistics"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/arrowLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="2dp"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ru.hse.egorov.reading_tracker.ui.pager.FragmentViewPager
         android:id="@+id/statisticsPager"
         android:layout_width="match_parent"
-        android:layout_height="195dp"
+        android:layout_height="0dp"
         android:layout_marginTop="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -14,11 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="16" />
-                            <entry key="outputName" value="ic_kebab_menu_button" />
+                            <entry key="height" value="8" />
+                            <entry key="outputName" value="ic_arrow_down" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\kebab_menu_button.svg" />
-                            <entry key="width" value="4" />
+                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\arrow_down.svg" />
+                            <entry key="width" value="12" />
                           </map>
                         </option>
                       </PersistentState>
