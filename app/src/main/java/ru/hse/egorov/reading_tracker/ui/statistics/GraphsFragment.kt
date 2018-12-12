@@ -34,6 +34,7 @@ class GraphsFragment : Fragment() {
         chartSessionsPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
         chartSessionsPerDay.axisRight.isEnabled = false
         chartSessionsPerDay.axisLeft.axisMinimum = 0f
+        chartSessionsPerDay.legend.isEnabled = false
         val data = ArrayList<Data>()
         data.add(Data(0f, 500f, "1"))
         data.add(Data(1f, 0f, "2"))
@@ -80,6 +81,12 @@ class GraphsFragment : Fragment() {
     }
 
     private fun setUpChartTimeOfDay() {
+        chartTimeOfDay.axisLeft.isEnabled = false
+        chartTimeOfDay.axisRight.isEnabled = false
+        chartTimeOfDay.axisLeft.setDrawGridLines(false)
+        chartTimeOfDay.axisRight.setDrawGridLines(false)
+        chartTimeOfDay.xAxis.setDrawGridLines(false)
+        chartTimeOfDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
         val entries = ArrayList<BarEntry>()
 
         entries.add(BarEntry(0f, 18.5f, "Morning"))
@@ -90,8 +97,9 @@ class GraphsFragment : Fragment() {
         val set = BarDataSet(entries, "")
         set.color = ContextCompat.getColor(context!!, R.color.colorPrimary)
         val data = BarData(set)
-        data.barWidth = 1.0f
+        data.barWidth = 0.9f
         chartTimeOfDay.data = data
+        chartTimeOfDay.legend.isEnabled = false
         chartTimeOfDay.invalidate()
     }
 
@@ -101,6 +109,7 @@ class GraphsFragment : Fragment() {
         chartPagesPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
         chartPagesPerDay.axisRight.isEnabled = false
         chartPagesPerDay.axisLeft.axisMinimum = 0f
+        chartPagesPerDay.legend.isEnabled = false
         val data = ArrayList<Data>()
         data.add(Data(0f, 500f, "1"))
         data.add(Data(1f, 0f, "2"))
@@ -152,6 +161,7 @@ class GraphsFragment : Fragment() {
         chartMinutesPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
         chartMinutesPerDay.axisRight.isEnabled = false
         chartMinutesPerDay.axisLeft.labelCount = 5
+        chartMinutesPerDay.legend.isEnabled = false
 
         val data = ArrayList<Data>()
         data.add(Data(0f, 500f, "1"))
