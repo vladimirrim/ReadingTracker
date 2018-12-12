@@ -3,6 +3,7 @@ package ru.hse.egorov.reading_tracker.ui.statistics
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +22,77 @@ class GraphsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpChartReadingPerDay()
+        setUpChartMinutesPerDay()
         setUpChartPagesPerDay()
+        setUpChartTimeOfDay()
+        setUpChartSessionsPerDay()
+    }
+
+    private fun setUpChartSessionsPerDay() {
+        chartSessionsPerDay.setBackgroundResource(R.color.light)
+        chartSessionsPerDay.xAxis.setDrawGridLines(false)
+        chartSessionsPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chartSessionsPerDay.axisRight.isEnabled = false
+        chartSessionsPerDay.axisLeft.axisMinimum = 0f
+        val data = ArrayList<Data>()
+        data.add(Data(0f, 500f, "1"))
+        data.add(Data(1f, 0f, "2"))
+        data.add(Data(2f, 300f, "3"))
+        data.add(Data(3f, 400f, "4"))
+        data.add(Data(4f, 500f, "5"))
+        chartSessionsPerDay.xAxis.setValueFormatter { value, _ ->
+            return@setValueFormatter data[value.toInt()].xAxisValue
+        }
+        setSessionsData(data)
+    }
+
+    private fun setSessionsData(dataList: List<Data>) {
+        val values = ArrayList<Entry>()
+        val colors = ArrayList<Int>()
+
+        val green = Color.rgb(110, 190, 102)
+
+        for (elem in dataList) {
+            val entry = BarEntry(elem.xValue, elem.yValue)
+            values.add(entry)
+            colors.add(green)
+        }
+
+        val set: LineDataSet
+
+        if (chartSessionsPerDay.data != null && chartSessionsPerDay.data.dataSetCount > 0) {
+            set = chartPagesPerDay.data.getDataSetByIndex(0) as LineDataSet
+            set.values = values
+            chartSessionsPerDay.data.notifyDataChanged()
+            chartSessionsPerDay.notifyDataSetChanged()
+        } else {
+            set = LineDataSet(values, "Values")
+            set.setDrawFilled(true)
+            set.fillColor = green
+            set.colors = colors
+            set.setValueTextColors(colors)
+
+            val data = LineData(set)
+            chartSessionsPerDay.data = data
+        }
+
+        chartSessionsPerDay.invalidate()
+    }
+
+    private fun setUpChartTimeOfDay() {
+        val entries = ArrayList<BarEntry>()
+
+        entries.add(BarEntry(0f, 18.5f, "Morning"))
+        entries.add(BarEntry(1f, 26.7f, "Day"))
+        entries.add(BarEntry(2f, 24.0f, "Evening"))
+        entries.add(BarEntry(3f, 30.8f, "Night"))
+
+        val set = BarDataSet(entries, "")
+        set.color = ContextCompat.getColor(context!!, R.color.colorPrimary)
+        val data = BarData(set)
+        data.barWidth = 1.0f
+        chartTimeOfDay.data = data
+        chartTimeOfDay.invalidate()
     }
 
     private fun setUpChartPagesPerDay() {
@@ -47,12 +117,12 @@ class GraphsFragment : Fragment() {
         val values = ArrayList<Entry>()
         val colors = ArrayList<Int>()
 
-        val green = Color.rgb(110, 190, 102)
+        val pink = ContextCompat.getColor(context!!, R.color.pink)
 
         for (elem in dataList) {
             val entry = BarEntry(elem.xValue, elem.yValue)
             values.add(entry)
-            colors.add(green)
+            colors.add(pink)
         }
 
         val set: LineDataSet
@@ -60,12 +130,12 @@ class GraphsFragment : Fragment() {
         if (chartPagesPerDay.data != null && chartPagesPerDay.data.dataSetCount > 0) {
             set = chartPagesPerDay.data.getDataSetByIndex(0) as LineDataSet
             set.values = values
-            chartReadingPerDay.data.notifyDataChanged()
-            chartReadingPerDay.notifyDataSetChanged()
+            chartPagesPerDay.data.notifyDataChanged()
+            chartPagesPerDay.notifyDataSetChanged()
         } else {
             set = LineDataSet(values, "Values")
             set.setDrawFilled(true)
-            set.fillColor = green
+            set.fillColor = pink
             set.colors = colors
             set.setValueTextColors(colors)
 
@@ -73,15 +143,15 @@ class GraphsFragment : Fragment() {
             chartPagesPerDay.data = data
         }
 
-        chartReadingPerDay.invalidate()
+        chartPagesPerDay.invalidate()
     }
 
-    private fun setUpChartReadingPerDay() {
-        chartReadingPerDay.setBackgroundColor(Color.WHITE)
-        chartReadingPerDay.xAxis.granularity = 1f
-        chartReadingPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        chartReadingPerDay.axisRight.isEnabled = false
-        chartReadingPerDay.axisLeft.labelCount = 5
+    private fun setUpChartMinutesPerDay() {
+        chartMinutesPerDay.setBackgroundColor(Color.WHITE)
+        chartMinutesPerDay.xAxis.granularity = 1f
+        chartMinutesPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chartMinutesPerDay.axisRight.isEnabled = false
+        chartMinutesPerDay.axisLeft.labelCount = 5
 
         val data = ArrayList<Data>()
         data.add(Data(0f, 500f, "1"))
@@ -90,7 +160,7 @@ class GraphsFragment : Fragment() {
         data.add(Data(3f, 400f, "4"))
         data.add(Data(4f, 500f, "5"))
 
-        chartReadingPerDay.xAxis.setValueFormatter { value, _ ->
+        chartMinutesPerDay.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
 
@@ -99,37 +169,36 @@ class GraphsFragment : Fragment() {
 
     private fun setData(dataList: List<Data>) {
 
-        val values = ArrayList<BarEntry>()
+        val values = ArrayList<Entry>()
         val colors = ArrayList<Int>()
 
-        val green = Color.rgb(110, 190, 102)
+        val darkBlue = ContextCompat.getColor(context!!, R.color.colorPrimary)
 
         for (elem in dataList) {
-            val entry = BarEntry(elem.xValue, elem.yValue)
+            val entry = Entry(elem.xValue, elem.yValue)
             values.add(entry)
-            colors.add(green)
+            colors.add(darkBlue)
         }
 
-        val set: BarDataSet
+        val set: LineDataSet
 
-        if (chartReadingPerDay.data != null && chartReadingPerDay.data.dataSetCount > 0) {
-            set = chartReadingPerDay.data.getDataSetByIndex(0) as BarDataSet
+        if (chartMinutesPerDay.data != null && chartMinutesPerDay.data.dataSetCount > 0) {
+            set = chartMinutesPerDay.data.getDataSetByIndex(0) as LineDataSet
             set.values = values
-            chartReadingPerDay.data.notifyDataChanged()
-            chartReadingPerDay.notifyDataSetChanged()
+            chartMinutesPerDay.data.notifyDataChanged()
+            chartMinutesPerDay.notifyDataSetChanged()
         } else {
-            set = BarDataSet(values, "Values")
+            set = LineDataSet(values, "Values")
+            set.setDrawFilled(true)
+            set.fillColor = darkBlue
             set.colors = colors
             set.setValueTextColors(colors)
 
-            val data = BarData(set)
-            data.setValueTextSize(13f)
-            data.barWidth = 0.8f
-
-            chartReadingPerDay.data = data
+            val data = LineData(set)
+            chartMinutesPerDay.data = data
         }
 
-        chartReadingPerDay.invalidate()
+        chartMinutesPerDay.invalidate()
     }
 
     private inner class Data internal constructor(internal val xValue: Float, internal val yValue: Float, internal val xAxisValue: String)

@@ -11,23 +11,41 @@
         android:layout_height="wrap_content">
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chartPagesPerDay"
+            android:id="@+id/chartMinutesPerDay"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginBottom="54dp"
-            app:layout_constraintBottom_toTopOf="@+id/chartReadingPerDay"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chartReadingPerDay"
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chartPagesPerDay"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chartMinutesPerDay" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chartSessionsPerDay"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="54dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chartPagesPerDay" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chartTimeOfDay"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="39dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chartSessionsPerDay" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
