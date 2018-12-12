@@ -51,8 +51,8 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
     }
 
     fun setBook(author: String, title: String, id: String, cover: Bitmap?) {
-        this.comment.maxLines = 1
-        this.comment.text = author
+        this.author.maxLines = 1
+        this.author.text = author
         this.title.maxLines = 2
         this.title.text = title
         this.addBook.visibility = View.INVISIBLE
@@ -62,7 +62,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
             this.cover.setImageBitmap(cover)
         }
         this.cover.visibility = View.VISIBLE
-        this.comment.visibility = View.VISIBLE
+        this.author.visibility = View.VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
