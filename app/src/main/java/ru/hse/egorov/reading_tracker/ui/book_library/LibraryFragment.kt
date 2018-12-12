@@ -48,7 +48,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         setHasOptionsMenu(true)
         activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        activity.supportActionBar?.setCustomView(R.layout.action_bar)
+        activity.supportActionBar?.setCustomView(R.layout.library_action_bar)
     }
 
     private fun enableSwipe(library: RecyclerView, libraryAdapter: LibraryAdapter) {
