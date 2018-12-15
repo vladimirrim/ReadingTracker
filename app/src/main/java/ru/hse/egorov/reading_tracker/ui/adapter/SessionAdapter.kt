@@ -32,8 +32,19 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         notifyDataSetChanged()
     }
 
-    fun get(): ArrayList<Session> {
-        return sessions
+    fun get(position: Int): Session {
+        return sessions[position]
+    }
+
+    fun restoreItem(book: Session, position: Int) {
+        sessions.add(position, book)
+        notifyItemInserted(position)
+    }
+
+    fun removeItem(position: Int) {
+        sessions.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, sessions.size)
     }
 
     override fun getItemCount(): Int {
@@ -113,6 +124,6 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
 
     companion object {
         data class Session(val startTime: Calendar, val endTime: Calendar, val duration: Int, val emotion: Mood?,
-                           val place: Place?, val author: String, val comment: String?, val title: String)
+                           val place: Place?, val author: String, val comment: String?, val title: String, val sessionId: String)
     }
 }

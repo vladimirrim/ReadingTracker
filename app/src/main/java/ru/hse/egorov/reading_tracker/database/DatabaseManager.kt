@@ -44,6 +44,10 @@ class DatabaseManager {
         return db.collection("statistics").document("sessions").collection(authManager.uid as String).add(session)
     }
 
+    fun deleteSession(sessionId: String): Task<Void> {
+        return db.collection("statistics").document("sessions").collection(authManager.uid as String).document(sessionId).delete()
+    }
+
     fun addBookToLibrary(book: Map<String, Any?>): Task<DocumentReference> {
         return db.collection("books").document("libraries").collection(authManager.uid as String)
                 .add(book)
@@ -64,11 +68,11 @@ class DatabaseManager {
                 .load(path)
     }
 
-    fun getBookCoverFromURL(bookURL:String, context:Context): GlideRequest<Drawable> {
+    fun getBookCoverFromURL(bookURL: String, context: Context): GlideRequest<Drawable> {
         return GlideApp.with(context).load(bookURL)
     }
 
-    fun getBookByISBN(isbn:String): Task<DocumentSnapshot> {
+    fun getBookByISBN(isbn: String): Task<DocumentSnapshot> {
         return db.collection("ozon_catalog").document(isbn).get()
     }
 
