@@ -11,10 +11,12 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
+import java.util.*
 
 class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     private var isChronometerRunning = false
     private lateinit var doneButton: MenuItem
+    private var startTime: Long = System.currentTimeMillis()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         view.chronometer.stop()
         view.stopwatch.visibility = View.INVISIBLE
         view.startSession.setOnClickListener {
+            startTime = Calendar.getInstance().time.time
             view.stopwatch.visibility = View.VISIBLE
             view.startSession.visibility = View.INVISIBLE
             chronometer.base = SystemClock.elapsedRealtime()
@@ -67,7 +70,8 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         bundle.putInt("endPage", endPage.text.toString().toIntOrNull() ?: -1)
         bundle.putInt("duration", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
         bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
-        bundle.putLong("startTime", chronometer.base)
+        bundle.putLong("startTime", startTime)
+        bundle.putLong("endTime", Calendar.getInstance().time.time)
         dispatchFragment.arguments = bundle
         openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
         return true

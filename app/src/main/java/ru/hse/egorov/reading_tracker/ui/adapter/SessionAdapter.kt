@@ -83,17 +83,21 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             }
 
             container.setOnClickListener {
-                val bundle = setUpBundle(commentText, placeText, emotionText)
+                val bundle = setUpBundle(commentText, placeText, emotionText, session.startTime, session.endTime)
                 val dispatchedFragment = EditSessionFragment.newInstance()
                 dispatchedFragment.arguments = bundle
                 openTemporaryFragment(it.context as AppCompatActivity, dispatchedFragment, R.id.temporaryFragment)
             }
         }
 
-        private fun setUpBundle(comment: String, place: String, emotion: String): Bundle {
+        private fun setUpBundle(comment: String, place: String, emotion: String, startTime: Calendar, endTime: Calendar): Bundle {
             val bundle = Bundle()
             bundle.putString("date", date.text.toString())
             bundle.putString("dayOfTheWeek", dayOfTheWeek.text.toString())
+            bundle.putString("startTimeMinutes", startTime.get(Calendar.MINUTE).toString())
+            bundle.putString("startTimeHours", startTime.get(Calendar.HOUR_OF_DAY).toString())
+            bundle.putString("endTimeMinutes", endTime.get(Calendar.MINUTE).toString())
+            bundle.putString("endTimeHours", endTime.get(Calendar.HOUR_OF_DAY).toString())
             bundle.putString("minutes", minutes.text.toString())
             bundle.putString("hours", hours.text.toString())
             bundle.putString("author", author.text.toString())
@@ -108,7 +112,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
     }
 
     companion object {
-        data class Session(val startTime: Calendar, val duration: Int, val emotion: Mood?,
+        data class Session(val startTime: Calendar, val endTime: Calendar, val duration: Int, val emotion: Mood?,
                            val place: Place?, val author: String, val comment: String?, val title: String)
     }
 }

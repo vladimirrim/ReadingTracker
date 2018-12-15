@@ -89,6 +89,7 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
             session["mood"] = mood
             session["book id"] = arguments!!["bookId"]
             session["start time"] = Timestamp(Date((arguments!!["startTime"] as Long)))
+            session["end time"] = Timestamp(Date(arguments!!["endTime"] as Long))
             session["comment"] = comment.text.toString()
             progressBar.visibility = View.VISIBLE
             dbManager.addSession(session).addOnSuccessListener {

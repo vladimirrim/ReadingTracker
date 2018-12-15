@@ -32,8 +32,12 @@ class EditSessionFragment : Fragment(), ActionBarSetter {
         author.text = arguments!!["author"] as String
         title.text = arguments!!["title"] as String
         comment.text = arguments!!["comment"] as String
-        startTime.hours.text = arguments!!["hours"] as String
-        startTime.minutes.text = arguments!!["minutes"] as String
+        startTime.hours.text = arguments!!["startTimeHours"] as String
+        startTime.minutes.text = arguments!!["startTimeMinutes"] as String
+        endTime.hours.text = arguments!!["endTimeHours"] as String
+        endTime.minutes.text = arguments!!["endTimeMinutes"] as String
+        hours.text = arguments!!["hours"] as String
+        minutes.text = arguments!!["minutes"] as String
         if (arguments!!["place"] as String == "")
             placeFlag.visibility = View.GONE
         if (arguments!!["emotion"] as String == "")

@@ -21,8 +21,10 @@ class StatisticsManager {
 
     fun wrapSession(session: DocumentSnapshot, author: String, title: String): Session {
         val startTime = Calendar.getInstance()
+        val endTime = Calendar.getInstance()
         startTime.time = session["start time"] as Date
-        return Session(startTime, (session["duration"] as Long).toInt(), Mood.getMoodByName(session["mood"] as String?),
+        endTime.time = session["end time"] as Date
+        return Session(startTime, endTime, (session["duration"] as Long).toInt(), Mood.getMoodByName(session["mood"] as String?),
                 Place.getPlaceByName(session["place"] as String?), author, session["comment"] as String?, title)
     }
 

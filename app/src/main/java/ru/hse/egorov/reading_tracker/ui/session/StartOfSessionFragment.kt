@@ -66,6 +66,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu?.clear()
         inflater?.inflate(R.menu.action_bar, menu)
         doneButton = menu!!.getItem(0)
         doneButton.isEnabled = cover.visibility == View.VISIBLE

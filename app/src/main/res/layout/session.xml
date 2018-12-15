@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sessionContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -61,12 +62,12 @@
         android:id="@+id/hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="3dp"
         android:background="@android:color/transparent"
         android:text="00"
         android:textAppearance="@style/pink_36sp"
-        app:layout_constraintEnd_toStartOf="@+id/minutesStatic"
+        app:layout_constraintEnd_toStartOf="@+id/hoursStatic"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatTextView
@@ -74,23 +75,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="3dp"
         android:background="@android:color/transparent"
         android:text="@string/hours_static"
         android:textAppearance="@style/pink_18sp"
-        app:layout_constraintEnd_toStartOf="@+id/hours"
+        app:layout_constraintEnd_toStartOf="@+id/minutes"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/minutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/transparent"
         android:text="00"
         android:textAppearance="@style/pink_36sp"
-        app:layout_constraintEnd_toStartOf="@+id/hoursStatic"
+        app:layout_constraintEnd_toStartOf="@+id/minutesStatic"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatTextView
