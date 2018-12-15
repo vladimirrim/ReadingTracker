@@ -13,7 +13,7 @@
         tools:context=".ui.statistics.EditSessionFragment">
 
         <include
-            android:id="@+id/include"
+            android:id="@+id/book"
             layout="@layout/book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -29,7 +29,7 @@
             android:textAppearance="@style/dark_20sp"
             app:layout_constraintBottom_toTopOf="@+id/minutes"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            app:layout_constraintTop_toBottomOf="@+id/book" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/dayOfTheWeek"
@@ -42,7 +42,7 @@
             android:textAppearance="@style/dark_14sp_80alpha"
             app:layout_constraintBottom_toTopOf="@+id/minutes"
             app:layout_constraintStart_toEndOf="@+id/date"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            app:layout_constraintTop_toBottomOf="@+id/book" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/minutes"

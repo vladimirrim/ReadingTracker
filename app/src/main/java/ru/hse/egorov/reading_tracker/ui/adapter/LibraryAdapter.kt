@@ -78,7 +78,7 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
     }
 
     inner class LibraryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), BitmapEncoder, FragmentLauncher {
-        private val author: TextView? = itemView.comment
+        private val author: TextView? = itemView.author
         private val name: TextView? = itemView.title
         private val cover: ImageView? = itemView.cover
         private val progressBar: ProgressBar? = itemView.progressBar
