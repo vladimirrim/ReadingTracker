@@ -65,4 +65,9 @@
     <string name="statistics_title">Статистика</string>
     <string name="separator">:</string>
     <string name="dash">-</string>
+    <string name="questionnaire">Заполнить анкету читателя</string>
+    <string name="exit">Выход</string>
+    <string name="settings">Настройки</string>
+    <string name="about_us">О приложении</string>
+    <string name="questionnaire_code">Код участника исследования: 123456</string>
 </resources>

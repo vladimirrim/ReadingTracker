@@ -13,6 +13,7 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
+import ru.hse.egorov.reading_tracker.ui.profile.ProfileFragment
 
 
 class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher {
@@ -70,14 +71,14 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
         activity.supportActionBar?.setCustomView(R.layout.statistics_action_bar)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        openTemporaryFragment(activity as AppCompatActivity, ProfileFragment.newInstance(), R.id.temporaryFragment)
+        return true
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
         inflater?.inflate(R.menu.statistics_action_bar, menu)
-        val toProfileButton = menu?.getItem(0)
-        toProfileButton?.setOnMenuItemClickListener {
-            //TODO
-            true
-        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
