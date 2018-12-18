@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_edit_session.*
 import kotlinx.android.synthetic.main.session_time.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
+import ru.hse.egorov.reading_tracker.ui.dialog.EditSessionDialog
 
 
 class EditSessionFragment : Fragment(), ActionBarSetter {
@@ -51,10 +52,13 @@ class EditSessionFragment : Fragment(), ActionBarSetter {
         activity.supportActionBar?.title = ACTION_BAR_TITLE
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
         inflater?.inflate(R.menu.edit_session_action_bar, menu)
+        menu?.getItem(0)?.setOnMenuItemClickListener {
+            EditSessionDialog().show(childFragmentManager, "Edit Session")
+            true
+        }
     }
 
     companion object {

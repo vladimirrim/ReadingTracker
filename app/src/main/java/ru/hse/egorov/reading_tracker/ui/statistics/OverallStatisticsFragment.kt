@@ -71,15 +71,13 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
         activity.supportActionBar?.setCustomView(R.layout.statistics_action_bar)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        openTemporaryFragment(activity as AppCompatActivity, ProfileFragment.newInstance(), R.id.temporaryFragment)
-        return true
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
         inflater?.inflate(R.menu.statistics_action_bar, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+        menu?.getItem(0)?.setOnMenuItemClickListener {
+            openTemporaryFragment(activity as AppCompatActivity, ProfileFragment.newInstance(), R.id.temporaryFragment)
+            true
+        }
     }
 
     companion object {

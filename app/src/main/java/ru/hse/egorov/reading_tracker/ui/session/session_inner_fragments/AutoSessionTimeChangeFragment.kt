@@ -51,6 +51,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             openInnerFragment(ManualSessionTimeChangeFragment.newInstance(), parentFragment!!, R.id.sessionFragment)
         }
 
+        setHasOptionsMenu(true)
         setChronometerListener(view)
     }
 

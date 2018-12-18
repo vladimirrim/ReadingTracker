@@ -70,14 +70,13 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         inflater?.inflate(R.menu.action_bar, menu)
         doneButton = menu!!.getItem(0)
         doneButton.isEnabled = cover.visibility == View.VISIBLE
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun setActionBar(activity: AppCompatActivity) {
-        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.title = ACTION_BAR_TITLE
-        activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
         setHasOptionsMenu(true)
+        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
+        activity.supportActionBar?.title = ACTION_BAR_TITLE
     }
 
 

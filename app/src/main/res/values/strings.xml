@@ -70,4 +70,7 @@
     <string name="settings">Настройки</string>
     <string name="about_us">О приложении</string>
     <string name="questionnaire_code">Код участника исследования: 123456</string>
+    <string name="edit_session_title">Запись о чтении</string>
+    <string name="change_time">Изменить время</string>
+    <string name="change_rating">Изменить оценку</string>
 </resources>
