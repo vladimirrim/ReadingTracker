@@ -1,73 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/light"
-    android:layout_height="match_parent">
-
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/startPageStatic"
-        android:layout_width="86dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:lineSpacingExtra="4sp"
-        android:maxLines="1"
-        android:text="@string/start_page"
-        android:textAppearance="@style/dark_14sp_80alpha"
-        app:layout_constraintBottom_toTopOf="@+id/startPage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/startPage"
-        android:layout_width="86dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:hint="@string/page"
-        android:inputType="number"
-        android:lineSpacingExtra="4sp"
-        android:maxLines="1"
-        android:textAppearance="@style/dark_20sp"
-        android:textColorHint="@color/colorPrimary_80alpha"
-        app:layout_constraintBottom_toTopOf="@+id/startSession"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startPageStatic" />
-
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/endPageStatic"
-        android:layout_width="86dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="15dp"
-        android:lineSpacingExtra="4sp"
-        android:maxLines="1"
-        android:text="@string/end_page"
-        android:textAlignment="textEnd"
-        android:textAppearance="@style/dark_14sp_80alpha"
-        app:layout_constraintBottom_toTopOf="@+id/endPage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/endPage"
-        android:layout_width="86dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="13dp"
-        android:hint="@string/page"
-        android:inputType="number"
-        android:lineSpacingExtra="4sp"
-        android:maxLines="1"
-        android:textAppearance="@style/dark_20sp"
-        android:textColorHint="@color/colorPrimary_80alpha"
-        app:layout_constraintBottom_toTopOf="@+id/stopwatch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endPageStatic" />
+    android:layout_height="match_parent"
+    android:background="@color/light">
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/startSession"
@@ -77,7 +13,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="113dp"
         android:layout_marginBottom="113dp"
         android:background="@drawable/start_session_button"
@@ -87,21 +23,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startPage" />
+        app:layout_constraintTop_toBottomOf="@+id/toManualTimeChange" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/stopwatch"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="113dp"
         android:layout_marginBottom="113dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endPage">
+        app:layout_constraintTop_toBottomOf="@+id/toManualTimeChange">
 
         <android.widget.Chronometer
             android:id="@+id/chronometer"
@@ -118,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="87dp"
             android:layout_marginEnd="3dp"
-            android:layout_marginBottom="85dp"
+            android:layout_marginBottom="90dp"
             android:background="@android:color/transparent"
             android:text="0"
             android:textAppearance="@style/pink_64sp"
@@ -147,14 +83,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="113dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="113dp"
-        android:layout_marginBottom="33dp"
         android:background="@android:color/transparent"
         android:text="@string/to_manual_time_change"
         android:textAppearance="@style/dark_14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/ic_end_session_button"
+        android:gravity="center_horizontal"
+        android:paddingTop="19dp"
+        android:text="@string/end_session"
+        android:textAppearance="@style/light_20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startSession" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -9,8 +9,9 @@ import kotlinx.android.synthetic.main.fragment_end_of_session.*
 import kotlinx.android.synthetic.main.fragment_end_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.PROFILE_FRAGMENT_POSITION
+import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
-import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
 import java.util.*
 
 class EndOfSessionFragment : Fragment(), FragmentLauncher {
@@ -82,8 +83,8 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         inflater?.inflate(R.menu.action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
             val session = HashMap<String, Any?>()
-            session["start page"] = arguments!!["startPage"]
-            session["end page"] = arguments!!["endPage"]
+            session["start page"] = if (startPage.text.toString() == "") -1 else startPage.text.toString().toInt()
+            session["end page"] = if (endPage.text.toString() == "") -1 else endPage.text.toString().toInt()
             session["duration"] = arguments!!["duration"]
             session["place"] = place
             session["mood"] = mood
@@ -93,7 +94,10 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
             session["comment"] = comment.text.toString()
             progressBar.visibility = View.VISIBLE
             dbManager.addSession(session).addOnSuccessListener {
-                openTemporaryFragment(activity as AppCompatActivity, OverallStatisticsFragment.newInstance(), R.id.temporaryFragment)
+                (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                        + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).resetSession()
+                openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
+                this@EndOfSessionFragment.setHasOptionsMenu(false)
             }
             true
         }

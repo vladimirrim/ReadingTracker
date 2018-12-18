@@ -50,6 +50,10 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
     }
 
+    fun resetSession(){
+        openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
+    }
+
     fun setBook(author: String, title: String, id: String, cover: Bitmap?) {
         this.author.maxLines = 1
         this.author.text = author
@@ -74,9 +78,8 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
     }
 
     override fun setActionBar(activity: AppCompatActivity) {
-        setHasOptionsMenu(true)
-        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
-        activity.supportActionBar?.title = ACTION_BAR_TITLE
+        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        activity.supportActionBar?.setCustomView(R.layout.session_action_bar)
     }
 
 

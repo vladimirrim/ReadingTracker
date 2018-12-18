@@ -83,7 +83,7 @@
         android:gravity="center"
         android:lineSpacingExtra="4sp"
         android:text="@string/sign_in_action"
-        android:textAppearance="@style/sign_up_action"
+        android:textAppearance="@style/light_20sp"
         app:layout_constraintBottom_toTopOf="@+id/signInGoogle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

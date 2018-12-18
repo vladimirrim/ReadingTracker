@@ -71,8 +71,6 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         doneButton.setOnMenuItemClickListener {
             val dispatchFragment = EndOfSessionFragment.newInstance()
             val bundle = Bundle()
-            bundle.putInt("startPage", startPage.text.toString().toIntOrNull() ?: -1)
-            bundle.putInt("endPage", endPage.text.toString().toIntOrNull() ?: -1)
             bundle.putInt("duration", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
             bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
             bundle.putLong("startTime", startTime)
@@ -82,6 +80,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             true
         }
         doneButton.isEnabled = startSession.visibility == View.INVISIBLE
+        setHasOptionsMenu(false)
     }
 
     private fun setChronometerListener(view: View) {

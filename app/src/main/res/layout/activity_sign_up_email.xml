@@ -111,7 +111,7 @@
         android:gravity="center"
         android:lineSpacingExtra="4sp"
         android:text="@string/sign_up_action"
-        android:textAppearance="@style/sign_up_action"
+        android:textAppearance="@style/light_20sp"
         android:windowSoftInputMode="stateVisible|adjustResize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

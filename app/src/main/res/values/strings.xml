@@ -27,7 +27,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Профиль читателя</string>
-    <string name="title_session">session</string>
+    <string name="title_session">Новая запись о чтении</string>
     <string name="title_library">library</string>
     <string name="cover">cover</string>
 
@@ -73,4 +73,5 @@
     <string name="edit_session_title">Запись о чтении</string>
     <string name="change_time">Изменить время</string>
     <string name="change_rating">Изменить оценку</string>
+    <string name="end_session">Закончить</string>
 </resources>
