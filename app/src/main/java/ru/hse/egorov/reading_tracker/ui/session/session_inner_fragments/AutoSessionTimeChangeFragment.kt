@@ -15,14 +15,7 @@ import java.util.*
 
 class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     private var isChronometerRunning = false
-    private lateinit var doneButton: MenuItem
     private var startTime: Long = System.currentTimeMillis()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
@@ -32,17 +25,10 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.chronometer.stop()
-        view.stopwatch.visibility = View.INVISIBLE
-        view.startSession.setOnClickListener {
-            startTime = Calendar.getInstance().time.time
-            view.stopwatch.visibility = View.VISIBLE
-            view.startSession.visibility = View.INVISIBLE
-            chronometer.base = SystemClock.elapsedRealtime()
-            chronometer.start()
-            isChronometerRunning = true
-            doneButton.isEnabled = true
-        }
+        setStopwatchStarter(view)
+        setChronometerListener(view)
+        setEndSessionButton()
+
         val libraryAdapter = LibraryFragment.getAdapter()
         if (libraryAdapter.itemCount == 0) {
             view.startSession.isEnabled = false
@@ -50,9 +36,6 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         view.toManualTimeChange.setOnClickListener {
             openInnerFragment(ManualSessionTimeChangeFragment.newInstance(), parentFragment!!, R.id.sessionFragment)
         }
-
-        setHasOptionsMenu(true)
-        setChronometerListener(view)
     }
 
     override fun onResume() {
@@ -64,11 +47,8 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        menu?.clear()
-        inflater?.inflate(R.menu.action_bar, menu)
-        doneButton = menu!!.getItem(0)
-        doneButton.setOnMenuItemClickListener {
+    private fun setEndSessionButton() {
+        endSessionButton.setOnClickListener {
             val dispatchFragment = EndOfSessionFragment.newInstance()
             val bundle = Bundle()
             bundle.putInt("duration", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
@@ -77,10 +57,22 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             bundle.putLong("endTime", Calendar.getInstance().time.time)
             dispatchFragment.arguments = bundle
             openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
-            true
         }
-        doneButton.isEnabled = startSession.visibility == View.INVISIBLE
-        setHasOptionsMenu(false)
+        endSessionButton.isEnabled = startSession.visibility == View.INVISIBLE
+    }
+
+    private fun setStopwatchStarter(view: View) {
+        view.chronometer.stop()
+        view.stopwatch.visibility = View.INVISIBLE
+        view.startSession.setOnClickListener {
+            startTime = Calendar.getInstance().time.time
+            view.stopwatch.visibility = View.VISIBLE
+            view.startSession.visibility = View.INVISIBLE
+            chronometer.base = SystemClock.elapsedRealtime()
+            chronometer.start()
+            isChronometerRunning = true
+            endSessionButton.isEnabled = true
+        }
     }
 
     private fun setChronometerListener(view: View) {

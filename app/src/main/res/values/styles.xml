@@ -94,7 +94,7 @@
 
     <style name="light_20sp">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/light_gray</item>
     </style>
 
     <style name="dark_14sp">

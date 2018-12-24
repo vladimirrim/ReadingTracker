@@ -93,13 +93,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/endSessionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
+        android:layout_marginStart="101dp"
         android:layout_marginTop="23dp"
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/ic_end_session_button"
+        android:background="@drawable/end_session_button"
         android:gravity="center_horizontal"
         android:paddingTop="19dp"
         android:text="@string/end_session"

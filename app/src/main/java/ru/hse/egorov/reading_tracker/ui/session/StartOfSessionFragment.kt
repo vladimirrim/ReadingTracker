@@ -20,7 +20,6 @@ import ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments.AutoSess
 
 
 class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, ActionBarSetter {
-    private lateinit var doneButton: MenuItem
     private val dbManager = DatabaseManager()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -67,14 +66,6 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         }
         this.cover.visibility = View.VISIBLE
         this.author.visibility = View.VISIBLE
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        menu?.clear()
-        inflater?.inflate(R.menu.action_bar, menu)
-        doneButton = menu!!.getItem(0)
-        doneButton.isEnabled = cover.visibility == View.VISIBLE
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun setActionBar(activity: AppCompatActivity) {
