@@ -68,7 +68,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         private val container = itemView.sessionContainer
 
         fun bind(session: Session) {
-            date.text = session.startTime.get(Calendar.MONTH).toString()
+            setDate(session.startTime.get(Calendar.MONTH), session.startTime.get(Calendar.DAY_OF_MONTH))
             setDayOfTheWeek(session.startTime.get(Calendar.DAY_OF_WEEK))
             minutes.text = (session.duration / 60).toString()
             if (minutes.text == "0") minutes.text = "1"
@@ -100,6 +100,27 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
                 dispatchedFragment.arguments = bundle
                 openTemporaryFragment(it.context as AppCompatActivity, dispatchedFragment, R.id.temporaryFragment)
             }
+        }
+
+        private fun setDate(month: Int, dayOfMonth: Int) {
+            val res = date.rootView.resources
+            val dateText = dayOfMonth.toString() + " " +
+                    when (month) {
+                        Calendar.JANUARY -> res.getQuantityString(R.plurals.january, 1)
+                        Calendar.FEBRUARY -> res.getQuantityString(R.plurals.february, 1)
+                        Calendar.MARCH -> res.getQuantityString(R.plurals.march, 1)
+                        Calendar.APRIL -> res.getQuantityString(R.plurals.april, 1)
+                        Calendar.MAY -> res.getQuantityString(R.plurals.may, 1)
+                        Calendar.JUNE -> res.getQuantityString(R.plurals.june, 1)
+                        Calendar.JULY -> res.getQuantityString(R.plurals.july, 1)
+                        Calendar.AUGUST -> res.getQuantityString(R.plurals.august, 1)
+                        Calendar.SEPTEMBER -> res.getQuantityString(R.plurals.september, 1)
+                        Calendar.OCTOBER -> res.getQuantityString(R.plurals.october, 1)
+                        Calendar.NOVEMBER -> res.getQuantityString(R.plurals.november, 1)
+                        Calendar.DECEMBER -> res.getQuantityString(R.plurals.december, 1)
+                        else -> ""
+                    }
+            date.text = dateText
         }
 
         private fun setDayOfTheWeek(day: Int) {

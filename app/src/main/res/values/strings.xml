@@ -81,4 +81,53 @@
     <string name="friday">Пятница</string>
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>
+    <plurals name="january">
+        <item quantity="zero">Январь</item>
+        <item quantity="other"> января</item>
+    </plurals>
+    <plurals name="february">
+        <item quantity="zero">Февраль</item>
+        <item quantity="other"> февраля</item>
+    </plurals>
+    <plurals name="march">
+        <item quantity="zero">Март</item>
+        <item quantity="other"> марта</item>
+    </plurals>
+    <plurals name="april">
+        <item quantity="zero">Апрель</item>
+        <item quantity="other"> апреля</item>
+    </plurals>
+    <plurals name="may">
+        <item quantity="zero">Май</item>
+        <item quantity="other"> мая</item>
+    </plurals>
+    <plurals name="june">
+        <item quantity="zero">Июнь</item>
+        <item quantity="other"> июня</item>
+    </plurals>
+    <plurals name="july">
+        <item quantity="zero">Июль</item>
+        <item quantity="other"> июля</item>
+    </plurals>
+    <plurals name="august">
+        <item quantity="zero">Август</item>
+        <item quantity="other"> августа</item>
+    </plurals>
+    <plurals name="september">
+        <item quantity="zero">Сентябрь</item>
+        <item quantity="other"> сентября</item>
+    </plurals>
+    <plurals name="october">
+        <item quantity="zero">Октябрь</item>
+        <item quantity="other"> октября</item>
+    </plurals>
+    <plurals name="november">
+        <item quantity="zero">Ноябрь</item>
+        <item quantity="other"> ноября</item>
+    </plurals>
+    <plurals name="december">
+        <item quantity="zero">Декабрь</item>
+        <item quantity="other"> декабря</item>
+    </plurals>
+
 </resources>
