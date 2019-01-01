@@ -73,6 +73,10 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             minutes.text = (session.duration / 60).toString()
             if (minutes.text == "0") minutes.text = "1"
             hours.text = (session.duration / 60 / 60).toString()
+            if (hours.text == "0") {
+                itemView.hoursStatic.visibility = View.INVISIBLE
+                hours.text = ""
+            }
             author.text = session.author
             title.text = session.title
             var commentText = ""

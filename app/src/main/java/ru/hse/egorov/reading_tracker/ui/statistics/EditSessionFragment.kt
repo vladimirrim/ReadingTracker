@@ -10,11 +10,13 @@ import kotlinx.android.synthetic.main.book.*
 import kotlinx.android.synthetic.main.fragment_edit_session.*
 import kotlinx.android.synthetic.main.session_time.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.PROFILE_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.dialog.EditSessionDialog
+import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 
 
-class EditSessionFragment : Fragment(), ActionBarSetter {
+class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_edit_session, container, false)
@@ -38,6 +40,9 @@ class EditSessionFragment : Fragment(), ActionBarSetter {
         endTime.hours.text = arguments!!["endTimeHours"] as String
         endTime.minutes.text = arguments!!["endTimeMinutes"] as String
         hours.text = arguments!!["hours"] as String
+        if (hours.text == "") {
+            hoursStatic.visibility = View.GONE
+        }
         minutes.text = arguments!!["minutes"] as String
         if (arguments!!["place"] as String == "")
             placeFlag.visibility = View.GONE
@@ -59,6 +64,16 @@ class EditSessionFragment : Fragment(), ActionBarSetter {
             EditSessionDialog().show(childFragmentManager, "Edit Session")
             true
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == android.R.id.home) {
+            setHasOptionsMenu(false)
+            (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                    + PROFILE_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(activity as AppCompatActivity)
+            openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
+        }
+        return true
     }
 
     companion object {

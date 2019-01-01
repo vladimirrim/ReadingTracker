@@ -21,17 +21,16 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
         when (item.itemId) {
             R.id.navigation_session -> {
                 openPagerFragment(this, SESSION_FRAGMENT_POSITION)
-                item.isChecked = true
                 fab.hide()
             }
             R.id.navigation_profile -> {
                 openPagerFragment(this, PROFILE_FRAGMENT_POSITION)
-                item.isChecked = true
+                (adapter.getItem(PROFILE_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(this)
+                invalidateOptionsMenu()
                 fab.hide()
             }
             R.id.navigation_library -> {
                 openPagerFragment(this, LIBRARY_FRAGMENT_POSITION)
-                item.isChecked = true
                 fab.show()
             }
         }

@@ -4,10 +4,14 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.hse.egorov.reading_tracker.R
 
 interface FragmentLauncher {
 
     fun openPagerFragment(activity: AppCompatActivity, fragmentPosition: Int) {
+        activity.supportFragmentManager.findFragmentById(R.id.temporaryFragment)?.apply {
+            activity.supportFragmentManager.beginTransaction().remove(this).commit()
+        }
         activity.fragmentPager.currentItem = fragmentPosition
         activity.navigation.menu.getItem(fragmentPosition).isChecked = true
         activity.fragmentPager.visibility = View.VISIBLE

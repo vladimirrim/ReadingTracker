@@ -49,7 +49,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
     }
 
-    fun resetSession(){
+    fun resetSession() {
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
     }
 
@@ -69,13 +69,16 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
     }
 
     override fun setActionBar(activity: AppCompatActivity) {
+        setHasOptionsMenu(true)
         activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         activity.supportActionBar?.setCustomView(R.layout.session_action_bar)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu?.clear()
+    }
 
     companion object {
         fun newInstance() = StartOfSessionFragment()
-        private const val ACTION_BAR_TITLE = "Новая запись о чтении"
     }
 }

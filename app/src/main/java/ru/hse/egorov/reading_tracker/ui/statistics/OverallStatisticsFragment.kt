@@ -67,6 +67,7 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
 
     override fun setActionBar(activity: AppCompatActivity) {
         setHasOptionsMenu(true)
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         activity.supportActionBar?.setCustomView(R.layout.statistics_action_bar)
     }

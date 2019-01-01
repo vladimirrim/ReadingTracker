@@ -28,6 +28,7 @@ class ProfileFragment : Fragment(), ActionBarSetter {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
+        setHasOptionsMenu(false)
     }
 
     companion object {
