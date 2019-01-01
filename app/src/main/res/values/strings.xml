@@ -74,4 +74,11 @@
     <string name="change_time">Изменить время</string>
     <string name="change_rating">Изменить оценку</string>
     <string name="end_session">Закончить</string>
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+    <string name="sunday">Воскресенье</string>
 </resources>

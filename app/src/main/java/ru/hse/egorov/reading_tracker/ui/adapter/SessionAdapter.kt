@@ -69,9 +69,10 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
 
         fun bind(session: Session) {
             date.text = session.startTime.get(Calendar.MONTH).toString()
-            dayOfTheWeek.text = session.startTime.get(Calendar.DAY_OF_WEEK).toString()
-            minutes.text = (session.duration % 60).toString()
-            hours.text = (session.duration / 60).toString()
+            setDayOfTheWeek(session.startTime.get(Calendar.DAY_OF_WEEK))
+            minutes.text = (session.duration / 60).toString()
+            if (minutes.text == "0") minutes.text = "1"
+            hours.text = (session.duration / 60 / 60).toString()
             author.text = session.author
             title.text = session.title
             var commentText = ""
@@ -99,6 +100,21 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
                 dispatchedFragment.arguments = bundle
                 openTemporaryFragment(it.context as AppCompatActivity, dispatchedFragment, R.id.temporaryFragment)
             }
+        }
+
+        private fun setDayOfTheWeek(day: Int) {
+            val res = dayOfTheWeek.rootView.resources
+            dayOfTheWeek.text =
+                    when (day) {
+                        Calendar.MONDAY -> res.getString(R.string.monday)
+                        Calendar.TUESDAY -> res.getString(R.string.tuesday)
+                        Calendar.WEDNESDAY -> res.getString(R.string.wednesday)
+                        Calendar.THURSDAY -> res.getString(R.string.thursday)
+                        Calendar.FRIDAY -> res.getString(R.string.friday)
+                        Calendar.SATURDAY -> res.getString(R.string.saturday)
+                        Calendar.SUNDAY -> res.getString(R.string.sunday)
+                        else -> ""
+                    }
         }
 
         private fun setUpBundle(comment: String, place: String, emotion: String, startTime: Calendar, endTime: Calendar): Bundle {
