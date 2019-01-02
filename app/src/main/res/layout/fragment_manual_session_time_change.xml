@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light"
     tools:context=".ui.session.session_inner_fragments.ManualSessionTimeChangeFragment">
 
     <TimePicker
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="65dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="124dp"
         android:background="@drawable/ic_time_picker_background"
@@ -22,20 +23,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/sessionDate" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/sessionDateStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_date"
+        app:layout_constraintEnd_toStartOf="@+id/sessionDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toSession" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/sessionDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="91dp"
+        android:text="@string/edit_session_title"
+        android:textAppearance="@style/dark_20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sessionDateStatic"
+        app:layout_constraintTop_toBottomOf="@+id/toSession" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/toSession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="123dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="123dp"
-        android:layout_marginBottom="33dp"
         android:background="@android:color/transparent"
         android:text="@string/to_session"
         android:textAppearance="@style/dark_14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

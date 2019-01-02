@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_manual_session_time_change.view.*
 
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.dialog.SessionDateDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 
 
@@ -23,6 +24,10 @@ class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         super.onViewCreated(view, savedInstanceState)
 
         view.sessionTime.setIs24HourView(true)
+
+        view.sessionDate.setOnClickListener {
+            SessionDateDialog().show(childFragmentManager, "Session Date")
+        }
 
         view.toSession.setOnClickListener {
             openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), parentFragment!!, R.id.sessionFragment)

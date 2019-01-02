@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/light">
@@ -16,38 +17,43 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/sessionDate"
+        android:id="@+id/sessionDateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="68dp"
+        android:text="@string/session_date_title"
+        android:textAppearance="@style/dark_20sp"
+        app:layout_constraintEnd_toStartOf="@+id/confirmDialog"
+        app:layout_constraintStart_toEndOf="@+id/closeDialog"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/confirmDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
-        android:text="@string/edit_session_title"
-        android:textAppearance="@style/dark_20sp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_done_dark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/changeTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/change_time"
-        android:textAppearance="@style/dark_20sp_80alpha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sessionDate" />
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/changeRating"
+    <CalendarView
+        android:id="@+id/datePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="22dp"
-        android:text="@string/change_rating"
-        android:textAppearance="@style/dark_20sp_80alpha"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
+        android:datePickerMode="calendar"
+        android:calendarViewShown="false"
+        android:theme="@style/Theme.SessionDatePicker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changeTime" />
+        app:layout_constraintTop_toBottomOf="@+id/sessionDateTitle"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

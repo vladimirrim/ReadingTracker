@@ -27,6 +27,12 @@
         <item name="android:textColorPrimaryInverse">@color/colorPrimary</item>
     </style>
 
+    <style name="Theme.SessionDatePicker" parent="android:Widget.Material.Light.DatePicker">
+        <item name="android:background">@color/light</item>
+        <item name="android:textColor">@color/light</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorPrimaryInverse">@color/light</item>
+    </style>
 
     <style name="Theme.NoTitle" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>

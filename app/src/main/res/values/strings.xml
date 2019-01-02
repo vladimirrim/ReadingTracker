@@ -81,6 +81,7 @@
     <string name="friday">Пятница</string>
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>
+    <string name="session_date_title">Дата чтения</string>
     <plurals name="january">
         <item quantity="zero">Январь</item>
         <item quantity="other"> января</item>
