@@ -14,11 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="20" />
-                            <entry key="outputName" value="ic_date" />
+                            <entry key="height" value="80" />
+                            <entry key="outputName" value="ic_session_time_panel" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\date.svg" />
-                            <entry key="width" value="18" />
+                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\session_time_panel.svg" />
+                            <entry key="width" value="336" />
                           </map>
                         </option>
                       </PersistentState>

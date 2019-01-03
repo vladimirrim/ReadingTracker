@@ -16,15 +16,17 @@
         <item name="android:listSelector">@drawable/spinner_ripple</item>
     </style>
 
-    <style name="Theme.ManualTimeSessionTimeChange" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
+    <style name="Theme.ManualTimeSessionTimeChange" parent="android:Widget.Material.Light.TimePicker">
         <item name="android:listSelector">@drawable/spinner_ripple</item>
-        <item name="android:textSize">64sp</item>
+        <item name="android:textSize">48sp</item>
         <item name="android:textColorPrimary">@color/colorPrimary</item>
-        <item name="android:textColorPrimaryInverse">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:textColorHighlight">@color/colorPrimary</item>
+        <item name="android:textColorPrimaryInverse">@color/colorPrimary_80alpha</item>
+        <item name="android:textColorSecondary">@color/colorPrimary_80alpha</item>
+        <item name="android:textColorSecondaryInverse">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorPrimary_80alpha</item>
+        <item name="android:textColorHintInverse">@color/colorPrimary_80alpha</item>
     </style>
 
     <style name="Theme.SessionDatePicker" parent="android:Widget.Material.Light.DatePicker">

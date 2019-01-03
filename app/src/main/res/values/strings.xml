@@ -82,6 +82,8 @@
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>
     <string name="session_date_title">Дата чтения</string>
+    <string name="session_time_title">Период чтения</string>
+    <string name="save_session">Записать</string>
     <plurals name="january">
         <item quantity="zero">Январь</item>
         <item quantity="other"> января</item>
