@@ -51,7 +51,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         endSessionButton.setOnClickListener {
             val dispatchFragment = EndOfSessionFragment.newInstance()
             val bundle = Bundle()
-            bundle.putInt("duration", minutes.text.toString().toInt() * 60 + seconds.text.toString().toInt())
+            bundle.putInt("duration", hours.text.toString().toInt() * 60 + minutes.text.toString().toInt())
             bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
             bundle.putLong("startTime", startTime)
             bundle.putLong("endTime", Calendar.getInstance().time.time)
@@ -95,8 +95,8 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             val time = SystemClock.elapsedRealtime() - it.base
             val m = time / 60000
             val s = (time - m * 60000) / 1000
-            view.minutes.text = m.toString()
-            view.seconds.text = s.toString()
+            view.hours.text = m.toString()
+            view.minutes.text = s.toString()
         }
     }
 

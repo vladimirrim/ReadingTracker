@@ -53,6 +53,7 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                 val id = session["book id"] as String
                 sessionAdapter.add(statsManager.wrapSession(session, bookMap[id]!!.first, bookMap[id]!!.second))
             }
+            sessionAdapter.sortByDate()
         }
         val intent = Intent(this,
                 MainActivity::class.java)

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.session.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Mood
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Place
@@ -47,6 +48,13 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         notifyItemRangeChanged(position, sessions.size)
     }
 
+    fun sortByDate() {
+        sessions.sortByDescending {
+            it.startTime
+        }
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return sessions.size
     }
@@ -55,10 +63,10 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         holder.bind(sessions[position])
     }
 
-    inner class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), FragmentLauncher {
+    inner class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), FragmentLauncher, DateTranslator {
         private val date = itemView.date
         private val dayOfTheWeek = itemView.dayOfTheWeek
-        private val minutes = itemView.minutes
+        private val minutes = itemView.hours
         private val hours = itemView.hours
         private val author = itemView.author
         private val title = itemView.title
@@ -107,39 +115,12 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         }
 
         private fun setDate(month: Int, dayOfMonth: Int) {
-            val res = date.rootView.resources
-            val dateText = dayOfMonth.toString() + " " +
-                    when (month) {
-                        Calendar.JANUARY -> res.getQuantityString(R.plurals.january, 1)
-                        Calendar.FEBRUARY -> res.getQuantityString(R.plurals.february, 1)
-                        Calendar.MARCH -> res.getQuantityString(R.plurals.march, 1)
-                        Calendar.APRIL -> res.getQuantityString(R.plurals.april, 1)
-                        Calendar.MAY -> res.getQuantityString(R.plurals.may, 1)
-                        Calendar.JUNE -> res.getQuantityString(R.plurals.june, 1)
-                        Calendar.JULY -> res.getQuantityString(R.plurals.july, 1)
-                        Calendar.AUGUST -> res.getQuantityString(R.plurals.august, 1)
-                        Calendar.SEPTEMBER -> res.getQuantityString(R.plurals.september, 1)
-                        Calendar.OCTOBER -> res.getQuantityString(R.plurals.october, 1)
-                        Calendar.NOVEMBER -> res.getQuantityString(R.plurals.november, 1)
-                        Calendar.DECEMBER -> res.getQuantityString(R.plurals.december, 1)
-                        else -> ""
-                    }
+            val dateText = dayOfMonth.toString() + " " + translateMonth(month, date.rootView.resources)
             date.text = dateText
         }
 
         private fun setDayOfTheWeek(day: Int) {
-            val res = dayOfTheWeek.rootView.resources
-            dayOfTheWeek.text =
-                    when (day) {
-                        Calendar.MONDAY -> res.getString(R.string.monday)
-                        Calendar.TUESDAY -> res.getString(R.string.tuesday)
-                        Calendar.WEDNESDAY -> res.getString(R.string.wednesday)
-                        Calendar.THURSDAY -> res.getString(R.string.thursday)
-                        Calendar.FRIDAY -> res.getString(R.string.friday)
-                        Calendar.SATURDAY -> res.getString(R.string.saturday)
-                        Calendar.SUNDAY -> res.getString(R.string.sunday)
-                        else -> ""
-                    }
+            dayOfTheWeek.text = translateDayOfTheWeek(day, dayOfTheWeek.rootView.resources)
         }
 
         private fun setUpBundle(comment: String, place: String, emotion: String, startTime: Calendar, endTime: Calendar): Bundle {

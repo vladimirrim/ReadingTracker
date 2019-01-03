@@ -38,7 +38,7 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
         private val title = itemView.title
         private val author = itemView.author
         private val hours = itemView.hours
-        private val minutes = itemView.minutes
+        private val minutes = itemView.hours
         private val sessionsCount = itemView.sessionsCount
 
         fun bind(book: BookStatistics) {

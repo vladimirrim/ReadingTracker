@@ -7,6 +7,42 @@
     android:background="@color/light"
     tools:context=".ui.session.session_inner_fragments.ManualSessionTimeChangeFragment">
 
+    <include
+        android:id="@+id/startTime"
+        layout="@layout/session_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/dash"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sessionDate" />
+
+    <View
+        android:id="@+id/dash"
+        android:layout_width="19dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="171dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="170dp"
+        android:background="@color/colorPrimary_80alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sessionDate" />
+
+    <include
+        android:id="@+id/endTime"
+        layout="@layout/session_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dash"
+        app:layout_constraintTop_toBottomOf="@+id/sessionDate" />
+
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/sessionTimeContainer"
         android:layout_width="326dp"
@@ -14,6 +50,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
+        android:elevation="-1dp"
         android:background="@drawable/ic_session_time_panel"
         android:shadowColor="#FFFFFF"
         android:shadowDx="-1"
@@ -27,7 +64,7 @@
         android:id="@+id/sessionDateStatic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
+        android:layout_marginStart="110dp"
         android:layout_marginTop="30dp"
         android:src="@drawable/ic_date"
         app:layout_constraintEnd_toStartOf="@+id/sessionDate"
@@ -38,9 +75,9 @@
         android:id="@+id/sessionDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="91dp"
-        android:text="@string/edit_session_title"
+        android:layout_marginEnd="110dp"
         android:textAppearance="@style/dark_20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sessionDateStatic"
@@ -51,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="123dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="123dp"
         android:background="@android:color/transparent"
         android:text="@string/to_session"
@@ -61,7 +98,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/minutes"
+        android:id="@+id/sessionTimeHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
@@ -81,13 +118,13 @@
         android:background="@android:color/transparent"
         android:text="@string/separator"
         android:textAppearance="@style/pink_24sp"
-        app:layout_constraintEnd_toStartOf="@+id/seconds"
+        app:layout_constraintEnd_toStartOf="@+id/sessionTimeMinutes"
         app:layout_constraintHorizontal_bias="0.344"
-        app:layout_constraintStart_toEndOf="@+id/minutes"
+        app:layout_constraintStart_toEndOf="@+id/sessionTimeHours"
         app:layout_constraintTop_toBottomOf="@+id/sessionTimeContainer" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/seconds"
+        android:id="@+id/sessionTimeMinutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -104,8 +141,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="65dp"
         android:layout_marginEnd="101dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/end_session_button"
         android:elevation="4dp"
         android:gravity="center_horizontal"
@@ -115,6 +153,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minutes" />
+        app:layout_constraintTop_toBottomOf="@+id/sessionTimeHours" />
 
 </android.support.constraint.ConstraintLayout>
