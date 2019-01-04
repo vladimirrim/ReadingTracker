@@ -35,19 +35,19 @@ class GraphsFragment : Fragment() {
         chartSessionsPerDay.axisRight.isEnabled = false
         chartSessionsPerDay.axisLeft.axisMinimum = 0f
         chartSessionsPerDay.legend.isEnabled = false
-        val data = ArrayList<Data>()
-        data.add(Data(0f, 500f, "1"))
-        data.add(Data(1f, 0f, "2"))
-        data.add(Data(2f, 300f, "3"))
-        data.add(Data(3f, 400f, "4"))
-        data.add(Data(4f, 500f, "5"))
+        val data = ArrayList<ChartData>()
+        data.add(ChartData(0f, 500f, "1"))
+        data.add(ChartData(1f, 0f, "2"))
+        data.add(ChartData(2f, 300f, "3"))
+        data.add(ChartData(3f, 400f, "4"))
+        data.add(ChartData(4f, 500f, "5"))
         chartSessionsPerDay.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
         setSessionsData(data)
     }
 
-    private fun setSessionsData(dataList: List<Data>) {
+    private fun setSessionsData(dataList: List<ChartData>) {
         val values = ArrayList<Entry>()
         val colors = ArrayList<Int>()
 
@@ -110,19 +110,19 @@ class GraphsFragment : Fragment() {
         chartPagesPerDay.axisRight.isEnabled = false
         chartPagesPerDay.axisLeft.axisMinimum = 0f
         chartPagesPerDay.legend.isEnabled = false
-        val data = ArrayList<Data>()
-        data.add(Data(0f, 500f, "1"))
-        data.add(Data(1f, 0f, "2"))
-        data.add(Data(2f, 300f, "3"))
-        data.add(Data(3f, 400f, "4"))
-        data.add(Data(4f, 500f, "5"))
+        val data = ArrayList<ChartData>()
+        data.add(ChartData(0f, 500f, "1"))
+        data.add(ChartData(1f, 0f, "2"))
+        data.add(ChartData(2f, 300f, "3"))
+        data.add(ChartData(3f, 400f, "4"))
+        data.add(ChartData(4f, 500f, "5"))
         chartPagesPerDay.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
         setLineData(data)
     }
 
-    private fun setLineData(dataList: List<Data>) {
+    private fun setLineData(dataList: List<ChartData>) {
         val values = ArrayList<Entry>()
         val colors = ArrayList<Int>()
 
@@ -163,12 +163,12 @@ class GraphsFragment : Fragment() {
         chartMinutesPerDay.axisLeft.labelCount = 5
         chartMinutesPerDay.legend.isEnabled = false
 
-        val data = ArrayList<Data>()
-        data.add(Data(0f, 500f, "1"))
-        data.add(Data(1f, 0f, "2"))
-        data.add(Data(2f, 300f, "3"))
-        data.add(Data(3f, 400f, "4"))
-        data.add(Data(4f, 500f, "5"))
+        val data = ArrayList<ChartData>()
+        data.add(ChartData(0f, 500f, "1"))
+        data.add(ChartData(1f, 0f, "2"))
+        data.add(ChartData(2f, 300f, "3"))
+        data.add(ChartData(3f, 400f, "4"))
+        data.add(ChartData(4f, 500f, "5"))
 
         chartMinutesPerDay.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
@@ -177,7 +177,7 @@ class GraphsFragment : Fragment() {
         setData(data)
     }
 
-    private fun setData(dataList: List<Data>) {
+    private fun setData(dataList: List<ChartData>) {
 
         val values = ArrayList<Entry>()
         val colors = ArrayList<Int>()
@@ -211,7 +211,7 @@ class GraphsFragment : Fragment() {
         chartMinutesPerDay.invalidate()
     }
 
-    private inner class Data internal constructor(internal val xValue: Float, internal val yValue: Float, internal val xAxisValue: String)
+    private class ChartData(val xValue: Float, val yValue: Float, val xAxisValue: String)
 
     companion object {
         /**

@@ -2,6 +2,7 @@ package ru.hse.egorov.reading_tracker.ui.statistics
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_overall_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
+import ru.hse.egorov.reading_tracker.ui.dialog.StatisticsPeriodDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.profile.ProfileFragment
 
@@ -24,6 +26,12 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
         super.onViewCreated(view, savedInstanceState)
 
         setUpViewPager(view)
+
+        view.statisticsPeriod.setOnClickListener {
+            val dispatchedFragment = StatisticsPeriodDialog()
+            dispatchedFragment.setTargetFragment(this, STATISTICS_PERIOD_RC)
+            dispatchedFragment.show(fragmentManager, "Statistics Period")
+        }
 
         view.arrowDown.setOnClickListener {
             it.visibility = View.GONE
@@ -81,7 +89,17 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            STATISTICS_PERIOD_RC -> {
+                statisticsPeriod.text = data!!.getStringExtra("selectedPeriod")
+            }
+        }
+    }
+
     companion object {
+        private const val STATISTICS_PERIOD_RC = 1
+
         fun newInstance() = OverallStatisticsFragment()
     }
 }

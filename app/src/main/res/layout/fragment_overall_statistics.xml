@@ -8,7 +8,7 @@
     android:background="@color/light">
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView2"
+        android:id="@+id/statisticsPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="159dp"
@@ -34,7 +34,7 @@
         app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2" />
+        app:layout_constraintTop_toBottomOf="@+id/statisticsPeriod" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/arrowRight"
@@ -55,7 +55,7 @@
         app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2" />
+        app:layout_constraintTop_toBottomOf="@+id/statisticsPeriod" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/arrowLeft"
