@@ -38,7 +38,7 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
         private val title = itemView.title
         private val author = itemView.author
         private val hours = itemView.hours
-        private val minutes = itemView.hours
+        private val minutes = itemView.minutes
         private val sessionsCount = itemView.sessionsCount
 
         fun bind(book: BookStatistics) {
@@ -51,7 +51,7 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
     }
 
     companion object {
-        data class BookStatistics(val title: String, val author: String, val hours: Int, val minutes: Int,
-                                  val sessionsCount: Int)
+        data class BookStatistics(val title: String, val author: String, var hours: Int, var minutes: Int,
+                                  var sessionsCount: Int)
     }
 }

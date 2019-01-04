@@ -12,8 +12,6 @@ import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
 import ru.hse.egorov.reading_tracker.ui.adapter.BookStatisticsAdapter
 
 class BooksStatisticsFragment : Fragment() {
-    private val statsManager = StatisticsManager()
-    private val bookStatisticsAdapter = BookStatisticsAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
@@ -28,15 +26,17 @@ class BooksStatisticsFragment : Fragment() {
     private fun setUpBooks(view: View) {
         view.books.isNestedScrollingEnabled = false
         view.books.layoutManager = LinearLayoutManager(context)
-        bookStatisticsAdapter.set(statsManager.getBookStatistics())
         view.books.adapter = bookStatisticsAdapter
     }
 
     companion object {
+        private val bookStatisticsAdapter = BookStatisticsAdapter()
         /**
          * Use this factory method to create a new instance of
          * this fragment.
          * */
         fun newInstance() = BooksStatisticsFragment()
+
+        fun getAdapter() = bookStatisticsAdapter
     }
 }

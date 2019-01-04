@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import ru.hse.egorov.reading_tracker.ui.adapter.BookStatisticsAdapter
+import ru.hse.egorov.reading_tracker.ui.adapter.BookStatisticsAdapter.Companion.BookStatistics
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Mood
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Place
@@ -27,15 +27,12 @@ class StatisticsManager {
                 Place.getPlaceByName(session["place"] as String?), author, session["comment"] as String?, title, session.id)
     }
 
-    fun getBookStatistics(): ArrayList<BookStatisticsAdapter.Companion.BookStatistics> {
-        val list = ArrayList<BookStatisticsAdapter.Companion.BookStatistics>()
-
-        list.add(BookStatisticsAdapter.Companion.BookStatistics("kok", "kek", 1, 40, 20))
-        list.add(BookStatisticsAdapter.Companion.BookStatistics("kok", "kek", 1, 41, 20))
-        list.add(BookStatisticsAdapter.Companion.BookStatistics("kok", "kek", 1, 42, 20))
-        list.add(BookStatisticsAdapter.Companion.BookStatistics("kok", "kek", 1, 42, 20))
-
-        return list
+    fun updateBookStatistics(bookStatistics: BookStatistics, session: Session): BookStatistics {
+        bookStatistics.sessionsCount++
+        bookStatistics.minutes += session.duration / 60
+        bookStatistics.hours += bookStatistics.minutes / 60
+        bookStatistics.minutes %= 60
+        return bookStatistics
     }
 
     companion object {
