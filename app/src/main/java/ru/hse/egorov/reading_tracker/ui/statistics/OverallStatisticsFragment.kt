@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_overall_statistics.*
 import kotlinx.android.synthetic.main.fragment_overall_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
+import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
 import ru.hse.egorov.reading_tracker.ui.dialog.StatisticsPeriodDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
@@ -93,13 +94,34 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
         when (requestCode) {
             STATISTICS_PERIOD_RC -> {
                 statisticsPeriod.text = data!!.getStringExtra("selectedPeriod")
+                timePeriod = statisticsPeriod.text.toString()
+                setSessionsForPeriod(data.getLongExtra("thresholdDate", 0))
             }
+        }
+    }
+
+    private fun setSessionsForPeriod(thresholdDate: Long) {
+        sessionsForPeriod.clear()
+        for (session in allSessions) {
+            if (session.startTime.timeInMillis >= thresholdDate) {
+                sessionsForPeriod.add(0, session)
+            } else
+                break
         }
     }
 
     companion object {
         private const val STATISTICS_PERIOD_RC = 1
+        private val allSessions = ArrayList<Session>()
+        private val sessionsForPeriod = ArrayList<Session>()
+        private var timePeriod = "Всё время"
 
         fun newInstance() = OverallStatisticsFragment()
+
+        fun getSessionsForPeriod() = sessionsForPeriod
+
+        fun getAllSessions() = allSessions
+
+        fun getStatisticsPeriod() = timePeriod
     }
 }

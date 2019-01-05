@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.session_time.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
+import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_GENITIVE
 import ru.hse.egorov.reading_tracker.ui.dialog.SessionDateDialog
 import ru.hse.egorov.reading_tracker.ui.dialog.SessionTimeDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
@@ -35,7 +36,8 @@ class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher, DateTransl
         super.onViewCreated(view, savedInstanceState)
 
         val currentDate = Calendar.getInstance()
-        val dateText = currentDate.get(Calendar.DAY_OF_MONTH).toString() + " " + translateMonth(currentDate.get(Calendar.MONTH), resources)
+        val dateText = currentDate.get(Calendar.DAY_OF_MONTH).toString() + " " + translateMonth(currentDate.get(Calendar.MONTH), resources,
+                MONTH_GENITIVE)
         view.sessionDate.text = dateText
 
         setEndSessionButton()
@@ -83,7 +85,8 @@ class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher, DateTransl
                 val selectedDate = Calendar.getInstance()
                 date = data!!.getLongExtra("date", 0)
                 selectedDate.timeInMillis = date
-                val dateText = selectedDate.get(Calendar.DAY_OF_MONTH).toString() + " " + translateMonth(selectedDate.get(Calendar.MONTH), resources)
+                val dateText = selectedDate.get(Calendar.DAY_OF_MONTH).toString() + " " + translateMonth(selectedDate.get(Calendar.MONTH), resources,
+                        MONTH_GENITIVE)
                 sessionDate.text = dateText
             }
 

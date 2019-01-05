@@ -50,10 +50,10 @@ class StatisticsPeriodDialog : DialogFragment() {
         return dialog
     }
 
-    private fun sendResult(REQUEST_CODE: Int, selectedPeriod: String, lowerBound: Long) {
+    private fun sendResult(REQUEST_CODE: Int, selectedPeriod: String, thresholdDate: Long) {
         val intent = Intent()
         intent.putExtra("selectedPeriod", selectedPeriod)
-        intent.putExtra("lowerBound", lowerBound)
+        intent.putExtra("thresholdDate", thresholdDate)
         targetFragment!!.onActivityResult(
                 targetRequestCode, REQUEST_CODE, intent)
     }

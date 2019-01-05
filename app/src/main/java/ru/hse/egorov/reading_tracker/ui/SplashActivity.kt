@@ -11,6 +11,7 @@ import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.login.SignUpSignInActivity
 import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
 import java.util.*
 import kotlin.collections.HashMap
@@ -61,6 +62,8 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                         sessionData)
                 sessionAdapter.add(sessionData)
             }
+            OverallStatisticsFragment.getAllSessions().addAll(sessionAdapter.getCopy())
+            OverallStatisticsFragment.getSessionsForPeriod().addAll(sessionAdapter.getCopy())
             bookStatisticsAdapter.set(bookStatisticsMap.values)
             sessionAdapter.sortByDate()
         }

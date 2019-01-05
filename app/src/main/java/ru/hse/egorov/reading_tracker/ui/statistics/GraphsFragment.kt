@@ -10,10 +10,14 @@ import android.view.ViewGroup
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import kotlinx.android.synthetic.main.fragment_graphs.*
+import kotlinx.android.synthetic.main.fragment_overall_statistics.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
+import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_NOMINATIVE
+import java.util.*
 
 
-class GraphsFragment : Fragment() {
+class GraphsFragment : Fragment(), DateTranslator {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_graphs, container, false)
@@ -25,26 +29,72 @@ class GraphsFragment : Fragment() {
         setUpChartMinutesPerDay()
         setUpChartPagesPerDay()
         setUpChartTimeOfDay()
-        setUpChartSessionsPerDay()
+        setUpChartSessions()
     }
 
-    private fun setUpChartSessionsPerDay() {
+    private fun setUpChartSessions() {
         chartSessionsPerDay.setBackgroundResource(R.color.light)
         chartSessionsPerDay.xAxis.setDrawGridLines(false)
         chartSessionsPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
         chartSessionsPerDay.axisRight.isEnabled = false
         chartSessionsPerDay.axisLeft.axisMinimum = 0f
         chartSessionsPerDay.legend.isEnabled = false
-        val data = ArrayList<ChartData>()
-        data.add(ChartData(0f, 500f, "1"))
-        data.add(ChartData(1f, 0f, "2"))
-        data.add(ChartData(2f, 300f, "3"))
-        data.add(ChartData(3f, 400f, "4"))
-        data.add(ChartData(4f, 500f, "5"))
+        chartSessionsPerDay.axisLeft.labelCount = 3
+        chartSessionsPerDay.xAxis.setAvoidFirstLastClipping(true)
+        chartSessionsPerDay.description.isEnabled = false
+        val data = getSessionsData()
+        chartSessionsPerDay.xAxis.setLabelCount(data.size, true)
         chartSessionsPerDay.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
         setSessionsData(data)
+    }
+
+    private fun getSessionsData(): ArrayList<ChartData> {
+        val timePeriod = OverallStatisticsFragment.getStatisticsPeriod()
+        val sessions = OverallStatisticsFragment.getSessionsForPeriod()
+        val data = ArrayList<ChartData>()
+        when (timePeriod) {
+            resources.getString(R.string.all_time) -> {
+                for (session in sessions) {
+                    val sessionMonth = translateMonth(session.startTime.get(Calendar.MONTH), resources, MONTH_NOMINATIVE)
+                    when {
+                        data.isEmpty() -> data.add(ChartData(data.size.toFloat(), 1f, sessionMonth))
+                        data.last().xAxisValue != sessionMonth -> {
+                            val skippedMonths = ArrayDeque<ChartData>()
+                            val skippedMonth = Calendar.getInstance()
+                            skippedMonth.timeInMillis = session.startTime.timeInMillis
+                            skippedMonth.add(Calendar.MONTH, -1)
+                            while (translateMonth(skippedMonth.get(Calendar.MONTH), resources, MONTH_NOMINATIVE) != data.last().xAxisValue) {
+                                skippedMonths.addFirst(GraphsFragment.ChartData(0f, 0f,
+                                        translateMonth(skippedMonth.get(Calendar.MONTH), resources, MONTH_NOMINATIVE)))
+                                skippedMonth.add(Calendar.MONTH, -1)
+                            }
+                            val start = data.size
+                            data.addAll(skippedMonths)
+                            for (i in start until data.size) {
+                                data[i].xValue = i.toFloat()
+                            }
+                            data.add(GraphsFragment.ChartData(data.size.toFloat(), 1f, sessionMonth))
+                        }
+                        else -> data.last().yValue++
+                    }
+                }
+            }
+            resources.getString(R.string.year) -> {
+
+            }
+            resources.getString(R.string.month) -> {
+
+            }
+            resources.getString(R.string.week) -> {
+
+            }
+            resources.getString(R.string.day) -> {
+
+            }
+        }
+        return data
     }
 
     private fun setSessionsData(dataList: List<ChartData>) {
@@ -211,7 +261,7 @@ class GraphsFragment : Fragment() {
         chartMinutesPerDay.invalidate()
     }
 
-    private class ChartData(val xValue: Float, val yValue: Float, val xAxisValue: String)
+    private class ChartData(var xValue: Float, var yValue: Float, val xAxisValue: String)
 
     companion object {
         /**

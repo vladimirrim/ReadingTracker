@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.session.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
+import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_GENITIVE
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Mood
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Place
@@ -35,6 +36,10 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
 
     fun get(position: Int): Session {
         return sessions[position]
+    }
+
+    fun getCopy(): MutableList<Session> {
+        return ArrayList(sessions)
     }
 
     fun restoreItem(book: Session, position: Int) {
@@ -115,7 +120,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         }
 
         private fun setDate(month: Int, dayOfMonth: Int) {
-            val dateText = dayOfMonth.toString() + " " + translateMonth(month, date.rootView.resources)
+            val dateText = dayOfMonth.toString() + " " + translateMonth(month, date.rootView.resources, MONTH_GENITIVE)
             date.text = dateText
         }
 
