@@ -220,28 +220,6 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
     }
 
     private fun setUpChartTimeOfDay() {
-        if (chartTimeOfDay == null)
-            return
-        chartTimeOfDay.axisLeft.isEnabled = false
-        chartTimeOfDay.axisRight.isEnabled = false
-        chartTimeOfDay.axisLeft.setDrawGridLines(false)
-        chartTimeOfDay.axisRight.setDrawGridLines(false)
-        chartTimeOfDay.xAxis.setDrawGridLines(false)
-        chartTimeOfDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        val entries = ArrayList<BarEntry>()
-
-        entries.add(BarEntry(0f, 18.5f, "Morning"))
-        entries.add(BarEntry(1f, 26.7f, "Day"))
-        entries.add(BarEntry(2f, 24.0f, "Evening"))
-        entries.add(BarEntry(3f, 30.8f, "Night"))
-
-        val set = BarDataSet(entries, "")
-        set.color = ContextCompat.getColor(context!!, R.color.colorPrimary)
-        val data = BarData(set)
-        data.barWidth = 0.9f
-        chartTimeOfDay.data = data
-        chartTimeOfDay.legend.isEnabled = false
-        chartTimeOfDay.invalidate()
     }
 
     private class ChartData(var xValue: Float, var yValue: Float, val xAxisValue: String)
