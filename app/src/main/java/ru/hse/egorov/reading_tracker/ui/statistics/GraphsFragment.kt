@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import kotlinx.android.synthetic.main.fragment_graphs.*
@@ -17,7 +18,6 @@ import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_SHOR
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.WEEK_SHORT
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.abs
 
 
 class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
@@ -43,44 +43,90 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
         if (chartSessionsPerDay == null)
             return
 
-        chartSessionsPerDay.setBackgroundResource(R.color.light)
-        chartSessionsPerDay.xAxis.setDrawGridLines(false)
-        chartSessionsPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        chartSessionsPerDay.axisRight.isEnabled = false
-        chartSessionsPerDay.axisLeft.axisMinimum = 0f
-        chartSessionsPerDay.legend.isEnabled = false
-        chartSessionsPerDay.axisLeft.labelCount = 3
-        chartSessionsPerDay.xAxis.setAvoidFirstLastClipping(true)
-        chartSessionsPerDay.description.isEnabled = false
-        val data = getSessionsData()
-        setSessionsData(data)
+        setUpChart(chartSessionsPerDay)
+        val data = getSessionsData { data, _ ->
+            data.yValue++
+        }
+        setSessionsData(data, chartSessionsPerDay, Color.rgb(110, 190, 102))
         chartSessionsPerDay.xAxis.setLabelCount(data.size, true)
         chartSessionsPerDay.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
+        chartSessionsPerDay.axisLeft.setValueFormatter { value, _ ->
+            return@setValueFormatter value.toInt().toString() + " подходов"
+        }
     }
 
-    private fun getSessionsData(): ArrayList<ChartData> {
+    private fun setUpChartPagesPerDay() {
+        if (chartPagesPerDay == null)
+            return
+
+        setUpChart(chartPagesPerDay)
+        val data = getSessionsData { data, session ->
+            data.yValue += session.endPage - session.startPage
+        }
+        setSessionsData(data, chartPagesPerDay, ContextCompat.getColor(context!!, R.color.pink))
+        chartPagesPerDay.xAxis.setLabelCount(data.size, true)
+        chartPagesPerDay.xAxis.setValueFormatter { value, _ ->
+            return@setValueFormatter data[value.toInt()].xAxisValue
+        }
+        chartPagesPerDay.axisLeft.setValueFormatter { value, _ ->
+            return@setValueFormatter value.toInt().toString() + " страниц"
+        }
+    }
+
+    private fun setUpChartMinutesPerDay() {
+        if (chartMinutesPerDay == null)
+            return
+
+        setUpChart(chartMinutesPerDay)
+        val data = getSessionsData { data, session ->
+            data.yValue += session.duration
+        }
+        setSessionsData(data, chartMinutesPerDay, ContextCompat.getColor(context!!, R.color.colorPrimary))
+        chartMinutesPerDay.xAxis.setLabelCount(data.size, true)
+        chartMinutesPerDay.xAxis.setValueFormatter { value, _ ->
+            return@setValueFormatter data[value.toInt()].xAxisValue
+        }
+        chartMinutesPerDay.axisLeft.setValueFormatter { value, _ ->
+            return@setValueFormatter (value.toInt() / 60 / 60).toString() + " час " +
+                    ((value.toInt() / 60) % 60).toString() + " мин"
+        }
+    }
+
+    private fun setUpChart(chart: LineChart) {
+        chart.setBackgroundResource(R.color.light)
+        chart.xAxis.setDrawGridLines(false)
+        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chart.axisRight.isEnabled = false
+        chart.axisLeft.axisMinimum = 0f
+        chart.legend.isEnabled = false
+        chart.axisLeft.setLabelCount(3, true)
+        chart.xAxis.setAvoidFirstLastClipping(true)
+        chart.description.isEnabled = false
+    }
+
+    private fun getSessionsData(sessionAccumulator: (ChartData, Session) -> Unit): ArrayList<ChartData> {
         val timePeriod = OverallStatisticsFragment.getStatisticsPeriod()
         val sessions = OverallStatisticsFragment.getSessionsForPeriod()
         return when (timePeriod) {
             resources.getString(R.string.all_time), resources.getString(R.string.year) -> {
-                getSessionsDataForTimePeriod(Calendar.MONTH, sessions) { month ->
+                getSessionsDataForTimePeriod(Calendar.MONTH, sessions, sessionAccumulator) { month ->
                     translateMonth(month, resources, MONTH_SHORT)
                 }
             }
             resources.getString(R.string.month) -> {
-                getSessionsDataForTimePeriod(Calendar.DAY_OF_MONTH, sessions) { dayOfMonth ->
+                getSessionsDataForTimePeriod(Calendar.DAY_OF_MONTH, sessions, sessionAccumulator) { dayOfMonth ->
                     dayOfMonth.toString()
                 }
             }
             resources.getString(R.string.week) -> {
-                getSessionsDataForTimePeriod(Calendar.DAY_OF_WEEK, sessions) { dayOfWeek ->
+                getSessionsDataForTimePeriod(Calendar.DAY_OF_WEEK, sessions, sessionAccumulator) { dayOfWeek ->
                     translateDayOfTheWeek(dayOfWeek, resources, WEEK_SHORT)
                 }
             }
             resources.getString(R.string.day) -> {
-                getSessionsDataForTimePeriod(Calendar.HOUR_OF_DAY, sessions) { hour ->
+                getSessionsDataForTimePeriod(Calendar.HOUR_OF_DAY, sessions, sessionAccumulator) { hour ->
                     hour.toString()
                 }
             }
@@ -89,9 +135,10 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
     }
 
     private fun getSessionsDataForTimePeriod(timePeriod: Int, sessions: ArrayList<Session>,
+                                             sessionAccumulator: (ChartData, Session) -> Unit,
                                              periodTranslator: (Int) -> String): ArrayList<ChartData> {
         val data = ArrayList<ChartData>()
-        for (session in sessions) {
+        for (session in sessions.reversed()) {
             val sessionMonth = periodTranslator(session.startTime.get(timePeriod))
             when {
                 data.isEmpty() -> data.add(ChartData(data.size.toFloat(), 1f, sessionMonth))
@@ -110,9 +157,10 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
                     for (i in start until data.size) {
                         data[i].xValue = i.toFloat()
                     }
-                    data.add(ChartData(data.size.toFloat(), 1f, sessionMonth))
+                    data.add(ChartData(data.size.toFloat(), 0f, sessionMonth))
+                    sessionAccumulator(data.last(), session)
                 }
-                else -> data.last().yValue++
+                else -> sessionAccumulator(data.last(), session)
             }
         }
         if (data.size == 1) {
@@ -144,33 +192,31 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
         return data
     }
 
-    private fun setSessionsData(dataList: List<ChartData>) {
+    private fun setSessionsData(dataList: List<ChartData>, chart: LineChart, color: Int) {
         val values = ArrayList<Entry>()
         val colors = ArrayList<Int>()
-
-        val green = Color.rgb(110, 190, 102)
 
         for (elem in dataList) {
             val entry = BarEntry(elem.xValue, elem.yValue)
             values.add(entry)
-            colors.add(green)
+            colors.add(color)
         }
 
         val set = LineDataSet(values, "Values")
         set.setDrawFilled(true)
-        set.fillColor = green
+        set.fillColor = color
         set.colors = colors
         set.setValueTextColors(colors)
 
         val data = LineData(set)
-        chartSessionsPerDay.xAxis.valueFormatter = null
-        chartSessionsPerDay.data?.clearValues()
-        chartSessionsPerDay.notifyDataSetChanged()
-        chartSessionsPerDay.clear()
-        chartSessionsPerDay.invalidate()
-        chartSessionsPerDay.data = data
+        chart.xAxis.valueFormatter = null
+        chart.data?.clearValues()
+        chart.notifyDataSetChanged()
+        chart.clear()
+        chart.invalidate()
+        chart.data = data
 
-        chartSessionsPerDay.invalidate()
+        chart.invalidate()
     }
 
     private fun setUpChartTimeOfDay() {
@@ -196,118 +242,6 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
         chartTimeOfDay.data = data
         chartTimeOfDay.legend.isEnabled = false
         chartTimeOfDay.invalidate()
-    }
-
-    private fun setUpChartPagesPerDay() {
-        if (chartPagesPerDay == null)
-            return
-        chartPagesPerDay.setBackgroundResource(R.color.light)
-        chartPagesPerDay.xAxis.setDrawGridLines(false)
-        chartPagesPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        chartPagesPerDay.axisRight.isEnabled = false
-        chartPagesPerDay.axisLeft.axisMinimum = 0f
-        chartPagesPerDay.legend.isEnabled = false
-        val data = ArrayList<ChartData>()
-        data.add(ChartData(0f, 500f, "1"))
-        data.add(ChartData(1f, 0f, "2"))
-        data.add(ChartData(2f, 300f, "3"))
-        data.add(ChartData(3f, 400f, "4"))
-        data.add(ChartData(4f, 500f, "5"))
-        chartPagesPerDay.xAxis.setValueFormatter { value, _ ->
-            return@setValueFormatter data[value.toInt()].xAxisValue
-        }
-        setLineData(data)
-    }
-
-    private fun setLineData(dataList: List<ChartData>) {
-        val values = ArrayList<Entry>()
-        val colors = ArrayList<Int>()
-
-        val pink = ContextCompat.getColor(context!!, R.color.pink)
-
-        for (elem in dataList) {
-            val entry = BarEntry(elem.xValue, elem.yValue)
-            values.add(entry)
-            colors.add(pink)
-        }
-
-        val set: LineDataSet
-
-        if (chartPagesPerDay.data != null && chartPagesPerDay.data.dataSetCount > 0) {
-            set = chartPagesPerDay.data.getDataSetByIndex(0) as LineDataSet
-            set.values = values
-            chartPagesPerDay.data.notifyDataChanged()
-            chartPagesPerDay.notifyDataSetChanged()
-        } else {
-            set = LineDataSet(values, "Values")
-            set.setDrawFilled(true)
-            set.fillColor = pink
-            set.colors = colors
-            set.setValueTextColors(colors)
-
-            val data = LineData(set)
-            chartPagesPerDay.data = data
-        }
-
-        chartPagesPerDay.invalidate()
-    }
-
-    private fun setUpChartMinutesPerDay() {
-        if (chartMinutesPerDay == null)
-            return
-        chartMinutesPerDay.setBackgroundColor(Color.WHITE)
-        chartMinutesPerDay.xAxis.granularity = 1f
-        chartMinutesPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        chartMinutesPerDay.axisRight.isEnabled = false
-        chartMinutesPerDay.axisLeft.labelCount = 5
-        chartMinutesPerDay.legend.isEnabled = false
-
-        val data = ArrayList<ChartData>()
-        data.add(ChartData(0f, 500f, "1"))
-        data.add(ChartData(1f, 0f, "2"))
-        data.add(ChartData(2f, 300f, "3"))
-        data.add(ChartData(3f, 400f, "4"))
-        data.add(ChartData(4f, 500f, "5"))
-
-        chartMinutesPerDay.xAxis.setValueFormatter { value, _ ->
-            return@setValueFormatter data[value.toInt()].xAxisValue
-        }
-
-        setData(data)
-    }
-
-    private fun setData(dataList: List<ChartData>) {
-
-        val values = ArrayList<Entry>()
-        val colors = ArrayList<Int>()
-
-        val darkBlue = ContextCompat.getColor(context!!, R.color.colorPrimary)
-
-        for (elem in dataList) {
-            val entry = Entry(elem.xValue, elem.yValue)
-            values.add(entry)
-            colors.add(darkBlue)
-        }
-
-        val set: LineDataSet
-
-        if (chartMinutesPerDay.data != null && chartMinutesPerDay.data.dataSetCount > 0) {
-            set = chartMinutesPerDay.data.getDataSetByIndex(0) as LineDataSet
-            set.values = values
-            chartMinutesPerDay.data.notifyDataChanged()
-            chartMinutesPerDay.notifyDataSetChanged()
-        } else {
-            set = LineDataSet(values, "Values")
-            set.setDrawFilled(true)
-            set.fillColor = darkBlue
-            set.colors = colors
-            set.setValueTextColors(colors)
-
-            val data = LineData(set)
-            chartMinutesPerDay.data = data
-        }
-
-        chartMinutesPerDay.invalidate()
     }
 
     private class ChartData(var xValue: Float, var yValue: Float, val xAxisValue: String)

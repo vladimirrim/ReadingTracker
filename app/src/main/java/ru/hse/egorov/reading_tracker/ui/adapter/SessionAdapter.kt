@@ -157,7 +157,8 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
 
     companion object {
         data class Session(val startTime: Calendar, val endTime: Calendar, val duration: Int,
-                           val emotion: Mood?, val place: Place?, val author: String,
-                           val comment: String?, val title: String, val sessionId: String, val bookId: String)
+                           val startPage: Int, val endPage: Int, val emotion: Mood?,
+                           val place: Place?, val author: String, val comment: String?,
+                           val title: String, val sessionId: String, val bookId: String)
     }
 }

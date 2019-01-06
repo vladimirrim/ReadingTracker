@@ -62,10 +62,10 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                         sessionData)
                 sessionAdapter.add(sessionData)
             }
+            sessionAdapter.sortByDate()
             OverallStatisticsFragment.getAllSessions().addAll(sessionAdapter.getCopy())
             OverallStatisticsFragment.getSessionsForPeriod().addAll(sessionAdapter.getCopy())
             bookStatisticsAdapter.set(bookStatisticsMap.values)
-            sessionAdapter.sortByDate()
         }
         val intent = Intent(this,
                 MainActivity::class.java)
