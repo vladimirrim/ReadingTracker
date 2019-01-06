@@ -24,7 +24,8 @@ class StatisticsManager {
         startTime.time = session["start time"] as Date
         endTime.time = session["end time"] as Date
         return Session(startTime, endTime, (session["duration"] as Long).toInt(), Mood.getMoodByName(session["mood"] as String?),
-                Place.getPlaceByName(session["place"] as String?), author, session["comment"] as String?, title, session.id)
+                Place.getPlaceByName(session["place"] as String?), author, session["comment"] as String?, title, session.id,
+                session["book id"] as String)
     }
 
     fun updateBookStatistics(bookStatistics: BookStatistics, session: Session): BookStatistics {

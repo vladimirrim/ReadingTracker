@@ -20,6 +20,8 @@ import ru.hse.egorov.reading_tracker.ui.profile.ProfileFragment
 
 
 class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher {
+    private lateinit var pagerAdapter: ViewPagerAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_overall_statistics, container, false)
 
@@ -67,11 +69,11 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
     }
 
     private fun setUpViewPager(view: View) {
-        val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(SessionsStatisticsFragment.newInstance(), "Записи")
-        adapter.addFragment(BooksStatisticsFragment.newInstance(), "По книгам")
-        adapter.addFragment(GraphsFragment.newInstance(), "Графики")
-        view.statisticsPager.adapter = adapter
+        pagerAdapter = ViewPagerAdapter(childFragmentManager)
+        pagerAdapter.addFragment(SessionsStatisticsFragment.newInstance(), "Записи")
+        pagerAdapter.addFragment(BooksStatisticsFragment.newInstance(), "По книгам")
+        pagerAdapter.addFragment(GraphsFragment.newInstance(), "Графики")
+        view.statisticsPager.adapter = pagerAdapter
     }
 
     override fun setActionBar(activity: AppCompatActivity) {
@@ -96,6 +98,9 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
                 statisticsPeriod.text = data!!.getStringExtra("selectedPeriod")
                 timePeriod = statisticsPeriod.text.toString()
                 setSessionsForPeriod(data.getLongExtra("thresholdDate", 0))
+                for (i in 0 until pagerAdapter.count) {
+                    (pagerAdapter.getItem(i) as StatisticsUpdater).updateStatistics()
+                }
             }
         }
     }
@@ -104,9 +109,8 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
         sessionsForPeriod.clear()
         for (session in allSessions) {
             if (session.startTime.timeInMillis >= thresholdDate) {
-                sessionsForPeriod.add(0, session)
-            } else
-                break
+                sessionsForPeriod.add(session)
+            }
         }
     }
 

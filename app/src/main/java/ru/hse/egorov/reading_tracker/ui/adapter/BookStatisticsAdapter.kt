@@ -26,6 +26,11 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
         return books
     }
 
+    fun clear(){
+        books.clear()
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return books.size
     }

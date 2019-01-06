@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.session.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_GENITIVE
+import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.WEEK_FULL
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Mood
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Place
@@ -40,6 +41,11 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
 
     fun getCopy(): MutableList<Session> {
         return ArrayList(sessions)
+    }
+
+    fun clear() {
+        sessions.clear()
+        notifyDataSetChanged()
     }
 
     fun restoreItem(book: Session, position: Int) {
@@ -125,7 +131,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         }
 
         private fun setDayOfTheWeek(day: Int) {
-            dayOfTheWeek.text = translateDayOfTheWeek(day, dayOfTheWeek.rootView.resources)
+            dayOfTheWeek.text = translateDayOfTheWeek(day, dayOfTheWeek.rootView.resources, WEEK_FULL)
         }
 
         private fun setUpBundle(comment: String, place: String, emotion: String, startTime: Calendar, endTime: Calendar): Bundle {
@@ -150,7 +156,8 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
     }
 
     companion object {
-        data class Session(val startTime: Calendar, val endTime: Calendar, val duration: Int, val emotion: Mood?,
-                           val place: Place?, val author: String, val comment: String?, val title: String, val sessionId: String)
+        data class Session(val startTime: Calendar, val endTime: Calendar, val duration: Int,
+                           val emotion: Mood?, val place: Place?, val author: String,
+                           val comment: String?, val title: String, val sessionId: String, val bookId: String)
     }
 }

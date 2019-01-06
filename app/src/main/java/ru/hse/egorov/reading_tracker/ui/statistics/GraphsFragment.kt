@@ -10,14 +10,17 @@ import android.view.ViewGroup
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import kotlinx.android.synthetic.main.fragment_graphs.*
-import kotlinx.android.synthetic.main.fragment_overall_statistics.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
-import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_NOMINATIVE
+import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_SHORT
+import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.WEEK_SHORT
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 
-class GraphsFragment : Fragment(), DateTranslator {
+class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_graphs, container, false)
@@ -26,6 +29,10 @@ class GraphsFragment : Fragment(), DateTranslator {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        updateStatistics()
+    }
+
+    override fun updateStatistics() {
         setUpChartMinutesPerDay()
         setUpChartPagesPerDay()
         setUpChartTimeOfDay()
@@ -33,6 +40,9 @@ class GraphsFragment : Fragment(), DateTranslator {
     }
 
     private fun setUpChartSessions() {
+        if (chartSessionsPerDay == null)
+            return
+
         chartSessionsPerDay.setBackgroundResource(R.color.light)
         chartSessionsPerDay.xAxis.setDrawGridLines(false)
         chartSessionsPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
@@ -43,56 +53,93 @@ class GraphsFragment : Fragment(), DateTranslator {
         chartSessionsPerDay.xAxis.setAvoidFirstLastClipping(true)
         chartSessionsPerDay.description.isEnabled = false
         val data = getSessionsData()
+        setSessionsData(data)
         chartSessionsPerDay.xAxis.setLabelCount(data.size, true)
         chartSessionsPerDay.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
-        setSessionsData(data)
     }
 
     private fun getSessionsData(): ArrayList<ChartData> {
         val timePeriod = OverallStatisticsFragment.getStatisticsPeriod()
         val sessions = OverallStatisticsFragment.getSessionsForPeriod()
-        val data = ArrayList<ChartData>()
-        when (timePeriod) {
-            resources.getString(R.string.all_time) -> {
-                for (session in sessions) {
-                    val sessionMonth = translateMonth(session.startTime.get(Calendar.MONTH), resources, MONTH_NOMINATIVE)
-                    when {
-                        data.isEmpty() -> data.add(ChartData(data.size.toFloat(), 1f, sessionMonth))
-                        data.last().xAxisValue != sessionMonth -> {
-                            val skippedMonths = ArrayDeque<ChartData>()
-                            val skippedMonth = Calendar.getInstance()
-                            skippedMonth.timeInMillis = session.startTime.timeInMillis
-                            skippedMonth.add(Calendar.MONTH, -1)
-                            while (translateMonth(skippedMonth.get(Calendar.MONTH), resources, MONTH_NOMINATIVE) != data.last().xAxisValue) {
-                                skippedMonths.addFirst(GraphsFragment.ChartData(0f, 0f,
-                                        translateMonth(skippedMonth.get(Calendar.MONTH), resources, MONTH_NOMINATIVE)))
-                                skippedMonth.add(Calendar.MONTH, -1)
-                            }
-                            val start = data.size
-                            data.addAll(skippedMonths)
-                            for (i in start until data.size) {
-                                data[i].xValue = i.toFloat()
-                            }
-                            data.add(GraphsFragment.ChartData(data.size.toFloat(), 1f, sessionMonth))
-                        }
-                        else -> data.last().yValue++
-                    }
+        return when (timePeriod) {
+            resources.getString(R.string.all_time), resources.getString(R.string.year) -> {
+                getSessionsDataForTimePeriod(Calendar.MONTH, sessions) { month ->
+                    translateMonth(month, resources, MONTH_SHORT)
                 }
             }
-            resources.getString(R.string.year) -> {
-
-            }
             resources.getString(R.string.month) -> {
-
+                getSessionsDataForTimePeriod(Calendar.DAY_OF_MONTH, sessions) { dayOfMonth ->
+                    dayOfMonth.toString()
+                }
             }
             resources.getString(R.string.week) -> {
-
+                getSessionsDataForTimePeriod(Calendar.DAY_OF_WEEK, sessions) { dayOfWeek ->
+                    translateDayOfTheWeek(dayOfWeek, resources, WEEK_SHORT)
+                }
             }
             resources.getString(R.string.day) -> {
-
+                getSessionsDataForTimePeriod(Calendar.HOUR_OF_DAY, sessions) { hour ->
+                    hour.toString()
+                }
             }
+            else -> throw IllegalArgumentException("Unknown time period.")
+        }
+    }
+
+    private fun getSessionsDataForTimePeriod(timePeriod: Int, sessions: ArrayList<Session>,
+                                             periodTranslator: (Int) -> String): ArrayList<ChartData> {
+        val data = ArrayList<ChartData>()
+        for (session in sessions) {
+            val sessionMonth = periodTranslator(session.startTime.get(timePeriod))
+            when {
+                data.isEmpty() -> data.add(ChartData(data.size.toFloat(), 1f, sessionMonth))
+                data.last().xAxisValue != sessionMonth -> {
+                    val skippedPeriods = ArrayDeque<ChartData>()
+                    val skippedPeriod = Calendar.getInstance()
+                    skippedPeriod.timeInMillis = session.startTime.timeInMillis
+                    skippedPeriod.add(timePeriod, -1)
+                    while (periodTranslator(skippedPeriod.get(timePeriod)) != data.last().xAxisValue) {
+                        skippedPeriods.addFirst(ChartData(0f, 0f,
+                                periodTranslator(skippedPeriod.get(timePeriod))))
+                        skippedPeriod.add(timePeriod, -1)
+                    }
+                    val start = data.size
+                    data.addAll(skippedPeriods)
+                    for (i in start until data.size) {
+                        data[i].xValue = i.toFloat()
+                    }
+                    data.add(ChartData(data.size.toFloat(), 1f, sessionMonth))
+                }
+                else -> data.last().yValue++
+            }
+        }
+        if (data.size == 1) {
+            data.last().xValue = 1f
+            val prev = Calendar.getInstance()
+            prev.timeInMillis = sessions[0].startTime.timeInMillis
+            prev.add(timePeriod, -1)
+            data.add(0, ChartData(0f, 0f,
+                    periodTranslator(prev.get(timePeriod))))
+        }
+
+        if (data.isEmpty()) {
+            val skippedPeriods = ArrayDeque<ChartData>()
+            val skippedPeriod = Calendar.getInstance()
+            val lastPeriod = periodTranslator(skippedPeriod.get(timePeriod))
+            skippedPeriod.add(timePeriod, -1)
+            while (periodTranslator(skippedPeriod.get(timePeriod)) != lastPeriod) {
+                skippedPeriods.addFirst(ChartData(0f, 0f,
+                        periodTranslator(skippedPeriod.get(timePeriod))))
+                skippedPeriod.add(timePeriod, -1)
+            }
+            val start = data.size
+            data.addAll(skippedPeriods)
+            for (i in start until data.size) {
+                data[i].xValue = i.toFloat()
+            }
+            data.add(ChartData(data.size.toFloat(), 0f, lastPeriod))
         }
         return data
     }
@@ -109,28 +156,26 @@ class GraphsFragment : Fragment(), DateTranslator {
             colors.add(green)
         }
 
-        val set: LineDataSet
+        val set = LineDataSet(values, "Values")
+        set.setDrawFilled(true)
+        set.fillColor = green
+        set.colors = colors
+        set.setValueTextColors(colors)
 
-        if (chartSessionsPerDay.data != null && chartSessionsPerDay.data.dataSetCount > 0) {
-            set = chartPagesPerDay.data.getDataSetByIndex(0) as LineDataSet
-            set.values = values
-            chartSessionsPerDay.data.notifyDataChanged()
-            chartSessionsPerDay.notifyDataSetChanged()
-        } else {
-            set = LineDataSet(values, "Values")
-            set.setDrawFilled(true)
-            set.fillColor = green
-            set.colors = colors
-            set.setValueTextColors(colors)
-
-            val data = LineData(set)
-            chartSessionsPerDay.data = data
-        }
+        val data = LineData(set)
+        chartSessionsPerDay.xAxis.valueFormatter = null
+        chartSessionsPerDay.data?.clearValues()
+        chartSessionsPerDay.notifyDataSetChanged()
+        chartSessionsPerDay.clear()
+        chartSessionsPerDay.invalidate()
+        chartSessionsPerDay.data = data
 
         chartSessionsPerDay.invalidate()
     }
 
     private fun setUpChartTimeOfDay() {
+        if (chartTimeOfDay == null)
+            return
         chartTimeOfDay.axisLeft.isEnabled = false
         chartTimeOfDay.axisRight.isEnabled = false
         chartTimeOfDay.axisLeft.setDrawGridLines(false)
@@ -154,6 +199,8 @@ class GraphsFragment : Fragment(), DateTranslator {
     }
 
     private fun setUpChartPagesPerDay() {
+        if (chartPagesPerDay == null)
+            return
         chartPagesPerDay.setBackgroundResource(R.color.light)
         chartPagesPerDay.xAxis.setDrawGridLines(false)
         chartPagesPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM
@@ -206,6 +253,8 @@ class GraphsFragment : Fragment(), DateTranslator {
     }
 
     private fun setUpChartMinutesPerDay() {
+        if (chartMinutesPerDay == null)
+            return
         chartMinutesPerDay.setBackgroundColor(Color.WHITE)
         chartMinutesPerDay.xAxis.granularity = 1f
         chartMinutesPerDay.xAxis.position = XAxis.XAxisPosition.BOTTOM

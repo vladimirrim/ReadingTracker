@@ -18,7 +18,7 @@ import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 
-class SessionsStatisticsFragment : Fragment(), BitmapEncoder {
+class SessionsStatisticsFragment : Fragment(), BitmapEncoder, StatisticsUpdater {
     private val dbManager = DatabaseManager()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +29,11 @@ class SessionsStatisticsFragment : Fragment(), BitmapEncoder {
         super.onViewCreated(view, savedInstanceState)
 
         setUpSessions()
+    }
+
+    override fun updateStatistics() {
+        sessionAdapter.clear()
+        sessionAdapter.set(OverallStatisticsFragment.getSessionsForPeriod())
     }
 
     private fun setUpSessions() {

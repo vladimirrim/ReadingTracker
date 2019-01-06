@@ -72,6 +72,4 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
         startActivity(intent)
         finish()
     }
-
-
 }

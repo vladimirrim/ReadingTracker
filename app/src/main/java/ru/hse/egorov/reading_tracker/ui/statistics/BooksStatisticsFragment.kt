@@ -10,8 +10,10 @@ import kotlinx.android.synthetic.main.fragment_books_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
 import ru.hse.egorov.reading_tracker.ui.adapter.BookStatisticsAdapter
+import ru.hse.egorov.reading_tracker.ui.adapter.BookStatisticsAdapter.Companion.BookStatistics
 
-class BooksStatisticsFragment : Fragment() {
+class BooksStatisticsFragment : Fragment(), StatisticsUpdater {
+    private val statsManager = StatisticsManager()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
@@ -21,6 +23,17 @@ class BooksStatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpBooks(view)
+    }
+
+    override fun updateStatistics() {
+        bookStatisticsAdapter.clear()
+        val bookStatisticsMap = HashMap<String, BookStatistics>()
+        for (session in OverallStatisticsFragment.getSessionsForPeriod()) {
+            bookStatisticsMap[session.bookId] = statsManager.updateBookStatistics(bookStatisticsMap.getOrDefault(session.bookId,
+                    BookStatistics(session.title, session.author, 0, 0, 0)),
+                    session)
+        }
+        bookStatisticsAdapter.set(bookStatisticsMap.values)
     }
 
     private fun setUpBooks(view: View) {

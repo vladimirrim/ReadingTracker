@@ -74,13 +74,34 @@
     <string name="change_time">Изменить время</string>
     <string name="change_rating">Изменить оценку</string>
     <string name="end_session">Закончить</string>
-    <string name="monday">Понедельник</string>
-    <string name="tuesday">Вторник</string>
-    <string name="wednesday">Среда</string>
-    <string name="thursday">Четверг</string>
-    <string name="friday">Пятница</string>
-    <string name="saturday">Суббота</string>
-    <string name="sunday">Воскресенье</string>
+    <plurals name="monday">
+        <item quantity="one">Понедельник</item>
+        <item quantity="other">Пн</item>
+    </plurals>
+    <plurals name="tuesday">
+        <item quantity="one">Вторник</item>
+        <item quantity="other">Вт</item>
+    </plurals>
+    <plurals name="wednesday">
+        <item quantity="one">Среда</item>
+        <item quantity="other">Ср</item>
+    </plurals>
+    <plurals name="thursday">
+        <item quantity="one">Четверг</item>
+        <item quantity="other">Чт</item>
+    </plurals>
+    <plurals name="friday">
+        <item quantity="one">Пятница</item>
+        <item quantity="other">Пт</item>
+    </plurals>
+    <plurals name="saturday">
+        <item quantity="one">Суббота</item>
+        <item quantity="other">Сб</item>
+    </plurals>
+    <plurals name="sunday">
+        <item quantity="one">Воскресенье</item>
+        <item quantity="other">Вс</item>
+    </plurals>
     <string name="session_date_title">Дата чтения</string>
     <string name="session_time_title">Период чтения</string>
     <string name="save_session">Записать</string>
@@ -89,52 +110,64 @@
     <string name="week">Неделя</string>
     <string name="day">День</string>
     <plurals name="january">
-        <item quantity="other">Январь</item>
+        <item quantity="many">Январь</item>
         <item quantity="one"> января</item>
+        <item quantity="other"> Янв</item>
     </plurals>
     <plurals name="february">
-        <item quantity="other">Февраль</item>
+        <item quantity="many">Февраль</item>
         <item quantity="one"> февраля</item>
+        <item quantity="other"> Фев</item>
     </plurals>
     <plurals name="march">
-        <item quantity="other">Март</item>
+        <item quantity="many">Март</item>
         <item quantity="one"> марта</item>
+        <item quantity="other"> Мар</item>
     </plurals>
     <plurals name="april">
-        <item quantity="other">Апрель</item>
+        <item quantity="many">Апрель</item>
         <item quantity="one"> апреля</item>
+        <item quantity="other"> Апр</item>
     </plurals>
     <plurals name="may">
-        <item quantity="other">Май</item>
+        <item quantity="many">Май</item>
         <item quantity="one"> мая</item>
+        <item quantity="other"> Май</item>
     </plurals>
     <plurals name="june">
-        <item quantity="other">Июнь</item>
+        <item quantity="many">Июнь</item>
         <item quantity="one"> июня</item>
+        <item quantity="other"> Июн</item>
     </plurals>
     <plurals name="july">
-        <item quantity="other">Июль</item>
+        <item quantity="many">Июль</item>
         <item quantity="one"> июля</item>
+        <item quantity="other"> Июл</item>
     </plurals>
     <plurals name="august">
-        <item quantity="other">Август</item>
+        <item quantity="many">Август</item>
         <item quantity="one"> августа</item>
+        <item quantity="other"> Авг</item>
     </plurals>
     <plurals name="september">
-        <item quantity="other">Сентябрь</item>
+        <item quantity="many">Сентябрь</item>
         <item quantity="one"> сентября</item>
+        <item quantity="other"> Сен</item>
     </plurals>
     <plurals name="october">
-        <item quantity="other">Октябрь</item>
+        <item quantity="many">Октябрь</item>
         <item quantity="one"> октября</item>
+        <item quantity="other"> Окт</item>
     </plurals>
     <plurals name="november">
-        <item quantity="other">Ноябрь</item>
+        <item quantity="many">Ноябрь</item>
         <item quantity="one"> ноября</item>
+        <item quantity="other"> Ноя</item>
     </plurals>
     <plurals name="december">
-        <item quantity="other">Декабрь</item>
+        <item quantity="many">Декабрь</item>
         <item quantity="one"> декабря</item>
+        <item quantity="other"> Дек</item>
     </plurals>
 
 </resources>

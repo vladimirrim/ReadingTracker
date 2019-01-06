@@ -18,26 +18,29 @@ interface DateTranslator {
             Calendar.SEPTEMBER -> resources.getQuantityString(R.plurals.september, ending)
             Calendar.OCTOBER -> resources.getQuantityString(R.plurals.october, ending)
             Calendar.NOVEMBER -> resources.getQuantityString(R.plurals.november, ending)
-            Calendar.DECEMBER -> resources.getQuantityString(R.plurals.december,ending)
+            Calendar.DECEMBER -> resources.getQuantityString(R.plurals.december, ending)
             else -> ""
         }
     }
 
-    fun translateDayOfTheWeek(day: Int, resources: Resources): String {
+    fun translateDayOfTheWeek(day: Int, resources: Resources, version: Int): String {
         return when (day) {
-            Calendar.MONDAY -> resources.getString(R.string.monday)
-            Calendar.TUESDAY -> resources.getString(R.string.tuesday)
-            Calendar.WEDNESDAY -> resources.getString(R.string.wednesday)
-            Calendar.THURSDAY -> resources.getString(R.string.thursday)
-            Calendar.FRIDAY -> resources.getString(R.string.friday)
-            Calendar.SATURDAY -> resources.getString(R.string.saturday)
-            Calendar.SUNDAY -> resources.getString(R.string.sunday)
+            Calendar.MONDAY -> resources.getQuantityString(R.plurals.monday, version)
+            Calendar.TUESDAY -> resources.getQuantityString(R.plurals.tuesday, version)
+            Calendar.WEDNESDAY -> resources.getQuantityString(R.plurals.wednesday, version)
+            Calendar.THURSDAY -> resources.getQuantityString(R.plurals.thursday, version)
+            Calendar.FRIDAY -> resources.getQuantityString(R.plurals.friday, version)
+            Calendar.SATURDAY -> resources.getQuantityString(R.plurals.saturday, version)
+            Calendar.SUNDAY -> resources.getQuantityString(R.plurals.sunday, version)
             else -> ""
         }
     }
 
     companion object {
-        const val MONTH_NOMINATIVE = 0
+        const val MONTH_NOMINATIVE = 5
         const val MONTH_GENITIVE = 1
+        const val MONTH_SHORT = 2
+        const val WEEK_FULL = 1
+        const val WEEK_SHORT = 2
     }
 }
