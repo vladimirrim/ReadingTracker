@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_overall_statistics.*
 import kotlinx.android.synthetic.main.fragment_overall_statistics.view.*
+import kotlinx.android.synthetic.main.total_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
@@ -66,6 +67,8 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
             }
             true
         }
+
+        setTotalStatistics()
     }
 
     private fun setUpViewPager(view: View) {
@@ -101,8 +104,20 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
                 for (i in 0 until pagerAdapter.count) {
                     (pagerAdapter.getItem(i) as StatisticsUpdater).updateStatistics()
                 }
+                setTotalStatistics()
             }
         }
+    }
+
+    private fun setTotalStatistics() {
+        val totalSessions = sessionsForPeriod.size.toString()
+        val totalTime = sessionsForPeriod.sumBy { it.duration }
+        val booksCount = (pagerAdapter.getItem(1) as BooksStatisticsFragment).getBooksCount().toString()
+
+        totalStatistics.booksCount.text = booksCount
+        totalStatistics.totalHours.text = (totalTime / 60 / 60).toString()
+        totalStatistics.totalMinutes.text = ((totalTime / 60) % 60).toString()
+        totalStatistics.totalSessionsCount.text = totalSessions
     }
 
     private fun setSessionsForPeriod(thresholdDate: Long) {

@@ -39,6 +39,10 @@ class BooksStatisticsFragment : Fragment(), StatisticsUpdater {
         setTotalBookStatistics()
     }
 
+    fun getBooksCount(): Int {
+        return bookStatisticsAdapter.itemCount
+    }
+
     private fun setTotalBookStatistics() {
         if (theLongestReadingTimeBook == null || mostSessionsBook == null)
             return
