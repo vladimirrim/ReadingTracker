@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -11,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chartMinutesPerDay"
+            android:id="@+id/chartMinutes"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,25 +19,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chartPagesPerDay"
+            android:id="@+id/chartPages"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="60dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chartMinutesPerDay" />
+            app:layout_constraintTop_toBottomOf="@+id/chartMinutes" />
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chartSessionsPerDay"
+            android:id="@+id/chartSessions"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="54dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chartPagesPerDay" />
+            app:layout_constraintTop_toBottomOf="@+id/chartPages" />
 
         <LinearLayout
+            android:id="@+id/chartTimeOfDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -47,7 +47,7 @@
             android:baselineAligned="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chartSessionsPerDay">
+            app:layout_constraintTop_toBottomOf="@+id/chartSessions">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -70,8 +70,10 @@
                     android:background="@drawable/morning_color" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/morningDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:textAppearance="@style/light_dark_14sp" />
             </LinearLayout>
 
@@ -96,8 +98,10 @@
                     android:background="@color/pink" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/dayDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:textAppearance="@style/light_dark_14sp" />
             </LinearLayout>
 
@@ -123,8 +127,10 @@
                     android:background="@drawable/evening_color" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/eveningDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:textAppearance="@style/light_dark_14sp" />
             </LinearLayout>
 
@@ -149,8 +155,10 @@
                     android:background="@color/colorPrimary_80alpha" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/nightDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:textAppearance="@style/light_dark_14sp" />
             </LinearLayout>
         </LinearLayout>

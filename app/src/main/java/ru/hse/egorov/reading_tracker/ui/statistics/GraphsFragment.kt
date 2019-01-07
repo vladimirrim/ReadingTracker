@@ -7,12 +7,17 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.fragment_graphs.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
+import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_SHORT
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.WEEK_SHORT
@@ -20,7 +25,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
+class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater, BitmapEncoder {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_graphs, container, false)
@@ -40,55 +46,55 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
     }
 
     private fun setUpChartSessions() {
-        if (chartSessionsPerDay == null)
+        if (chartSessions == null)
             return
 
-        setUpChart(chartSessionsPerDay)
+        setUpChart(chartSessions)
         val data = getSessionsData { data, _ ->
             data.yValue++
         }
-        setSessionsData(data, chartSessionsPerDay, Color.rgb(110, 190, 102))
-        chartSessionsPerDay.xAxis.setLabelCount(data.size, true)
-        chartSessionsPerDay.xAxis.setValueFormatter { value, _ ->
+        setSessionsData(data, chartSessions, Color.rgb(110, 190, 102))
+        chartSessions.xAxis.setLabelCount(data.size, true)
+        chartSessions.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
-        chartSessionsPerDay.axisLeft.setValueFormatter { value, _ ->
+        chartSessions.axisLeft.setValueFormatter { value, _ ->
             return@setValueFormatter value.toInt().toString() + " подходов"
         }
     }
 
     private fun setUpChartPagesPerDay() {
-        if (chartPagesPerDay == null)
+        if (chartPages == null)
             return
 
-        setUpChart(chartPagesPerDay)
+        setUpChart(chartPages)
         val data = getSessionsData { data, session ->
             data.yValue += session.endPage - session.startPage
         }
-        setSessionsData(data, chartPagesPerDay, ContextCompat.getColor(context!!, R.color.pink))
-        chartPagesPerDay.xAxis.setLabelCount(data.size, true)
-        chartPagesPerDay.xAxis.setValueFormatter { value, _ ->
+        setSessionsData(data, chartPages, ContextCompat.getColor(context!!, R.color.pink))
+        chartPages.xAxis.setLabelCount(data.size, true)
+        chartPages.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
-        chartPagesPerDay.axisLeft.setValueFormatter { value, _ ->
+        chartPages.axisLeft.setValueFormatter { value, _ ->
             return@setValueFormatter value.toInt().toString() + " страниц"
         }
     }
 
     private fun setUpChartMinutesPerDay() {
-        if (chartMinutesPerDay == null)
+        if (chartMinutes == null)
             return
 
-        setUpChart(chartMinutesPerDay)
+        setUpChart(chartMinutes)
         val data = getSessionsData { data, session ->
             data.yValue += session.duration
         }
-        setSessionsData(data, chartMinutesPerDay, ContextCompat.getColor(context!!, R.color.colorPrimary))
-        chartMinutesPerDay.xAxis.setLabelCount(data.size, true)
-        chartMinutesPerDay.xAxis.setValueFormatter { value, _ ->
+        setSessionsData(data, chartMinutes, ContextCompat.getColor(context!!, R.color.colorPrimary))
+        chartMinutes.xAxis.setLabelCount(data.size, true)
+        chartMinutes.xAxis.setValueFormatter { value, _ ->
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
-        chartMinutesPerDay.axisLeft.setValueFormatter { value, _ ->
+        chartMinutes.axisLeft.setValueFormatter { value, _ ->
             return@setValueFormatter (value.toInt() / 60 / 60).toString() + " час " +
                     ((value.toInt() / 60) % 60).toString() + " мин"
         }
@@ -220,11 +226,52 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater {
     }
 
     private fun setUpChartTimeOfDay() {
+        if (chartTimeOfDay == null)
+            return
+
+        val sessions = OverallStatisticsFragment.getSessionsForPeriod()
+        var morningCount = 0
+        var dayCount = 0
+        var eveningCount = 0
+        var nightCount = 0
+        val totalCount = sessions.size
+
+        for (session in sessions) {
+            val hour = session.startTime.get(Calendar.HOUR_OF_DAY)
+            when {
+                hour < 6 -> nightCount++
+                hour < 12 -> morningCount++
+                hour < 18 -> dayCount++
+                hour < 24 -> eveningCount++
+            }
+        }
+
+        if (totalCount == 0) {
+            changeHeight(morning, morningDescription, 0f)
+            changeHeight(day, dayDescription, 0f)
+            changeHeight(evening, eveningDescription, 0f)
+            changeHeight(night, nightDescription, 0f)
+        } else {
+            changeHeight(morning, morningDescription, morningCount / totalCount.toFloat())
+            changeHeight(day, dayDescription, dayCount / totalCount.toFloat())
+            changeHeight(evening, eveningDescription, eveningCount / totalCount.toFloat())
+            changeHeight(night, nightDescription, nightCount / totalCount.toFloat())
+        }
+    }
+
+    private fun changeHeight(view: View, description: TextView, percent: Float) {
+        val maxHeight = dipToPixels(context!!, MAX_HEIGHT)
+        val params = view.layoutParams
+        params.height = (maxHeight * percent).toInt()
+        view.layoutParams = params
+        val text = (percent * 100).toInt().toString() + "%"
+        description.text = text
     }
 
     private class ChartData(var xValue: Float, var yValue: Float, val xAxisValue: String)
 
     companion object {
+        private const val MAX_HEIGHT = 200f
         /**
          * Use this factory method to create a new instance of
          * this fragment.
