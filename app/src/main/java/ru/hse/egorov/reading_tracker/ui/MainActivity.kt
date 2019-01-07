@@ -10,6 +10,7 @@ import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.dialog.AddBookDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
 
         setUpViewPager()
         fab.setOnClickListener {
-            openTemporaryFragment(this, AddingBookFragment.newInstance(), R.id.temporaryFragment)
+            AddBookDialog().show(supportFragmentManager, "Add Book")
             fab.hide()
         }
 

@@ -109,6 +109,10 @@
     <string name="month">Месяц</string>
     <string name="week">Неделя</string>
     <string name="day">День</string>
+    <string name="find_by_isbn">Найти по штрихкоду</string>
+    <string name="find_by_name">Найти по названию</string>
+    <string name="manual_add">Ввести вручную</string>
+    <string name="find">Найти</string>
     <plurals name="january">
         <item quantity="many">Январь</item>
         <item quantity="one"> января</item>

@@ -99,19 +99,35 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
             }
 
             progressBar?.visibility = View.VISIBLE
-            dbManager.getBookCover(book.id, cover!!.context).listener(object : RequestListener<Drawable> {
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
-                                             dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    progressBar?.visibility = View.GONE
-                    return false
-                }
+            if (book.cover == null) {
+                dbManager.getBookCover(book.id, cover!!.context).listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                                                 dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        progressBar?.visibility = View.GONE
+                        return false
+                    }
 
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                    progressBar?.visibility = View.GONE
-                    return false
-                }
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        progressBar?.visibility = View.GONE
+                        return false
+                    }
 
-            }).into(cover)
+                }).into(cover)
+            } else {
+                dbManager.getBookCoverFromURL(book.cover, cover!!.context).listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                                                 dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        progressBar?.visibility = View.GONE
+                        return false
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        progressBar?.visibility = View.GONE
+                        return false
+                    }
+
+                }).into(cover)
+            }
         }
     }
 }

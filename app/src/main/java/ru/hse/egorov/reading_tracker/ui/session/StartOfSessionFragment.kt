@@ -52,7 +52,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
     }
 
-    fun setBook(author: String, title: String, id: String) {
+    fun setBook(author: String?, title: String, id: String) {
         this.author.maxLines = 1
         this.author.text = author
         this.title.maxLines = 2

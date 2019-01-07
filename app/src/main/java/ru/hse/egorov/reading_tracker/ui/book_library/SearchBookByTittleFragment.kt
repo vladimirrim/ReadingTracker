@@ -1,5 +1,6 @@
 package ru.hse.egorov.reading_tracker.ui.book_library
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,13 +11,11 @@ import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.extensions.android.json.AndroidJsonFactory
 import com.google.api.services.books.Books
 import com.google.api.services.books.BooksRequestInitializer
-import kotlinx.android.synthetic.main.fragment_library.view.*
+import com.google.api.services.books.model.Volumes
 import kotlinx.android.synthetic.main.fragment_search_book_by_title.view.*
 import ru.hse.egorov.reading_tracker.BuildConfig
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
-import com.google.api.services.books.model.Volume
-import com.google.api.services.books.model.Volumes
 
 
 class SearchBookByTittleFragment : Fragment() {
@@ -33,17 +32,10 @@ class SearchBookByTittleFragment : Fragment() {
         view.findButton.setOnClickListener {
             val query = view.title.text.toString()
             if (query != "") {
-                val books = Books.Builder(AndroidHttp.newCompatibleTransport(), AndroidJsonFactory.getDefaultInstance(), null)
-                        .setApplicationName(BuildConfig.APPLICATION_ID)
-                        .setGoogleClientRequestInitializer(BooksRequestInitializer(API_KEY))
-                        .build()
-
-                val list = books.volumes().list(query)
-                list.fields = "totalItems,items(volumeInfo(title,authors,pageCount,imageLinks/smallThumbnail),id)";
-
-                val execution = list.execute()
-                libraryAdapter.clear()
-                libraryAdapter.set(convert(execution))
+                BookDownloader { _, books ->
+                    libraryAdapter.clear()
+                    libraryAdapter.set(convert(books))
+                }.execute(query)
             }
         }
     }
@@ -62,13 +54,31 @@ class SearchBookByTittleFragment : Fragment() {
     }
 
     private fun setUpAdapter(view: View) {
-        view.library.layoutManager = LinearLayoutManager(context)
-        view.library.adapter = libraryAdapter
+        view.results.layoutManager = LinearLayoutManager(context)
+        view.results.adapter = libraryAdapter
+    }
+
+    private class BookDownloader(private val onDownloadFinish: (success: Boolean, Volumes) -> Unit) : AsyncTask<String, Unit, Volumes>() {
+
+        override fun doInBackground(vararg p0: String?): Volumes {
+            val books = Books.Builder(AndroidHttp.newCompatibleTransport(), AndroidJsonFactory.getDefaultInstance(), null)
+                    .setApplicationName(BuildConfig.APPLICATION_ID)
+                    .setGoogleClientRequestInitializer(BooksRequestInitializer(API_KEY))
+                    .build()
+
+            val list = books.volumes().list(p0[0])
+            list.fields = "totalItems,items(volumeInfo(title,authors,pageCount,imageLinks/smallThumbnail),id)"
+            return list.execute()
+        }
+
+        override fun onPostExecute(result: Volumes?) {
+            onDownloadFinish(true, result!!)
+        }
     }
 
     companion object {
         private const val API_KEY = "AIzaSyDyz5uPI7Bv-gZTosWKBPMHtVVXtWy_UEA"
 
-        fun newInstance() = LibraryWelcomeFragment()
+        fun newInstance() = SearchBookByTittleFragment()
     }
 }
