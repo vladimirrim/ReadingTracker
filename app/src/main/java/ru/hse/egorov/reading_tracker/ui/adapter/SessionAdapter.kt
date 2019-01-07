@@ -74,23 +74,23 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         holder.bind(sessions[position])
     }
 
-    inner class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), FragmentLauncher, DateTranslator {
+    class SessionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), FragmentLauncher, DateTranslator {
         private val date = itemView.date
         private val dayOfTheWeek = itemView.dayOfTheWeek
-        private val minutes = itemView.hours
+        private val minutes = itemView.minutes
         private val hours = itemView.hours
         private val author = itemView.author
         private val title = itemView.title
         private val place = itemView.placeFlag
         private val comment = itemView.commentFlag
         private val emotion = itemView.emotionFlag
-        private val container = itemView.sessionContainer
+        private val container = itemView
 
         fun bind(session: Session) {
             setDate(session.startTime.get(Calendar.MONTH), session.startTime.get(Calendar.DAY_OF_MONTH))
             setDayOfTheWeek(session.startTime.get(Calendar.DAY_OF_WEEK))
-            minutes.text = (session.duration / 60).toString()
-            if (minutes.text == "0") minutes.text = "1"
+            minutes.text = ((session.duration / 60) % 60).toString()
+            if (session.duration < 60) minutes.text = "1"
             hours.text = (session.duration / 60 / 60).toString()
             if (hours.text == "0") {
                 itemView.hoursStatic.visibility = View.INVISIBLE

@@ -1,7 +1,10 @@
 package ru.hse.egorov.reading_tracker.ui.statistics
 
 
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -16,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_sessions_statistics.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter
+import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 
 class SessionsStatisticsFragment : Fragment(), BitmapEncoder, StatisticsUpdater {
@@ -29,11 +33,32 @@ class SessionsStatisticsFragment : Fragment(), BitmapEncoder, StatisticsUpdater 
         super.onViewCreated(view, savedInstanceState)
 
         setUpSessions()
+        setLongestReadSession()
     }
 
     override fun updateStatistics() {
         sessionAdapter.clear()
         sessionAdapter.set(OverallStatisticsFragment.getSessionsForPeriod())
+        setLongestReadSession()
+    }
+
+    private fun setLongestReadSession() {
+        if (theLongestSession == null)
+            return
+
+        var longestReadSession: Session? = null
+        for (session in OverallStatisticsFragment.getSessionsForPeriod()) {
+            if (longestReadSession == null || session.duration > longestReadSession.duration) {
+                longestReadSession = session
+            }
+        }
+        if (longestReadSession == null) {
+            theLongestSession.visibility = View.GONE
+        } else {
+            val session = SessionAdapter.SessionViewHolder(theLongestSession)
+            session.bind(longestReadSession)
+            theLongestSession.visibility = View.VISIBLE
+        }
     }
 
     private fun setUpSessions() {
