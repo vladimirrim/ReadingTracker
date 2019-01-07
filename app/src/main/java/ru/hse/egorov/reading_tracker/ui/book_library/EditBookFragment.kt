@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
 import kotlinx.android.synthetic.main.fragment_library.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.book_library.BookFragment.Companion.MediaType.Companion.getIdByName
 import java.io.ByteArrayOutputStream
@@ -27,10 +28,10 @@ class EditBookFragment : BookFragment() {
 
         author.setText(arguments!!["author"] as String)
         title.setText(arguments!!["title"] as String)
-        cover.setImageBitmap(Bitmap.createScaledBitmap(arguments!!["cover"] as Bitmap, dipToPixels(context!!, 155f),
-                dipToPixels(context!!, 222f), false))
-        val spinner: Spinner = view.mediaSpinner
 
+        dbManager.getBookCover(arguments!!["bookId"] as String, context!!).into(cover)
+
+        val spinner = view.mediaSpinner
         ArrayAdapter.createFromResource(
                 context!!,
                 R.array.media_spinner_array,

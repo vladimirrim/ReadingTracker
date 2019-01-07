@@ -35,7 +35,7 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                 val libraryAdapter = LibraryFragment.getAdapter()
                 for (book in it.documents) {
                     libraryAdapter.add(LibraryFragment.Book(book["author"] as String, book["title"] as String, book.id,
-                            book["media"] as String, null, book["last updated"] as Date))
+                            book["media"] as String, "", book["last updated"] as Date, 0))
                     bookMap[book.id] = Pair(book["author"] as String, book["title"] as String)
                 }
                 setUpSessions(bookMap)

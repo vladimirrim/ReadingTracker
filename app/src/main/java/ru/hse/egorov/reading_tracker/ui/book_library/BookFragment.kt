@@ -29,8 +29,8 @@ abstract class BookFragment : Fragment(), BitmapEncoder {
 
     protected fun setUpNewBook(lastUpdated: Timestamp, id: String): Book {
         return Book(author.text.toString(), title.text.toString(), id,
-                mediaSpinner.selectedItem.toString(), getBitmap(cover.drawable),
-                lastUpdated.toDate())
+                mediaSpinner.selectedItem.toString(), "",
+                lastUpdated.toDate(), 0)
     }
 
     protected fun hideProgressBar() {

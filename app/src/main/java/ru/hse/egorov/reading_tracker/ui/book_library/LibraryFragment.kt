@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import android.view.*
+import com.google.api.services.books.model.Volume
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_library.view.*
 import ru.hse.egorov.reading_tracker.R
@@ -93,7 +94,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
             }
 
             private fun setUpBundle(bundle: Bundle, selectedBook: Book, position: Int) {
-                bundle.putParcelable("cover", selectedBook.cover)
+                bundle.putString("cover", selectedBook.cover)
                 bundle.putString("title", selectedBook.name)
                 bundle.putString("author", selectedBook.author)
                 bundle.putString("bookId", selectedBook.id)
@@ -140,5 +141,9 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
         fun getAdapter() = libraryAdapter
     }
 
-    data class Book(var author: String, var name: String, var id: String, var mediaType: String, var cover: Bitmap?, var lastUpdated: Date)
+    data class Book(var author: String, var name: String, var id: String, var mediaType: String, var cover: String, var lastUpdated: Date,
+                    var pageCount: Int?) {
+        constructor(volumeInfo: Volume.VolumeInfo) : this(volumeInfo.authors.joinToString(), volumeInfo.title, "-1",
+                "ebook", volumeInfo.imageLinks.smallThumbnail, Calendar.getInstance().time, volumeInfo.pageCount)
+    }
 }

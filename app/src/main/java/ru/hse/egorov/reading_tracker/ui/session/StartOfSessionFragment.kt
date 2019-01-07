@@ -1,7 +1,6 @@
 package ru.hse.egorov.reading_tracker.ui.session
 
 import android.app.ActionBar
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -31,7 +30,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         val libraryAdapter = LibraryFragment.getAdapter()
         if (libraryAdapter.itemCount != 0) {
             val book = libraryAdapter.get(0)
-            setBook(book.author, book.name, book.id, book.cover)
+            setBook(book.author, book.name, book.id)
         }
 
         view.addBook.setOnClickListener {
@@ -53,17 +52,13 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
     }
 
-    fun setBook(author: String, title: String, id: String, cover: Bitmap?) {
+    fun setBook(author: String, title: String, id: String) {
         this.author.maxLines = 1
         this.author.text = author
         this.title.maxLines = 2
         this.title.text = title
         this.addBook.visibility = View.INVISIBLE
-        if (cover == null) {
-            dbManager.getBookCover(id, context!!).into(this.cover)
-        } else {
-            this.cover.setImageBitmap(cover)
-        }
+        dbManager.getBookCover(id, context!!).into(this.cover)
         this.cover.visibility = View.VISIBLE
         this.author.visibility = View.VISIBLE
     }

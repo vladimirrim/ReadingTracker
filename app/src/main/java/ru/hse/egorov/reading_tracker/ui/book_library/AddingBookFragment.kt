@@ -7,12 +7,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
-import android.support.media.ExifInterface
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
 import com.google.firebase.Timestamp
 import com.google.firebase.ml.vision.FirebaseVision
@@ -138,7 +138,7 @@ class AddingBookFragment : BookFragment() {
     }
 
     private fun setOriginalImageOrientation(bitmap: Bitmap, imageUri: Uri): Bitmap {
-        val ei = ExifInterface(activity!!.contentResolver.openInputStream(imageUri))
+        val ei = ExifInterface(activity!!.contentResolver.openInputStream(imageUri)!!)
         val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                 ExifInterface.ORIENTATION_UNDEFINED)
         var rotatedBitmap: Bitmap = bitmap
@@ -162,8 +162,7 @@ class AddingBookFragment : BookFragment() {
         arguments?.let { bundle ->
             if (bundle.getBoolean("set book")) {
                 (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
-                        + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(author.text.toString(), title.text.toString(), id,
-                        getBitmap(cover.drawable))
+                        + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(author.text.toString(), title.text.toString(), id)
             }
         }
     }
@@ -174,6 +173,7 @@ class AddingBookFragment : BookFragment() {
         const val REQUEST_IMAGE_GALLERY = 1
         const val REQUEST_IMAGE_CAMERA = 2
         const val REQUEST_SCAN_ISBN = 3
+
         fun newInstance(): AddingBookFragment = AddingBookFragment()
     }
 }

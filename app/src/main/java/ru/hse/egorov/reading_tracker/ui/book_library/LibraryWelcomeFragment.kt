@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 
-class LibraryWelcomeFragment : Fragment(),ActionBarSetter {
-    override fun setActionBar(activity: AppCompatActivity) {
-         //  TODO
-    }
+class LibraryWelcomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_library_welcome, container, false)

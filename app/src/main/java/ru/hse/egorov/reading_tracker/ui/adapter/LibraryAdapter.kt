@@ -46,6 +46,11 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
         return library[position]
     }
 
+    fun clear() {
+        library.clear()
+        notifyDataSetChanged()
+    }
+
     fun removeItem(position: Int) {
         library.removeAt(position)
         notifyItemRemoved(position)
@@ -93,25 +98,20 @@ class LibraryAdapter : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() 
                 //TODO transfer data to book
             }
 
-            if (book.cover == null) {
-                progressBar?.visibility = View.VISIBLE
-                dbManager.getBookCover(book.id, cover!!.context).override(70, 100).listener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
-                                                 dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        progressBar?.visibility = View.GONE
-                        book.cover = getBitmap(resource!!)
-                        return false
-                    }
+            progressBar?.visibility = View.VISIBLE
+            dbManager.getBookCover(book.id, cover!!.context).listener(object : RequestListener<Drawable> {
+                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?,
+                                             dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    progressBar?.visibility = View.GONE
+                    return false
+                }
 
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        progressBar?.visibility = View.GONE
-                        return false
-                    }
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                    progressBar?.visibility = View.GONE
+                    return false
+                }
 
-                }).into(cover)
-            } else {
-                cover?.setImageBitmap(book.cover)
-            }
+            }).into(cover)
         }
     }
 }
