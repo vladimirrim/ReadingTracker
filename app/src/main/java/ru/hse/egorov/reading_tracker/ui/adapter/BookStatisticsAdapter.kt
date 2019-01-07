@@ -39,7 +39,7 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
         holder.bind(books[position])
     }
 
-    inner class BookStatisticsHolder(itemView: View) : RecyclerView.ViewHolder(itemView), FragmentLauncher {
+    class BookStatisticsHolder(itemView: View) : RecyclerView.ViewHolder(itemView), FragmentLauncher {
         private val title = itemView.title
         private val author = itemView.author
         private val hours = itemView.hours

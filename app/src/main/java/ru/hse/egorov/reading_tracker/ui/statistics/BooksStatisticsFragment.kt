@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_books_statistics.*
 import kotlinx.android.synthetic.main.fragment_books_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
@@ -23,6 +24,7 @@ class BooksStatisticsFragment : Fragment(), StatisticsUpdater {
         super.onViewCreated(view, savedInstanceState)
 
         setUpBooks(view)
+        setTotalBookStatistics()
     }
 
     override fun updateStatistics() {
@@ -34,6 +36,36 @@ class BooksStatisticsFragment : Fragment(), StatisticsUpdater {
                     session)
         }
         bookStatisticsAdapter.set(bookStatisticsMap.values)
+        setTotalBookStatistics()
+    }
+
+    private fun setTotalBookStatistics() {
+        if (theLongestReadingTimeBook == null || mostSessionsBook == null)
+            return
+
+        var longestRead: BookStatistics? = null
+        var mostSessions: BookStatistics? = null
+        for (bookStatistics in bookStatisticsAdapter.get()) {
+            if (longestRead == null ||
+                    bookStatistics.hours * 60 + bookStatistics.minutes > longestRead.hours * 60 + longestRead.minutes) {
+                longestRead = bookStatistics
+            }
+            if (mostSessions == null ||
+                    bookStatistics.sessionsCount > mostSessions.sessionsCount) {
+                mostSessions = bookStatistics
+            }
+        }
+        if (longestRead == null || mostSessions == null) {
+            theLongestReadingTimeBook.visibility = View.GONE
+            mostSessionsBook.visibility = View.GONE
+        } else {
+            val lRBook = BookStatisticsAdapter.BookStatisticsHolder(theLongestReadingTimeBook)
+            lRBook.bind(longestRead)
+            theLongestReadingTimeBook.visibility = View.VISIBLE
+            val mSBook = BookStatisticsAdapter.BookStatisticsHolder(mostSessionsBook)
+            mSBook.bind(mostSessions)
+            mostSessionsBook.visibility = View.VISIBLE
+        }
     }
 
     private fun setUpBooks(view: View) {

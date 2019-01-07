@@ -36,14 +36,14 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
         title.text = arguments!!["title"] as String
         comment.text = arguments!!["comment"] as String
         startTime.hours.text = arguments!!["startTimeHours"] as String
-        startTime.hours.text = arguments!!["startTimeMinutes"] as String
+        startTime.minutes.text = arguments!!["startTimeMinutes"] as String
         endTime.hours.text = arguments!!["endTimeHours"] as String
-        endTime.hours.text = arguments!!["endTimeMinutes"] as String
+        endTime.minutes.text = arguments!!["endTimeMinutes"] as String
         hours.text = arguments!!["hours"] as String
         if (hours.text == "") {
             hoursStatic.visibility = View.GONE
         }
-        hours.text = arguments!!["minutes"] as String
+        minutes.text = arguments!!["minutes"] as String
         if (arguments!!["place"] as String == "")
             placeFlag.visibility = View.GONE
         if (arguments!!["emotion"] as String == "")
