@@ -59,24 +59,31 @@ class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher, DateTransl
         }
 
         view.toSession.setOnClickListener {
-            openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), parentFragment!!, R.id.sessionFragment)
+            openInnerFragment(AutoSessionTimeChangeFragment.newInstance().apply { arguments = this@ManualSessionTimeChangeFragment.arguments },
+                    parentFragment!!, R.id.sessionFragment)
         }
     }
 
     private fun setEndSessionButton() {
         endSessionButton.setOnClickListener {
             val dispatchFragment = EndOfSessionFragment.newInstance()
-            val bundle = Bundle()
-            var duration = endTimeMinutes - startTimeMinutes
-            if (duration < 0) duration += 24 * 60
-            bundle.putInt("duration", duration * 60)
-            bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
-            bundle.putLong("startTime", date + startTimeMinutes * 60 * 1000)
-            bundle.putLong("endTime", date + startTimeMinutes * 60 * 1000 + duration * 60 * 1000)
-            dispatchFragment.arguments = bundle
+            dispatchFragment.arguments = setBundle()
             openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
         }
         endSessionButton.isEnabled = LibraryFragment.getAdapter().itemCount != 0
+    }
+
+    private fun setBundle(): Bundle {
+        val bundle = Bundle()
+        var duration = endTimeMinutes - startTimeMinutes
+        if (duration < 0) duration += 24 * 60
+        bundle.putLong("duration", duration * 60L)
+        bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
+        bundle.putLong("startTime", date + startTimeMinutes * 60 * 1000)
+        bundle.putLong("endTime", date + startTimeMinutes * 60 * 1000 + duration * 60 * 1000)
+        bundle.putString("author", arguments!!["author"] as String?)
+        bundle.putString("title", arguments!!["title"] as String?)
+        return bundle
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

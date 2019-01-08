@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_auto_session_time_change.*
 import kotlinx.android.synthetic.main.fragment_auto_session_time_change.view.*
 import ru.hse.egorov.reading_tracker.R
@@ -34,7 +36,8 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
             view.startSession.isEnabled = false
         }
         view.toManualTimeChange.setOnClickListener {
-            openInnerFragment(ManualSessionTimeChangeFragment.newInstance(), parentFragment!!, R.id.sessionFragment)
+            openInnerFragment(ManualSessionTimeChangeFragment.newInstance().apply { arguments = this@AutoSessionTimeChangeFragment.arguments },
+                    parentFragment!!, R.id.sessionFragment)
         }
     }
 
@@ -50,15 +53,21 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     private fun setEndSessionButton() {
         endSessionButton.setOnClickListener {
             val dispatchFragment = EndOfSessionFragment.newInstance()
-            val bundle = Bundle()
-            bundle.putInt("duration", hours.text.toString().toInt() * 60 + minutes.text.toString().toInt())
-            bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
-            bundle.putLong("startTime", startTime)
-            bundle.putLong("endTime", Calendar.getInstance().time.time)
-            dispatchFragment.arguments = bundle
+            dispatchFragment.arguments = setBundle()
             openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
         }
         endSessionButton.isEnabled = startSession.visibility == View.INVISIBLE
+    }
+
+    private fun setBundle(): Bundle {
+        val bundle = Bundle()
+        bundle.putLong("duration", hours.text.toString().toInt() * 60L + minutes.text.toString().toInt())
+        bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
+        bundle.putLong("startTime", startTime)
+        bundle.putLong("endTime", Calendar.getInstance().time.time)
+        bundle.putString("author", arguments!!["author"] as String?)
+        bundle.putString("title", arguments!!["title"] as String?)
+        return bundle
     }
 
     private fun setStopwatchStarter(view: View) {

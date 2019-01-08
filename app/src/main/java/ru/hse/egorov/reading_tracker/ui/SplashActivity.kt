@@ -56,7 +56,7 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
             val bookStatisticsMap = HashMap<String, BookStatistics>()
             it.documents.forEach { session ->
                 val id = session["book id"] as String
-                val sessionData = statsManager.wrapSession(session, bookMap[id]!!.first, bookMap[id]!!.second)
+                val sessionData = statsManager.wrapSession(session.data!!, session.id, bookMap[id]!!.first, bookMap[id]!!.second)
                 bookStatisticsMap[id] = statsManager.updateBookStatistics(bookStatisticsMap.getOrDefault(id,
                         BookStatistics(sessionData.title, sessionData.author, 0, 0, 0)),
                         sessionData)

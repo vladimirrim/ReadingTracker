@@ -56,7 +56,7 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
     }
 
     companion object {
-        data class BookStatistics(val title: String, val author: String, var hours: Int, var minutes: Int,
+        data class BookStatistics(val title: String, val author: String?, var hours: Int, var minutes: Int,
                                   var sessionsCount: Int)
     }
 }

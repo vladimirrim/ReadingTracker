@@ -45,11 +45,20 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
             openPagerFragment(activity as AppCompatActivity, LIBRARY_FRAGMENT_POSITION)
         }
 
-        openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
+        resetSession()
     }
 
     fun resetSession() {
-        openInnerFragment(AutoSessionTimeChangeFragment.newInstance(), this, R.id.sessionFragment)
+        val dispatchFragment = AutoSessionTimeChangeFragment.newInstance()
+        dispatchFragment.arguments = setBundle()
+        openInnerFragment(dispatchFragment, this, R.id.sessionFragment)
+    }
+
+    private fun setBundle(): Bundle {
+        val bundle = Bundle()
+        bundle.putString("author", author.text.toString())
+        bundle.putString("title", title.text.toString())
+        return bundle
     }
 
     fun setBook(author: String?, title: String, id: String) {
