@@ -13,8 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/light"
         android:fitsSystemWindows="true"
         android:paddingBottom="10dp"
@@ -69,6 +70,19 @@
             android:textAppearance="@style/dark_20sp_80alpha" />
     </android.support.design.widget.TextInputLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="150dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
     <Button
         android:id="@+id/signInEmail"
         android:layout_width="wrap_content"
@@ -78,13 +92,11 @@
         android:layout_marginStart="114dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="113dp"
-        android:layout_marginBottom="50dp"
         android:background="@drawable/sign_in_action_button"
         android:gravity="center"
         android:lineSpacingExtra="4sp"
         android:text="@string/sign_in_action"
         android:textAppearance="@style/light_20sp"
-        app:layout_constraintBottom_toTopOf="@+id/signInGoogle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />

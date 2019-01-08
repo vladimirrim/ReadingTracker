@@ -1,14 +1,20 @@
 package ru.hse.egorov.reading_tracker.statistics
 
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import ru.hse.egorov.reading_tracker.ui.MainActivity
 import ru.hse.egorov.reading_tracker.ui.adapter.BookStatisticsAdapter.Companion.BookStatistics
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Mood
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Place
+import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
 import java.util.*
 
 class StatisticsManager {
@@ -28,6 +34,27 @@ class StatisticsManager {
                 (session["end page"] as Long).toInt(), Mood.getMoodByName(session["mood"] as String?),
                 Place.getPlaceByName(session["place"] as String?), author, session["comment"] as String?,
                 title, sessionId, session["book id"] as String)
+    }
+
+    fun setUpSessions(bookMap: HashMap<String, Pair<String, String>>, onFinish: () -> Unit) {
+        getSessions().addOnSuccessListener {
+            val sessionAdapter = SessionsStatisticsFragment.getAdapter()
+            val bookStatisticsAdapter = BooksStatisticsFragment.getAdapter()
+            val bookStatisticsMap = HashMap<String, BookStatistics>()
+            it.documents.forEach { session ->
+                val id = session["book id"] as String
+                val sessionData = wrapSession(session.data!!, session.id, bookMap[id]!!.first, bookMap[id]!!.second)
+                bookStatisticsMap[id] = updateBookStatistics(bookStatisticsMap.getOrDefault(id,
+                        BookStatistics(sessionData.title, sessionData.author, 0, 0, 0)),
+                        sessionData)
+                sessionAdapter.add(sessionData)
+            }
+            sessionAdapter.sortByDate()
+            OverallStatisticsFragment.getAllSessions().addAll(sessionAdapter.getCopy())
+            OverallStatisticsFragment.getSessionsForPeriod().addAll(sessionAdapter.getCopy())
+            bookStatisticsAdapter.set(bookStatisticsMap.values)
+            onFinish()
+        }
     }
 
     fun updateBookStatistics(bookStatistics: BookStatistics, session: Session): BookStatistics {

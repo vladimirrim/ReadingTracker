@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -13,12 +14,18 @@ import com.google.android.gms.common.api.ApiException
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
+import java.util.*
 
 class SignInActivity : AppCompatActivity() {
-
     private lateinit var googleSignInClient: GoogleSignInClient
     private val dbManager = DatabaseManager()
+    private val statsManager = StatisticsManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +36,16 @@ class SignInActivity : AppCompatActivity() {
 
         signInEmail.setOnClickListener {
             if (email.text.toString() != "" && password.text.toString() != "") {
+                it.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
                 dbManager.signIn(email.text.toString(), password.text.toString())?.addOnCompleteListener(this
                 ) { task ->
                     if (task.isSuccessful) {
                         Log.d(TAG, "signInWithEmail:success")
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
+                        setUserDataAndStart()
                     } else {
+                        progressBar.visibility = View.GONE
+                        it.visibility = View.VISIBLE
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Snackbar.make(findViewById(android.R.id.content), "Authentication Failed.Reason:${task.exception?.localizedMessage}"
                                 , Snackbar.LENGTH_SHORT).show()
@@ -87,11 +97,35 @@ class SignInActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account!!)
                 Snackbar.make(findViewById(android.R.id.content), "Authentication succeeded.", Snackbar.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                setUserDataAndStart()
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed", e)
             }
+        }
+    }
+
+    private fun setUserDataAndStart() {
+        OverallStatisticsFragment.getAllSessions().clear()
+        LibraryFragment.getAdapter().clear()
+        OverallStatisticsFragment.getSessionsForPeriod().clear()
+        SessionsStatisticsFragment.getAdapter().clear()
+        BooksStatisticsFragment.getAdapter().clear()
+
+        dbManager.getLibrary().addOnSuccessListener {
+            val bookMap = HashMap<String, Pair<String, String>>()
+            val libraryAdapter = LibraryFragment.getAdapter()
+            for (book in it.documents) {
+                libraryAdapter.add(LibraryFragment.Book(book["author"] as String?, book["title"] as String, book.id,
+                        book["media"] as String, null, book["last updated"] as Date, (book["pageCount"] as Long?)?.toInt()))
+                bookMap[book.id] = Pair(book["author"] as String, book["title"] as String)
+            }
+            statsManager.setUpSessions(bookMap) {
+                val intent = Intent(this,
+                        MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            libraryAdapter.sortByLastUpdated()
         }
     }
 

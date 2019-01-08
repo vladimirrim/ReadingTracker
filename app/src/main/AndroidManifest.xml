@@ -60,7 +60,7 @@
             android:name=".ui.login.SignInActivity"
             android:fitsSystemWindows="true"
             android:theme="@style/Theme.LightDarkTitle"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".ui.login.SignUpCodeActivity" />
     </application>
 
