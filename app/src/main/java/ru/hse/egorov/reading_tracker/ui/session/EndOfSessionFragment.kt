@@ -96,7 +96,9 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
 
             companion object {
                 fun getMoodByName(name: String?): Mood? {
-                    return values().firstOrNull { it.name.replace("_", " ").toLowerCase() == name }
+                    return values().firstOrNull {
+                        it.name.replace("_", " ").toLowerCase() == name?.replace("_", " ")?.toLowerCase()
+                    }
                 }
             }
         }
@@ -106,7 +108,9 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
 
             companion object {
                 fun getPlaceByName(name: String?): Place? {
-                    return values().firstOrNull { it.name.replace("_", " ").toLowerCase() == name }
+                    return values().firstOrNull {
+                        it.name.replace("_", " ").toLowerCase() == name?.replace("_", " ")?.toLowerCase()
+                    }
                 }
             }
         }

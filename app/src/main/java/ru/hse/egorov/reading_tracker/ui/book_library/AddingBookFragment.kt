@@ -90,6 +90,7 @@ class AddingBookFragment : BookFragment() {
                 dbManager.addBookCover(baos.toByteArray(), uploadedBook.id).addOnSuccessListener {
                     setBookToSession(uploadedBook.id)
                     (activity!!.library.adapter as LibraryAdapter).add(setUpNewBook(book["last updated"] as Timestamp, uploadedBook.id))
+                    (activity!!.library.adapter as LibraryAdapter).sortByLastUpdated()
                     activity?.fragmentPager?.visibility = View.VISIBLE
                     activity?.temporaryFragment?.visibility = View.GONE
                 }.addOnFailureListener {
@@ -158,7 +159,7 @@ class AddingBookFragment : BookFragment() {
         coverURL?.apply {
             dbManager.getBookCoverFromURL(this, context!!).into(cover)
         }
-        val pages = bundle["page сount"] as Int?
+        val pages = bundle["pageCount"] as Int?
         pages?.apply { pageCount.setText(this.toString()) }
     }
 
@@ -200,11 +201,9 @@ class AddingBookFragment : BookFragment() {
     }
 
     private fun setBookToSession(id: String) {
-        arguments?.let { bundle ->
-            if (bundle.getBoolean("set book")) {
-                (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
-                        + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(author.text.toString(), title.text.toString(), id)
-            }
+        arguments?.let {
+            (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                    + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).setBook(author.text.toString(), title.text.toString(), id)
         }
     }
 

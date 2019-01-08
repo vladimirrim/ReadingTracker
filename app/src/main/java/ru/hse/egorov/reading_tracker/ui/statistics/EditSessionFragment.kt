@@ -15,6 +15,7 @@ import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.PROFILE_FRAGMENT_
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.dialog.EditSessionDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
+import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
 
 
 class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
@@ -45,8 +46,16 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
         hours.text = arguments!!["hours"] as String
         if (hours.text == "") hoursStatic.visibility = View.GONE
         minutes.text = arguments!!["minutes"] as String
-        if (arguments!!["place"] as String == "") placeFlag.visibility = View.GONE
-        if (arguments!!["emotion"] as String == "") emotionFlag.visibility = View.GONE
+
+        if (arguments!!["place"] as String == "")
+            placeFlag.visibility = View.GONE
+        else
+            setPlace(EndOfSessionFragment.Companion.Place.getPlaceByName(arguments!!["place"] as String)!!)
+
+        if (arguments!!["emotion"] as String == "")
+            emotionFlag.visibility = View.GONE
+        else
+            setMood(EndOfSessionFragment.Companion.Mood.getMoodByName(arguments!!["emotion"] as String)!!)
 
         if (arguments!!["startPage"] != null && arguments!!["endPage"] != null) {
             val startPage = arguments!!["startPage"] as Int
@@ -59,6 +68,25 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
         }
 
         dbManager.getBookCover(arguments!!["bookId"] as String, context!!).into(cover)
+    }
+
+    private fun setMood(mood: EndOfSessionFragment.Companion.Mood) {
+        when (mood) {
+            EndOfSessionFragment.Companion.Mood.HAPPY -> emotionFlag.setImageResource(R.drawable.ic_emotion_happy_enabled)
+            EndOfSessionFragment.Companion.Mood.SAD -> emotionFlag.setImageResource(R.drawable.ic_emotion_sad_enabled)
+            EndOfSessionFragment.Companion.Mood.NEUTRAL -> emotionFlag.setImageResource(R.drawable.ic_emotion_neutral_enabled)
+            EndOfSessionFragment.Companion.Mood.VERY_SAD -> emotionFlag.setImageResource(R.drawable.ic_emotion_very_sad_enabled)
+            EndOfSessionFragment.Companion.Mood.VERY_HAPPY -> emotionFlag.setImageResource(R.drawable.ic_emotion_very_happy_enabled)
+        }
+    }
+
+    private fun setPlace(location: EndOfSessionFragment.Companion.Place) {
+        when (location) {
+            EndOfSessionFragment.Companion.Place.WORK -> placeFlag.setImageResource(R.drawable.ic_location_work_enabled)
+            EndOfSessionFragment.Companion.Place.TRANSPORT -> placeFlag.setImageResource(R.drawable.ic_location_transport_enabled)
+            EndOfSessionFragment.Companion.Place.HOME -> placeFlag.setImageResource(R.drawable.ic_location_home_enabled)
+            EndOfSessionFragment.Companion.Place.THIRD_PLACE -> placeFlag.setImageResource(R.drawable.ic_location_third_place_enabled)
+        }
     }
 
     override fun setActionBar(activity: AppCompatActivity) {

@@ -101,7 +101,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             var commentText = ""
             var placeText = ""
             var emotionText = ""
-            if (session.comment == null) {
+            if (session.comment!!.isEmpty()) {
                 comment.visibility = View.GONE
             } else {
                 commentText = session.comment

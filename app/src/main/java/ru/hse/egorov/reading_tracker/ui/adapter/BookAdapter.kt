@@ -89,6 +89,7 @@ abstract class BookAdapter : RecyclerView.Adapter<BookAdapter.LibraryViewHolder>
         bundle.putString("bookId", book.id)
         bundle.putString("coverURL", book.cover)
         bundle.putString("media", book.mediaType)
+        bundle.putBoolean("set book", true)
         book.pageCount?.apply { bundle.putInt("pageCount", this) }
         return bundle
     }
