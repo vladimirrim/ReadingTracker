@@ -8,7 +8,6 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
@@ -76,12 +75,8 @@ class DatabaseManager {
         return GlideApp.with(context).load(bookURL)
     }
 
-    fun getBookByISBN(isbn: String): Task<DocumentSnapshot> {
-        return db.collection("ozon_catalog").document(isbn).get()
-    }
-
     fun deleteBookFromLibrary(bookId: String): Task<Void> {
-        return db.collection("books").document("libraries").collection(authManager.uid as String).document(bookId).delete()
+        return db.collection("books").document("libraries").collection(authManager.uid as String).document(bookId).update("is deleted", true)
     }
 
     fun getLibrary() = db.collection("books").document("libraries").collection(authManager.uid as String).get()

@@ -30,11 +30,13 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                 val bookMap = HashMap<String, Pair<String, String>>()
                 val libraryAdapter = LibraryFragment.getAdapter()
                 for (book in it.documents) {
-                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String?, book["title"] as String, book.id,
-                            book["media"] as String, null, book["last updated"] as Date, (book["page сount"] as Long?)?.toInt()))
+                    if (book["is deleted"] == null) {
+                        libraryAdapter.add(LibraryFragment.Book(book["author"] as String?, book["title"] as String, book.id,
+                                book["media"] as String, null, book["last updated"] as Date, (book["page сount"] as Long?)?.toInt()))
+                    }
                     bookMap[book.id] = Pair(book["author"] as String, book["title"] as String)
                 }
-                statsManager.setUpSessions(bookMap){
+                statsManager.setUpSessions(bookMap) {
                     val intent = Intent(this,
                             MainActivity::class.java)
                     startActivity(intent)
