@@ -118,9 +118,9 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             }
 
             container.setOnClickListener {
-                val bundle = setUpBundle(commentText, placeText, emotionText, session.startTime, session.endTime)
                 val dispatchedFragment = EditSessionFragment.newInstance()
-                dispatchedFragment.arguments = bundle
+                dispatchedFragment.arguments = setUpBundle(commentText, placeText, emotionText, session.startTime, session.endTime,
+                        session.startPage, session.endPage, session.bookId)
                 openTemporaryFragment(it.context as AppCompatActivity, dispatchedFragment, R.id.temporaryFragment)
             }
         }
@@ -134,7 +134,8 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             dayOfTheWeek.text = translateDayOfTheWeek(day, dayOfTheWeek.rootView.resources, WEEK_FULL)
         }
 
-        private fun setUpBundle(comment: String, place: String, emotion: String, startTime: Calendar, endTime: Calendar): Bundle {
+        private fun setUpBundle(comment: String, place: String, emotion: String, startTime: Calendar, endTime: Calendar,
+                                startPage: Int?, endPage: Int?, bookId: String): Bundle {
             val bundle = Bundle()
             bundle.putString("date", date.text.toString())
             bundle.putString("dayOfTheWeek", dayOfTheWeek.text.toString())
@@ -149,6 +150,9 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             bundle.putString("comment", comment)
             bundle.putString("place", place)
             bundle.putString("emotion", emotion)
+            bundle.putString("bookId", bookId)
+            startPage?.apply { bundle.putInt("startPage", this) }
+            endPage?.apply { bundle.putInt("endPage", this) }
 
             return bundle
         }

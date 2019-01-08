@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.book.*
 import kotlinx.android.synthetic.main.fragment_edit_session.*
 import kotlinx.android.synthetic.main.session_time.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.PROFILE_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.dialog.EditSessionDialog
@@ -17,6 +18,8 @@ import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 
 
 class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
+    private val dbManager = DatabaseManager()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_edit_session, container, false)
@@ -40,14 +43,22 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
         endTime.hours.text = arguments!!["endTimeHours"] as String
         endTime.minutes.text = arguments!!["endTimeMinutes"] as String
         hours.text = arguments!!["hours"] as String
-        if (hours.text == "") {
-            hoursStatic.visibility = View.GONE
-        }
+        if (hours.text == "") hoursStatic.visibility = View.GONE
         minutes.text = arguments!!["minutes"] as String
-        if (arguments!!["place"] as String == "")
-            placeFlag.visibility = View.GONE
-        if (arguments!!["emotion"] as String == "")
-            emotionFlag.visibility = View.GONE
+        if (arguments!!["place"] as String == "") placeFlag.visibility = View.GONE
+        if (arguments!!["emotion"] as String == "") emotionFlag.visibility = View.GONE
+
+        if (arguments!!["startPage"] != null && arguments!!["endPage"] != null) {
+            val startPage = arguments!!["startPage"] as Int
+            val endPage = arguments!!["endPage"] as Int
+            val pageCount = endPage - startPage
+            val pagesText = pageCount.toString() + " " + PAGES + ", " + startPage.toString() + " - " + endPage.toString()
+            readPages.text = pagesText
+        } else {
+            readPages.visibility = View.GONE
+        }
+
+        dbManager.getBookCover(arguments!!["bookId"] as String, context!!).into(cover)
     }
 
     override fun setActionBar(activity: AppCompatActivity) {
@@ -77,6 +88,7 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
     }
 
     companion object {
+        private const val PAGES = "страниц"
         private const val ACTION_BAR_TITLE = "Запись о чтении"
 
         fun newInstance() = EditSessionFragment()
