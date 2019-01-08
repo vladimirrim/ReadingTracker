@@ -31,51 +31,27 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         setHasOptionsMenu(true)
         view.emotions.setOnCheckedChangeListener { _, i ->
             when (i) {
-                R.id.emotionHappy -> {
-                    mood = Mood.HAPPY.toString().toLowerCase()
-                    setBackgroundsForEmotions(R.drawable.ic_emotion_happy_enabled,
-                            R.drawable.ic_emotion_neutral,
-                            R.drawable.ic_emotion_sad)
-                }
+                R.id.emotionHappy -> mood = Mood.HAPPY.toString().toLowerCase()
 
-                R.id.emotionNeutral -> {
-                    mood = Mood.NEUTRAL.toString().toLowerCase()
-                    setBackgroundsForEmotions(R.drawable.ic_emotion_happy,
-                            R.drawable.ic_emotion_neutral_enabled,
-                            R.drawable.ic_emotion_sad)
-                }
+                R.id.emotionNeutral -> mood = Mood.NEUTRAL.toString().toLowerCase()
 
-                R.id.emotionSad -> {
-                    mood = Mood.SAD.toString().toLowerCase()
-                    setBackgroundsForEmotions(R.drawable.ic_emotion_happy,
-                            R.drawable.ic_emotion_neutral,
-                            R.drawable.ic_emotion_sad_enabled)
-                }
+                R.id.emotionSad -> mood = Mood.SAD.toString().toLowerCase()
+
+                R.id.emotionVeryHappy -> mood = Mood.VERY_HAPPY.toString().replace("_", " ").toLowerCase()
+
+                R.id.emotionVerySad -> mood = Mood.VERY_SAD.toString().replace("_", " ").toLowerCase()
             }
         }
 
         view.locations.setOnCheckedChangeListener { _, i ->
             when (i) {
-                R.id.locationHome -> {
-                    place = Place.HOME.toString().toLowerCase()
-                    setBackgroundsForLocations(R.drawable.ic_location_home_enabled,
-                            R.drawable.ic_location_transport,
-                            R.drawable.ic_location_work)
-                }
+                R.id.locationHome -> place = Place.HOME.toString().toLowerCase()
 
-                R.id.locationTransport -> {
-                    place = Place.TRANSPORT.toString().toLowerCase()
-                    setBackgroundsForLocations(R.drawable.ic_location_home,
-                            R.drawable.ic_location_transport_enabled,
-                            R.drawable.ic_location_work)
-                }
+                R.id.locationTransport -> place = Place.TRANSPORT.toString().toLowerCase()
 
-                R.id.locationWork -> {
-                    place = Place.WORK.toString().toLowerCase()
-                    setBackgroundsForLocations(R.drawable.ic_location_home,
-                            R.drawable.ic_location_transport,
-                            R.drawable.ic_location_work_enabled)
-                }
+                R.id.locationWork -> place = Place.WORK.toString().toLowerCase()
+
+                R.id.locationThirdPlace -> place = Place.THIRD_PLACE.toString().replace("_", " ").toLowerCase()
             }
         }
     }
@@ -112,37 +88,25 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         return session
     }
 
-    private fun setBackgroundsForEmotions(backgroundHappy: Int, backgroundIndifferent: Int, backgroundSad: Int) {
-        emotionHappy.setBackgroundResource(backgroundHappy)
-        emotionNeutral.setBackgroundResource(backgroundIndifferent)
-        emotionSad.setBackgroundResource(backgroundSad)
-    }
-
-    private fun setBackgroundsForLocations(backgroundHome: Int, backgroundTransport: Int, backgroundWork: Int) {
-        locationHome.setBackgroundResource(backgroundHome)
-        locationTransport.setBackgroundResource(backgroundTransport)
-        locationWork.setBackgroundResource(backgroundWork)
-    }
-
     companion object {
         fun newInstance() = EndOfSessionFragment()
 
         enum class Mood {
-            HAPPY, SAD, NEUTRAL;
+            HAPPY, SAD, NEUTRAL, VERY_SAD, VERY_HAPPY;
 
             companion object {
                 fun getMoodByName(name: String?): Mood? {
-                    return values().firstOrNull { it.name.toLowerCase() == name }
+                    return values().firstOrNull { it.name.replace("_", " ").toLowerCase() == name }
                 }
             }
         }
 
         enum class Place {
-            WORK, TRANSPORT, HOME;
+            WORK, TRANSPORT, HOME, THIRD_PLACE;
 
             companion object {
                 fun getPlaceByName(name: String?): Place? {
-                    return values().firstOrNull { it.name.toLowerCase() == name }
+                    return values().firstOrNull { it.name.replace("_", " ").toLowerCase() == name }
                 }
             }
         }

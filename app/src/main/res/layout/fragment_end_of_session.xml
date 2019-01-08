@@ -70,6 +70,7 @@
             android:inputType="number"
             android:lineSpacingExtra="4sp"
             android:maxLines="1"
+            android:textAlignment="textEnd"
             android:textAppearance="@style/dark_20sp"
             android:textColorHint="@color/colorPrimary_80alpha"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,10 +136,18 @@
             app:layout_constraintTop_toBottomOf="@+id/sessionEmotion">
 
             <RadioButton
+                android:id="@+id/emotionVeryHappy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/emotion_very_happy"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
                 android:id="@+id/emotionHappy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_emotion_happy"
+                android:background="@drawable/emotion_happy"
                 android:button="@android:color/transparent" />
 
             <RadioButton
@@ -147,14 +156,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:background="@drawable/ic_emotion_neutral"
+                android:background="@drawable/emotion_neutral"
                 android:button="@android:color/transparent" />
 
             <RadioButton
                 android:id="@+id/emotionSad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_emotion_sad"
+                android:background="@drawable/emotion_sad"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/emotionVerySad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/emotion_very_sad"
                 android:button="@android:color/transparent" />
         </RadioGroup>
 
@@ -192,7 +209,7 @@
                 android:id="@+id/locationHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_location_home"
+                android:background="@drawable/location_home"
                 android:button="@android:color/transparent" />
 
             <RadioButton
@@ -201,14 +218,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:background="@drawable/ic_location_transport"
+                android:background="@drawable/location_transport"
                 android:button="@android:color/transparent" />
 
             <RadioButton
                 android:id="@+id/locationWork"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_location_work"
+                android:background="@drawable/location_work"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/locationThirdPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/location_third_place"
                 android:button="@android:color/transparent" />
         </RadioGroup>
 
@@ -217,11 +242,11 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginStart="166dp"
             android:layout_marginTop="19dp"
             android:layout_marginEnd="170dp"
             android:layout_marginBottom="13dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/sessionEmotion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
