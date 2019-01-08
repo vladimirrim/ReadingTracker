@@ -80,7 +80,18 @@ abstract class BookAdapter : RecyclerView.Adapter<BookAdapter.LibraryViewHolder>
         holder.bind(library[position])
     }
 
-    protected abstract fun bindContainer(container: View, book: Bundle)
+    protected abstract fun bindContainer(container: View, book: LibraryFragment.Book)
+
+    protected fun setBundle(book: LibraryFragment.Book): Bundle {
+        val bundle = Bundle()
+        bundle.putString("author", book.author)
+        bundle.putString("title", book.name)
+        bundle.putString("bookId", book.id)
+        bundle.putString("coverURL", book.cover)
+        bundle.putString("media", book.mediaType)
+        book.pageCount?.apply { bundle.putInt("pageCount", this) }
+        return bundle
+    }
 
     inner class LibraryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), BitmapEncoder, FragmentLauncher, RequestListener<Drawable> {
         private val author: TextView? = itemView.author
@@ -92,7 +103,7 @@ abstract class BookAdapter : RecyclerView.Adapter<BookAdapter.LibraryViewHolder>
         fun bind(book: LibraryFragment.Book) {
             author?.text = book.author
             name?.text = book.name
-            bindContainer(container, setBundle(book.cover, book.mediaType, book.pageCount))
+            bindContainer(container, book)
 
             progressBar?.visibility = View.VISIBLE
             if (book.cover == null) {
@@ -100,16 +111,6 @@ abstract class BookAdapter : RecyclerView.Adapter<BookAdapter.LibraryViewHolder>
             } else {
                 dbManager.getBookCoverFromURL(book.cover, cover!!.context).listener(this).into(cover)
             }
-        }
-
-        private fun setBundle(cover: String?, media: String, pageCount: Int?): Bundle {
-            val bundle = Bundle()
-            bundle.putString("author", author?.text.toString())
-            bundle.putString("title", name?.text.toString())
-            bundle.putString("coverURL", cover)
-            bundle.putString("media", media)
-            pageCount?.apply { bundle.putInt("pageCount", this) }
-            return bundle
         }
 
         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
