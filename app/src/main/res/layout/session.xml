@@ -156,7 +156,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_location_transport"
+        android:src="@drawable/ic_location_transport_enabled"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toStartOf="@+id/commentFlag"
         app:layout_constraintTop_toBottomOf="@+id/title"

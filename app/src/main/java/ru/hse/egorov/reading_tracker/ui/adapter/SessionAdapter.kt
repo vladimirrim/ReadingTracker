@@ -109,11 +109,13 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             if (session.place == null) {
                 place.visibility = View.GONE
             } else {
+                setPlace(session.place)
                 placeText = session.place.toString()
             }
             if (session.emotion == null) {
                 emotion.visibility = View.GONE
             } else {
+                setMood(session.emotion)
                 emotionText = session.emotion.toString()
             }
 
@@ -122,6 +124,25 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
                 dispatchedFragment.arguments = setUpBundle(commentText, placeText, emotionText, session.startTime, session.endTime,
                         session.startPage, session.endPage, session.bookId)
                 openTemporaryFragment(it.context as AppCompatActivity, dispatchedFragment, R.id.temporaryFragment)
+            }
+        }
+
+        private fun setMood(mood: Mood) {
+            when (mood) {
+                Mood.HAPPY -> emotion.setImageResource(R.drawable.ic_emotion_happy_enabled)
+                Mood.SAD -> emotion.setImageResource(R.drawable.ic_emotion_sad_enabled)
+                Mood.NEUTRAL -> emotion.setImageResource(R.drawable.ic_emotion_neutral_enabled)
+                Mood.VERY_SAD -> emotion.setImageResource(R.drawable.ic_emotion_very_sad_enabled)
+                Mood.VERY_HAPPY -> emotion.setImageResource(R.drawable.ic_emotion_very_happy_enabled)
+            }
+        }
+
+        private fun setPlace(location: Place) {
+            when (location) {
+                Place.WORK -> place.setImageResource(R.drawable.ic_location_work_enabled)
+                Place.TRANSPORT -> place.setImageResource(R.drawable.ic_location_transport_enabled)
+                Place.HOME -> place.setImageResource(R.drawable.ic_location_home_enabled)
+                Place.THIRD_PLACE -> place.setImageResource(R.drawable.ic_location_third_place_enabled)
             }
         }
 
