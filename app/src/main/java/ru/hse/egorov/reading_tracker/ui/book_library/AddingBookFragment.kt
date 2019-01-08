@@ -146,7 +146,7 @@ class AddingBookFragment : BookFragment() {
         coverURL?.apply {
             dbManager.getBookCoverFromURL(this, context!!).into(cover)
         }
-        val pages = bundle["pageCount"] as Int?
+        val pages = bundle["page сount"] as Int?
         pages?.apply { pageCount.setText(this.toString()) }
     }
 

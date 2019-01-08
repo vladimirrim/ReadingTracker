@@ -24,10 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
             android:text="15 декабря"
             android:textAppearance="@style/dark_20sp"
-            app:layout_constraintBottom_toTopOf="@+id/hours"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/book" />
 
@@ -37,10 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginTop="26dp"
-            android:layout_marginBottom="20dp"
             android:text="вторник"
             android:textAppearance="@style/dark_14sp_80alpha"
-            app:layout_constraintBottom_toTopOf="@+id/hours"
             app:layout_constraintStart_toEndOf="@+id/date"
             app:layout_constraintTop_toBottomOf="@+id/book" />
 
@@ -49,28 +45,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
             android:text="11"
             android:textAppearance="@style/pink_48sp"
-            app:layout_constraintBottom_toTopOf="@+id/startTime"
+            app:layout_constraintBottom_toTopOf="@+id/endTime"
             app:layout_constraintEnd_toStartOf="@+id/minutesStatic"
             app:layout_constraintStart_toEndOf="@+id/hoursStatic"
-            app:layout_constraintTop_toBottomOf="@+id/date"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/minutesStatic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:layout_marginBottom="25dp"
             android:text="@string/minutes_static"
             android:textAppearance="@style/pink_24sp"
             app:layout_constraintBottom_toTopOf="@+id/endTime"
             app:layout_constraintStart_toEndOf="@+id/minutes"
-            app:layout_constraintTop_toBottomOf="@+id/dayOfTheWeek"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/hours"
@@ -78,7 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
             android:text="2"
             android:textAppearance="@style/pink_48sp"
             app:layout_constraintBottom_toTopOf="@+id/startTime"
@@ -106,6 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toTopOf="@+id/readPages"
             app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +128,7 @@
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toTopOf="@+id/readPages"
             app:layout_constraintStart_toEndOf="@+id/dash"
-            app:layout_constraintTop_toBottomOf="@+id/hours" />
+            app:layout_constraintTop_toBottomOf="@+id/minutes" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/readPages"
