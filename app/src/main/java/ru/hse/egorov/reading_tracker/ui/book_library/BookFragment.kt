@@ -23,14 +23,15 @@ abstract class BookFragment : Fragment(), BitmapEncoder {
         book["author"] = author.text.toString()
         book["title"] = title.text.toString()
         book["media"] = getMediaById(mediaSpinner.selectedItemId)
+        if (pageCount.text.toString().isNotEmpty()) book["pageCount"] = pageCount.text.toString().toInt()
         book["last updated"] = Timestamp(Calendar.getInstance().time)
         return book
     }
 
     protected fun setUpNewBook(lastUpdated: Timestamp, id: String): Book {
         return Book(author.text.toString(), title.text.toString(), id,
-                mediaSpinner.selectedItem.toString(), "",
-                lastUpdated.toDate(), 0)
+                getMediaById(mediaSpinner.selectedItemId), null,
+                lastUpdated.toDate(), pageCount.text?.toString()?.toIntOrNull())
     }
 
     protected fun hideProgressBar() {
@@ -48,7 +49,7 @@ abstract class BookFragment : Fragment(), BitmapEncoder {
                 }
 
                 fun getIdByName(name: String): Int {
-                    return values().firstOrNull { it.toString().toLowerCase() == name }?.id!!.toInt()
+                    return values().firstOrNull { it.toString().toLowerCase() == name.toLowerCase() }?.id!!.toInt()
                 }
             }
         }

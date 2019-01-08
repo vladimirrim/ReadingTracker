@@ -89,6 +89,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
                     setUpBundle(bundle, selectedBook, position)
                     dispatchFragment.arguments = bundle
                     openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
+                    libraryAdapter.notifyItemChanged(position)
                     (activity as AppCompatActivity).fab.hide()
                 }
             }
@@ -99,6 +100,7 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
                 bundle.putString("author", selectedBook.author)
                 bundle.putString("bookId", selectedBook.id)
                 bundle.putString("media", selectedBook.mediaType)
+                selectedBook.pageCount?.apply { bundle.putInt("pageCount", this) }
                 bundle.putInt("bookPosition", position)
             }
 
