@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.ArrayAdapter
@@ -14,8 +16,12 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
+import com.google.api.client.extensions.android.http.AndroidHttp
+import com.google.api.client.extensions.android.json.AndroidJsonFactory
+import com.google.api.services.books.Books
+import com.google.api.services.books.BooksRequestInitializer
+import com.google.api.services.books.model.Volumes
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
@@ -23,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
 import kotlinx.android.synthetic.main.fragment_library.*
+import ru.hse.egorov.reading_tracker.BuildConfig
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
@@ -58,7 +65,12 @@ class AddingBookFragment : BookFragment() {
         }
 
         arguments?.apply {
-            setBook(this)
+            arguments!!["set book"]?.let {
+                setBook(this)
+            }
+            arguments!!["set isbn"]?.let {
+                dispatchScanISBNIntent(this@AddingBookFragment)
+            }
         }
     }
 
@@ -119,12 +131,12 @@ class AddingBookFragment : BookFragment() {
                     for (barcode in barcodes) {
                         if (barcode.valueType == FirebaseVisionBarcode.TYPE_ISBN) {
                             val isbn = barcode.rawValue!!
-                            dbManager.getBookByISBN(isbn).addOnSuccessListener {
-                                setBook(it)
+                            BookDownloader { _, volumes ->
+                                setBook(LibraryFragment.Book(volumes.items[0].volumeInfo))
                                 hideProgressBar()
-                            }
-                            return@addOnSuccessListener
+                            }.execute(isbn)
                         }
+                        return@addOnSuccessListener
                     }
                     hideProgressBar()
                     Snackbar.make(activity!!.placeSnackBar,
@@ -150,11 +162,12 @@ class AddingBookFragment : BookFragment() {
         pages?.apply { pageCount.setText(this.toString()) }
     }
 
-    private fun setBook(doc: DocumentSnapshot) {
-        author.setText(doc["author"] as String)
-        title.setText(doc["name"] as String)
-        val coverURL = doc["coverURL"] as String
-        dbManager.getBookCoverFromURL(coverURL, context!!).into(cover)
+    private fun setBook(book: LibraryFragment.Book) {
+        author.setText(book.author)
+        book.pageCount?.let { pageCount.setText(it.toString()) }
+        title.setText(book.name)
+        val coverURL = book.cover
+        coverURL?.let { dbManager.getBookCoverFromURL(it, context!!).into(cover) }
     }
 
     private fun setOriginalImageOrientation(bitmap: Bitmap, imageUri: Uri): Bitmap {
@@ -178,6 +191,14 @@ class AddingBookFragment : BookFragment() {
         return rotatedBitmap
     }
 
+    private fun dispatchScanISBNIntent(fragment: Fragment) {
+        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
+                fragment.startActivityForResult(takePictureIntent, AddingBookFragment.REQUEST_SCAN_ISBN)
+            }
+        }
+    }
+
     private fun setBookToSession(id: String) {
         arguments?.let { bundle ->
             if (bundle.getBoolean("set book")) {
@@ -187,7 +208,27 @@ class AddingBookFragment : BookFragment() {
         }
     }
 
+    private class BookDownloader(private val onDownloadFinish: (success: Boolean, Volumes) -> Unit) : AsyncTask<String, Unit, Volumes>() {
+
+        override fun doInBackground(vararg isbn: String?): Volumes {
+            val books = Books.Builder(AndroidHttp.newCompatibleTransport(), AndroidJsonFactory.getDefaultInstance(), null)
+                    .setApplicationName(BuildConfig.APPLICATION_ID)
+                    .setGoogleClientRequestInitializer(BooksRequestInitializer(API_KEY))
+                    .build()
+
+            val list = books.volumes().list(ISBN_PREFIX + isbn[0])
+            list.fields = "totalItems,items(volumeInfo(title,authors,pageCount,imageLinks/smallThumbnail),id)"
+            return list.execute()
+        }
+
+        override fun onPostExecute(result: Volumes?) {
+            onDownloadFinish(true, result!!)
+        }
+    }
+
     companion object {
+        private const val ISBN_PREFIX = "isbn:"
+        private const val API_KEY = "AIzaSyDyz5uPI7Bv-gZTosWKBPMHtVVXtWy_UEA"
         const val ACTION_BAR_TITLE = "Новая книга"
         const val ISBN_SCAN_FAILURE = "Не удалось распознать ISBN код."
         const val REQUEST_IMAGE_GALLERY = 1
