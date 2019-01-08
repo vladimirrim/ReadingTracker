@@ -15,11 +15,11 @@ import com.google.api.services.books.model.Volumes
 import kotlinx.android.synthetic.main.fragment_search_book_by_title.view.*
 import ru.hse.egorov.reading_tracker.BuildConfig
 import ru.hse.egorov.reading_tracker.R
-import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
+import ru.hse.egorov.reading_tracker.ui.adapter.GoogleBooksAdapter
 
 
 class SearchBookByTittleFragment : Fragment() {
-    private val libraryAdapter = LibraryAdapter()
+    private val libraryAdapter = GoogleBooksAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_search_book_by_title, container, false)

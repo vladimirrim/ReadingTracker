@@ -144,6 +144,6 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
     data class Book(var author: String?, var name: String, var id: String, var mediaType: String, val cover: String?, var lastUpdated: Date,
                     var pageCount: Int?) {
         constructor(volumeInfo: Volume.VolumeInfo) : this(volumeInfo.authors?.joinToString(), volumeInfo.title, "-1",
-                "ebook", volumeInfo.imageLinks.smallThumbnail, Calendar.getInstance().time, volumeInfo.pageCount)
+                "ebook", volumeInfo.imageLinks?.smallThumbnail, Calendar.getInstance().time, volumeInfo.pageCount)
     }
 }

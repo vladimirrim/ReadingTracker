@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
@@ -54,6 +55,10 @@ class AddingBookFragment : BookFragment() {
         ).also { adapter ->
             adapter.setDropDownViewResource(R.layout.media_spinner_item)
             spinner.adapter = adapter
+        }
+
+        arguments?.apply {
+            setBook(this)
         }
     }
 
@@ -115,10 +120,7 @@ class AddingBookFragment : BookFragment() {
                         if (barcode.valueType == FirebaseVisionBarcode.TYPE_ISBN) {
                             val isbn = barcode.rawValue!!
                             dbManager.getBookByISBN(isbn).addOnSuccessListener {
-                                author.setText(it["author"] as String)
-                                title.setText(it["name"] as String)
-                                val coverURL = it["coverURL"] as String
-                                dbManager.getBookCoverFromURL(coverURL, context!!).into(cover)
+                                setBook(it)
                                 hideProgressBar()
                             }
                             return@addOnSuccessListener
@@ -135,6 +137,24 @@ class AddingBookFragment : BookFragment() {
                             ISBN_SCAN_FAILURE,
                             Toast.LENGTH_SHORT).show()
                 }
+    }
+
+    private fun setBook(bundle: Bundle) {
+        author.setText(bundle["author"] as String? ?: "")
+        title.setText(bundle["title"] as String)
+        val coverURL = bundle["coverURL"] as String?
+        coverURL?.apply {
+            dbManager.getBookCoverFromURL(this, context!!).into(cover)
+        }
+        val pages = bundle["pageCount"] as Int?
+        pages?.apply { pageCount.setText(this.toString()) }
+    }
+
+    private fun setBook(doc: DocumentSnapshot) {
+        author.setText(doc["author"] as String)
+        title.setText(doc["name"] as String)
+        val coverURL = doc["coverURL"] as String
+        dbManager.getBookCoverFromURL(coverURL, context!!).into(cover)
     }
 
     private fun setOriginalImageOrientation(bitmap: Bitmap, imageUri: Uri): Bitmap {
