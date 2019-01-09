@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_sign_up_email.*
@@ -50,12 +51,19 @@ class SignUpEmailActivity : AppCompatActivity() {
         }
     }
 
-    private fun showProgressBar(){
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == android.R.id.home) {
+            super.onBackPressed()
+        }
+        return true
+    }
+
+    private fun showProgressBar() {
         signUpEmail.visibility = View.INVISIBLE
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun hideProgressBar(){
+    private fun hideProgressBar() {
         progressBar.visibility = View.GONE
         signUpEmail.visibility = View.VISIBLE
     }
@@ -66,7 +74,6 @@ class SignUpEmailActivity : AppCompatActivity() {
 
 
     }
-
 
     companion object {
         private const val TAG = "SIGN UP"
