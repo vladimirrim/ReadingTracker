@@ -34,11 +34,12 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.dialog.AddCoverDialog
+import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import java.io.ByteArrayOutputStream
 
 
-class AddingBookFragment : BookFragment() {
+class AddingBookFragment : BookFragment(), FragmentLauncher {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -91,8 +92,7 @@ class AddingBookFragment : BookFragment() {
                     setBookToSession(uploadedBook.id)
                     (activity!!.library.adapter as LibraryAdapter).add(setUpNewBook(book["last updated"] as Timestamp, uploadedBook.id))
                     (activity!!.library.adapter as LibraryAdapter).sortByLastUpdated()
-                    activity?.fragmentPager?.visibility = View.VISIBLE
-                    activity?.temporaryFragment?.visibility = View.GONE
+                    openPagerFragment(activity as AppCompatActivity, SESSION_FRAGMENT_POSITION)
                 }.addOnFailureListener {
                     //TODO
                 }

@@ -10,6 +10,7 @@ import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
 import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryWelcomeFragment
 import ru.hse.egorov.reading_tracker.ui.dialog.AddBookDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
@@ -31,7 +32,11 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
                 fab.hide()
             }
             R.id.navigation_library -> {
-                openPagerFragment(this, LIBRARY_FRAGMENT_POSITION)
+                if (LibraryFragment.getAdapter().itemCount == 0) {
+                    openTemporaryFragment(this, LibraryWelcomeFragment.newInstance(), R.id.temporaryFragment)
+                } else {
+                    openPagerFragment(this, LIBRARY_FRAGMENT_POSITION)
+                }
                 fab.show()
             }
         }
