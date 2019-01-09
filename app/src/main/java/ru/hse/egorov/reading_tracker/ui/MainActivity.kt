@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
         when (item.itemId) {
             R.id.navigation_session -> {
                 openPagerFragment(this, SESSION_FRAGMENT_POSITION)
+                (adapter.getItem(SESSION_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(this)
                 fab.hide()
             }
             R.id.navigation_profile -> {
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
                     openTemporaryFragment(this, LibraryWelcomeFragment.newInstance(), R.id.temporaryFragment)
                 } else {
                     openPagerFragment(this, LIBRARY_FRAGMENT_POSITION)
+                    (adapter.getItem(LIBRARY_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(this)
                 }
                 fab.show()
             }

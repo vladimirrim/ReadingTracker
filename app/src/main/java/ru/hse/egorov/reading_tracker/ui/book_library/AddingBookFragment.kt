@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.ArrayAdapter
@@ -76,6 +77,7 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
     }
 
     private fun updateActionBar(activity: AppCompatActivity) {
+        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
         activity.supportActionBar?.title = ACTION_BAR_TITLE
     }
 
@@ -228,7 +230,7 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
     companion object {
         private const val ISBN_PREFIX = "isbn:"
         private const val API_KEY = "AIzaSyDyz5uPI7Bv-gZTosWKBPMHtVVXtWy_UEA"
-        const val ACTION_BAR_TITLE = "Новая книга"
+        private const val ACTION_BAR_TITLE = "Новая книга"
         const val ISBN_SCAN_FAILURE = "Не удалось распознать ISBN код."
         const val REQUEST_IMAGE_GALLERY = 1
         const val REQUEST_IMAGE_CAMERA = 2

@@ -2,6 +2,7 @@ package ru.hse.egorov.reading_tracker.ui.book_library
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.ArrayAdapter
@@ -25,6 +26,7 @@ class EditBookFragment : BookFragment(), FragmentLauncher {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setActionBar(activity as AppCompatActivity)
         setBook()
     }
 
@@ -46,6 +48,11 @@ class EditBookFragment : BookFragment(), FragmentLauncher {
             mediaSpinner.adapter = adapter
             mediaSpinner.setSelection(getIdByName(arguments!!["media"] as String), true)
         }
+    }
+
+    private fun setActionBar(activity: AppCompatActivity) {
+        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
+        activity.supportActionBar?.title = ACTION_BAR_TITLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -70,6 +77,8 @@ class EditBookFragment : BookFragment(), FragmentLauncher {
     }
 
     companion object {
+        private const val ACTION_BAR_TITLE = "Книга"
+
         fun newInstance() = EditBookFragment()
     }
 }

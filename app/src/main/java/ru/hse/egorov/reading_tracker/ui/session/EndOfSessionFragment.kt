@@ -3,6 +3,7 @@ package ru.hse.egorov.reading_tracker.ui.session
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.google.firebase.firestore.DocumentReference
@@ -14,6 +15,7 @@ import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.PROFILE_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
+import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
 import java.util.*
@@ -33,6 +35,8 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         super.onViewCreated(view, savedInstanceState)
 
         setHasOptionsMenu(true)
+        updateActionBar(activity as AppCompatActivity)
+
         view.emotions.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.emotionHappy -> mood = Mood.HAPPY.toString().toLowerCase()
@@ -74,6 +78,22 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == android.R.id.home) {
+            setHasOptionsMenu(false)
+            (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                    + SESSION_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(activity as AppCompatActivity)
+            openPagerFragment(activity as AppCompatActivity, SESSION_FRAGMENT_POSITION)
+        }
+        return true
+    }
+
+    private fun updateActionBar(activity: AppCompatActivity) {
+        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.title = ACTION_BAR_TITLE
+    }
+
     private fun updateStatistics(session: HashMap<String, Any?>, doc: DocumentReference) {
         OverallStatisticsFragment.getAllSessions().add(0, statsManager.wrapSession(session, doc.id, arguments!!["author"] as String?,
                 arguments!!["title"] as String))
@@ -99,6 +119,7 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
 
     companion object {
         private const val FILL_PAGES_MESSAGE = "Заполните начальную и конечную страницы."
+        private const val ACTION_BAR_TITLE = "Оцените чтение"
 
         fun newInstance() = EndOfSessionFragment()
 
