@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_sessions_statistics.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.MainActivity
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
@@ -96,6 +97,7 @@ class SessionsStatisticsFragment : Fragment(), BitmapEncoder, StatisticsUpdater 
 
                             if (event != DISMISS_EVENT_ACTION)
                                 dbManager.deleteSession(selectedSession.sessionId).addOnSuccessListener {
+                                    deleteSession(selectedSession)
                                     Log.d(TAG,
                                             "Successful deletion of book ${selectedSession.sessionId}")
                                 }
@@ -104,6 +106,13 @@ class SessionsStatisticsFragment : Fragment(), BitmapEncoder, StatisticsUpdater 
                     snackbar.setActionTextColor(Color.YELLOW)
                     snackbar.show()
                 }
+            }
+
+            private fun deleteSession(session: Session) {
+                OverallStatisticsFragment.getAllSessions().remove(session)
+                OverallStatisticsFragment.getSessionsForPeriod().remove(session)
+                (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                        + MainActivity.PROFILE_FRAGMENT_POSITION) as OverallStatisticsFragment).updateStatistics()
             }
 
             override fun onChildDraw(c: Canvas, recyclerView: RecyclerView,
