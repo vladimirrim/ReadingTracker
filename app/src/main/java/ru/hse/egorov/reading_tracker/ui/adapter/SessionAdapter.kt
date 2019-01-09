@@ -14,7 +14,7 @@ import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.WEEK_FULL
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Mood
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment.Companion.Place
-import ru.hse.egorov.reading_tracker.ui.statistics.EditSessionFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.edit_session.EditSessionFragment
 import java.util.*
 
 class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
@@ -104,25 +104,28 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             if (session.comment!!.isEmpty()) {
                 comment.visibility = View.GONE
             } else {
-                commentText = session.comment
+                comment.visibility = View.VISIBLE
+                commentText = session.comment!!
             }
             if (session.place == null) {
                 place.visibility = View.GONE
             } else {
-                setPlace(session.place)
+                place.visibility = View.VISIBLE
+                setPlace(session.place!!)
                 placeText = session.place.toString()
             }
             if (session.emotion == null) {
                 emotion.visibility = View.GONE
             } else {
-                setMood(session.emotion)
+                emotion.visibility = View.VISIBLE
+                setMood(session.emotion!!)
                 emotionText = session.emotion.toString()
             }
 
             container.setOnClickListener {
                 val dispatchedFragment = EditSessionFragment.newInstance()
                 dispatchedFragment.arguments = setUpBundle(commentText, placeText, emotionText, session.startTime, session.endTime,
-                        session.startPage, session.endPage, session.bookId)
+                        session.startPage, session.endPage, session.bookId, session.sessionId)
                 openTemporaryFragment(it.context as AppCompatActivity, dispatchedFragment, R.id.temporaryFragment)
             }
         }
@@ -156,7 +159,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
         }
 
         private fun setUpBundle(comment: String, place: String, emotion: String, startTime: Calendar, endTime: Calendar,
-                                startPage: Int?, endPage: Int?, bookId: String): Bundle {
+                                startPage: Int?, endPage: Int?, bookId: String, sessionId: String): Bundle {
             val bundle = Bundle()
             bundle.putString("date", date.text.toString())
             bundle.putString("dayOfTheWeek", dayOfTheWeek.text.toString())
@@ -172,6 +175,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             bundle.putString("place", place)
             bundle.putString("emotion", emotion)
             bundle.putString("bookId", bookId)
+            bundle.putString("sessionId", sessionId)
             startPage?.apply { bundle.putInt("startPage", this) }
             endPage?.apply { bundle.putInt("endPage", this) }
 
@@ -181,9 +185,9 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
     }
 
     companion object {
-        data class Session(val startTime: Calendar, val endTime: Calendar, val duration: Int,
-                           val startPage: Int, val endPage: Int, val emotion: Mood?,
-                           val place: Place?, val author: String?, val comment: String?,
+        data class Session(var startTime: Calendar, var endTime: Calendar, var duration: Int,
+                           var startPage: Int, var endPage: Int, var emotion: Mood?,
+                           var place: Place?, val author: String?, var comment: String?,
                            val title: String, val sessionId: String, val bookId: String)
     }
 }

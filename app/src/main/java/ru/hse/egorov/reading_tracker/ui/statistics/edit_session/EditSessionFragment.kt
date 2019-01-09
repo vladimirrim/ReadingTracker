@@ -1,4 +1,4 @@
-package ru.hse.egorov.reading_tracker.ui.statistics
+package ru.hse.egorov.reading_tracker.ui.statistics.edit_session
 
 
 import android.app.ActionBar
@@ -100,7 +100,12 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
         menu?.clear()
         inflater?.inflate(R.menu.edit_session_action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
-            EditSessionDialog().show(childFragmentManager, "Edit Session")
+            EditSessionDialog().apply {
+                arguments = Bundle().apply {
+                    this.putString("sessionId",
+                            this@EditSessionFragment.arguments!!["sessionId"] as String)
+                }
+            }.show(childFragmentManager, "Edit Session")
             true
         }
     }

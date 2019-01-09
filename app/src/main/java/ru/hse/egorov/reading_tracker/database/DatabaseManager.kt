@@ -47,6 +47,10 @@ class DatabaseManager {
         return db.collection("statistics").document("sessions").collection(authManager.uid as String).add(session)
     }
 
+    fun updateSession(session: Map<String, Any?>, sessionId: String): Task<Void> {
+        return db.collection("statistics").document("sessions").collection(authManager.uid as String).document(sessionId).update(session)
+    }
+
     fun deleteSession(sessionId: String): Task<Void> {
         return db.collection("statistics").document("sessions").collection(authManager.uid as String).document(sessionId).delete()
     }
