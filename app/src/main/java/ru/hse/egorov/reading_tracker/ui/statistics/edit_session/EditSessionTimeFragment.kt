@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.fragment_manual_session_time_change.view.*
 import kotlinx.android.synthetic.main.session_time.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
+import ru.hse.egorov.reading_tracker.ui.MainActivity
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.PROFILE_FRAGMENT_POSITION
+import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
 import ru.hse.egorov.reading_tracker.ui.dialog.SessionDateDialog
@@ -134,6 +136,16 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
                 endTime.minutes.text = (endTimeMinutes % 60).toString()
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == android.R.id.home) {
+            setHasOptionsMenu(false)
+            (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                    + MainActivity.PROFILE_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(activity as AppCompatActivity)
+            openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
+        }
+        return true
     }
 
     companion object {

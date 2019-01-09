@@ -94,7 +94,7 @@ class EditSessionInfoFragment : Fragment(), FragmentLauncher {
         if (item!!.itemId == android.R.id.home) {
             setHasOptionsMenu(false)
             (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
-                    + MainActivity.SESSION_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(activity as AppCompatActivity)
+                    + MainActivity.PROFILE_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(activity as AppCompatActivity)
             openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
         }
         return true
