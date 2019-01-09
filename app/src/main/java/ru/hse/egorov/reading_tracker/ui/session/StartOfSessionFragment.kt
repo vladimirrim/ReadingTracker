@@ -34,11 +34,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         }
 
         view.addBook.setOnClickListener {
-            val dispatchFragment = AddingBookFragment.newInstance()
-            val bundle = Bundle()
-            bundle.putBoolean("set book", true)
-            dispatchFragment.arguments = bundle
-            openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
+            openTemporaryFragment(activity as AppCompatActivity, AddingBookFragment.newInstance(), R.id.temporaryFragment)
         }
 
         view.bookContainer.setOnClickListener {
