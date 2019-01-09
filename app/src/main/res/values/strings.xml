@@ -3,9 +3,9 @@
     <string name="title_activity_sign_in">Sign in</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in</string>
-    <string name="action_sign_up">Sign up</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Вход</string>
+    <string name="action_sign_up">Регистрация</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -15,4 +15,166 @@
         completions."
     </string>
     <string name="title_activity_sign_up">Sign up</string>
+    <string name="email">Адрес электронной почты</string>
+    <string name="sign_up_action">Зарегистрироваться</string>
+    <string name="password">Пароль</string>
+    <string name="participation_code">Код участника</string>
+    <string name="sing_up_with_email">Логин и пароль</string>
+    <string name="sign_in_action">Войти</string>
+    <string name="confirm_password">Подтверждение пароля</string>
+    <string name="title_activity_start_of_session">StartOfSessionActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Профиль читателя</string>
+    <string name="title_session">Новая запись о чтении</string>
+    <string name="title_library">library</string>
+    <string name="cover">cover</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_session">Начать чтение</string>
+    <string name="start_session_add_book">Для начала добавьте книгу, которую сейчас читаете</string>
+    <string name="done">done</string>
+    <string name="author_name">Автор</string>
+    <string name="book_name">Название книги</string>
+    <string name="to_manual_time_change">Указать время вручную</string>
+    <string name="to_session">Вернуться к таймеру</string>
+    <string name="session_comment">Комментарий к прочитанному</string>
+    <string name="session_emotion">Эмоция от чтения</string>
+    <string name="session_location">Место чтения</string>
+    <string name="library_welcome">Для начала добавьте книги, которые сейчас читаете</string>
+    <string name="library_title">Книги</string>
+    <string name="cover_header">Обложка</string>
+    <string name="start_page"><font size="14">Начало</font></string>
+    <string name="end_page"><font size="14">Конец</font></string>
+    <string name="camera">Камера</string>
+    <string name="gallery">Галлерея</string>
+    <string name="isbn">Сканировать ISBN</string>
+    <string name="all_time">Всё время</string>
+    <string name="hours_static">час</string>
+    <string name="minutes_static">мин</string>
+    <string name="page">Стр №</string>
+    <string name="longest_session">Самое продолжительное чтение</string>
+    <string name="all_sessions">Все записи о чтении</string>
+    <string name="sessions_count">подходов</string>
+    <string name="most_sessions">Больше всего подходов</string>
+    <string name="longest_reading_time">Дольше всего читаете</string>
+    <string name="all_books">Все книги</string>
+    <string name="books_count_static">книг</string>
+    <string name="statistics_title">Статистика</string>
+    <string name="separator">:</string>
+    <string name="dash">-</string>
+    <string name="questionnaire">Заполнить анкету читателя</string>
+    <string name="exit">Выход</string>
+    <string name="settings">Настройки</string>
+    <string name="about_us">О приложении</string>
+    <string name="questionnaire_code">Код участника исследования: 123456</string>
+    <string name="edit_session_title">Запись о чтении</string>
+    <string name="change_time">Изменить время</string>
+    <string name="change_rating">Изменить оценку</string>
+    <string name="end_session">Закончить</string>
+    <plurals name="monday">
+        <item quantity="one">Понедельник</item>
+        <item quantity="other">Пн</item>
+    </plurals>
+    <plurals name="tuesday">
+        <item quantity="one">Вторник</item>
+        <item quantity="other">Вт</item>
+    </plurals>
+    <plurals name="wednesday">
+        <item quantity="one">Среда</item>
+        <item quantity="other">Ср</item>
+    </plurals>
+    <plurals name="thursday">
+        <item quantity="one">Четверг</item>
+        <item quantity="other">Чт</item>
+    </plurals>
+    <plurals name="friday">
+        <item quantity="one">Пятница</item>
+        <item quantity="other">Пт</item>
+    </plurals>
+    <plurals name="saturday">
+        <item quantity="one">Суббота</item>
+        <item quantity="other">Сб</item>
+    </plurals>
+    <plurals name="sunday">
+        <item quantity="one">Воскресенье</item>
+        <item quantity="other">Вс</item>
+    </plurals>
+    <string name="session_date_title">Дата чтения</string>
+    <string name="session_time_title">Период чтения</string>
+    <string name="save_session">Записать</string>
+    <string name="year">Год</string>
+    <string name="month">Месяц</string>
+    <string name="week">Неделя</string>
+    <string name="day">День</string>
+    <string name="find_by_isbn">Найти по штрихкоду</string>
+    <string name="find_by_name">Найти по названию</string>
+    <string name="manual_add">Ввести вручную</string>
+    <string name="find">Найти</string>
+    <string name="page_raw">Стр</string>
+    <string name="add_book_title">Добавить книгу</string>
+    <string name="add_book_description">Добавить можно лишь информацию о книге, которую вы читаете: название, автор, обложка.</string>
+    <plurals name="january">
+        <item quantity="many">Январь</item>
+        <item quantity="one"> января</item>
+        <item quantity="other"> Янв</item>
+    </plurals>
+    <plurals name="february">
+        <item quantity="many">Февраль</item>
+        <item quantity="one"> февраля</item>
+        <item quantity="other"> Фев</item>
+    </plurals>
+    <plurals name="march">
+        <item quantity="many">Март</item>
+        <item quantity="one"> марта</item>
+        <item quantity="other"> Мар</item>
+    </plurals>
+    <plurals name="april">
+        <item quantity="many">Апрель</item>
+        <item quantity="one"> апреля</item>
+        <item quantity="other"> Апр</item>
+    </plurals>
+    <plurals name="may">
+        <item quantity="many">Май</item>
+        <item quantity="one"> мая</item>
+        <item quantity="other"> Май</item>
+    </plurals>
+    <plurals name="june">
+        <item quantity="many">Июнь</item>
+        <item quantity="one"> июня</item>
+        <item quantity="other"> Июн</item>
+    </plurals>
+    <plurals name="july">
+        <item quantity="many">Июль</item>
+        <item quantity="one"> июля</item>
+        <item quantity="other"> Июл</item>
+    </plurals>
+    <plurals name="august">
+        <item quantity="many">Август</item>
+        <item quantity="one"> августа</item>
+        <item quantity="other"> Авг</item>
+    </plurals>
+    <plurals name="september">
+        <item quantity="many">Сентябрь</item>
+        <item quantity="one"> сентября</item>
+        <item quantity="other"> Сен</item>
+    </plurals>
+    <plurals name="october">
+        <item quantity="many">Октябрь</item>
+        <item quantity="one"> октября</item>
+        <item quantity="other"> Окт</item>
+    </plurals>
+    <plurals name="november">
+        <item quantity="many">Ноябрь</item>
+        <item quantity="one"> ноября</item>
+        <item quantity="other"> Ноя</item>
+    </plurals>
+    <plurals name="december">
+        <item quantity="many">Декабрь</item>
+        <item quantity="one"> декабря</item>
+        <item quantity="other"> Дек</item>
+    </plurals>
+
 </resources>

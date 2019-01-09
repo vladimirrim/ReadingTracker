@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.session.EndOfSessionFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/startPageStatic"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:lineSpacingExtra="4sp"
+            android:maxLines="1"
+            android:text="@string/start_page"
+            android:textAppearance="@style/dark_14sp_80alpha"
+            app:layout_constraintBottom_toTopOf="@+id/startPage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/startPage"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:hint="@string/page"
+            android:inputType="number"
+            android:lineSpacingExtra="4sp"
+            android:maxLines="1"
+            android:textAppearance="@style/dark_20sp"
+            android:textColorHint="@color/colorPrimary_80alpha"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startPageStatic" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/endPageStatic"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="15dp"
+            android:lineSpacingExtra="4sp"
+            android:maxLines="1"
+            android:text="@string/end_page"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/dark_14sp_80alpha"
+            app:layout_constraintBottom_toTopOf="@+id/endPage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/endPage"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:hint="@string/page"
+            android:inputType="number"
+            android:lineSpacingExtra="4sp"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/dark_20sp"
+            android:textColorHint="@color/colorPrimary_80alpha"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/endPageStatic" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="138dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/light"
+            android:paddingBottom="10dp"
+            android:textColorHint="#802F5870"
+            app:hintTextAppearance="@style/dark_14sp_80alpha"
+            app:layout_constraintBottom_toTopOf="@+id/sessionEmotion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/session_comment"
+                android:inputType="textMultiLine"
+                android:lineSpacingExtra="4sp"
+                android:singleLine="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sessionEmotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="113dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="113dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
+            android:text="@string/session_emotion"
+            android:textAppearance="@style/dark_14sp"
+            app:layout_constraintBottom_toTopOf="@+id/emotions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
+
+        <RadioGroup
+            android:id="@+id/emotions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="102dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="102dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/sessionLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sessionEmotion">
+
+            <RadioButton
+                android:id="@+id/emotionVeryHappy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/emotion_very_happy"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/emotionHappy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/emotion_happy"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/emotionNeutral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/emotion_neutral"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/emotionSad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/emotion_sad"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/emotionVerySad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/emotion_very_sad"
+                android:button="@android:color/transparent" />
+        </RadioGroup>
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sessionLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="113dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="113dp"
+            android:layout_marginBottom="11dp"
+            android:background="@android:color/transparent"
+            android:text="@string/session_location"
+            android:textAppearance="@style/dark_14sp"
+            app:layout_constraintBottom_toTopOf="@+id/locations"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emotions" />
+
+        <RadioGroup
+            android:id="@+id/locations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="115dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sessionLocation">
+
+            <RadioButton
+                android:id="@+id/locationHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/location_home"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/locationTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/location_transport"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/locationWork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/location_work"
+                android:button="@android:color/transparent" />
+
+            <RadioButton
+                android:id="@+id/locationThirdPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/location_third_place"
+                android:button="@android:color/transparent" />
+        </RadioGroup>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="166dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="170dp"
+            android:layout_marginBottom="13dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/sessionEmotion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

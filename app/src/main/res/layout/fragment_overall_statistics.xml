@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/statisticsPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="157dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="2dp"
+        android:text="@string/all_time"
+        android:textAppearance="@style/dark_18sp"
+        app:layout_constraintBottom_toTopOf="@+id/totalStatistics"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/arrowDown"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_arrow_down"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statisticsPeriod" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/arrowRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="2dp"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/totalStatistics"
+        layout="@layout/total_statistics"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statisticsPeriod" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/arrowLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="2dp"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toTopOf="@+id/statisticsPager"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ru.hse.egorov.reading_tracker.ui.pager.FragmentViewPager
+        android:id="@+id/statisticsPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalStatistics">
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
+
+    </ru.hse.egorov.reading_tracker.ui.pager.FragmentViewPager>
+
+</android.support.constraint.ConstraintLayout>

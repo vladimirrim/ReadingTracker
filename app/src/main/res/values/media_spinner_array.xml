@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="media_spinner_array">
+        <item>Бумажная книга</item>
+        <item>Телефон</item>
+        <item>Планшет</item>
+        <item>Читалка</item>
+    </string-array>
+</resources>

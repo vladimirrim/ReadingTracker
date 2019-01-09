@@ -2,27 +2,72 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/light"
+    tools:context=".ui.session.StartOfSessionFragment">
 
-    <TextView
-            android:id="@+id/sample_text"
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <FrameLayout
+            android:id="@+id/temporaryFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:background="@color/light"
+            android:visibility="gone"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:layout_editor_absoluteX="178dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ru.hse.egorov.reading_tracker.ui.pager.FragmentViewPager
+            android:id="@+id/fragmentPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:background="@color/light"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:layout_editor_absoluteX="178dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/startSessionButton" android:layout_marginTop="200dp"/>
-    <Button
-            android:text="start session"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/startSessionButton"
-            app:layout_constraintTop_toBottomOf="@+id/sample_text" android:layout_marginTop="228dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="128dp"
-            android:layout_marginEnd="127dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:src="@drawable/ic_fab_background"
+            android:visibility="gone"
+            app:fabCustomSize="60dp" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/placeSnackBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@drawable/navigation_item_color"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
 
 </android.support.constraint.ConstraintLayout>

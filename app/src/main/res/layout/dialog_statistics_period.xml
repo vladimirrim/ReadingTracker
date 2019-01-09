@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light"
+    android:orientation="vertical"
+      android:layout_height="wrap_content" android:layout_width="match_parent">
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/allTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="68dp"
+        android:text="@string/all_time"
+        android:textAppearance="@style/dark_20sp"
+        android:layout_gravity="center_horizontal"/>
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="68dp"
+        android:text="@string/year"
+        android:textAppearance="@style/dark_20sp"
+        android:layout_gravity="center_horizontal"/>
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="68dp"
+        android:text="@string/month"
+        android:textAppearance="@style/dark_20sp"
+        android:layout_gravity="center_horizontal" />
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="68dp"
+        android:text="@string/week"
+        android:textAppearance="@style/dark_20sp"
+        android:layout_gravity="center_horizontal" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="68dp"
+        android:text="@string/day"
+        android:textAppearance="@style/dark_20sp"
+        android:layout_gravity="center_horizontal"/>
+</android.support.v7.widget.LinearLayoutCompat>
