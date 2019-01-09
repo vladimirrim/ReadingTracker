@@ -12,8 +12,8 @@ import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.LIBRARY_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
-import ru.hse.egorov.reading_tracker.ui.book_library.AddingBookFragment
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.dialog.AddBookDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments.AutoSessionTimeChangeFragment
 
@@ -34,7 +34,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         }
 
         view.addBook.setOnClickListener {
-            openTemporaryFragment(activity as AppCompatActivity, AddingBookFragment.newInstance(), R.id.temporaryFragment)
+            AddBookDialog().show(fragmentManager, "Add Book")
         }
 
         view.bookContainer.setOnClickListener {
@@ -66,6 +66,7 @@ class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, Acti
         dbManager.getBookCover(id, context!!).into(this.cover)
         this.cover.visibility = View.VISIBLE
         this.author.visibility = View.VISIBLE
+        resetSession()
     }
 
     override fun setActionBar(activity: AppCompatActivity) {

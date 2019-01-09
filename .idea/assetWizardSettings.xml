@@ -14,11 +14,10 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="35" />
-                            <entry key="outputName" value="ic_very_happy" />
+                            <entry key="outputName" value="ic_isbn_icon" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\very_happy.svg" />
-                            <entry key="width" value="35" />
+                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\isbn_icon.svg" />
+                            <entry key="width" value="30" />
                           </map>
                         </option>
                       </PersistentState>

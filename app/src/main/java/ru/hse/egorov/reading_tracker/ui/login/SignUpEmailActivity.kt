@@ -12,6 +12,10 @@ import kotlinx.android.synthetic.main.activity_sign_up_email.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity
+import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
 
 
 /**
@@ -33,6 +37,7 @@ class SignUpEmailActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Log.d(TAG, "createUserWithEmail:success")
                         hideProgressBar()
+                        clearPreviousData()
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -66,6 +71,14 @@ class SignUpEmailActivity : AppCompatActivity() {
     private fun hideProgressBar() {
         progressBar.visibility = View.GONE
         signUpEmail.visibility = View.VISIBLE
+    }
+
+    private fun clearPreviousData() {
+        OverallStatisticsFragment.getAllSessions().clear()
+        LibraryFragment.getAdapter().clear()
+        OverallStatisticsFragment.getSessionsForPeriod().clear()
+        SessionsStatisticsFragment.getAdapter().clear()
+        BooksStatisticsFragment.getAdapter().clear()
     }
 
     private fun checkAllFieldsFilled(): Boolean {

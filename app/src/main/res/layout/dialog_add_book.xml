@@ -7,35 +7,88 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/findByISBN"
+        android:id="@+id/addBookTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="68dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="68dp"
-        android:text="@string/find_by_isbn"
+        android:text="@string/add_book_title"
         android:textAppearance="@style/dark_20sp" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/findByName"
+        android:id="@+id/addBookDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="68dp"
-        android:text="@string/find_by_name"
-        android:textAppearance="@style/dark_20sp" />
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="14dp"
+        android:text="@string/add_book_description"
+        android:textAlignment="center"
+        android:textAppearance="@style/dark_14sp_80alpha" />
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/manualAdd"
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_isbn_icon" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/findByISBN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/find_by_isbn"
+            android:textAppearance="@style/dark_20sp" />
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_icon" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/findByName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:text="@string/find_by_name"
+            android:textAppearance="@style/dark_20sp" />
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="68dp"
-        android:text="@string/manual_add"
-        android:textAppearance="@style/dark_20sp" />
+        android:layout_marginBottom="30dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_text_icon" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/manualAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:text="@string/manual_add"
+            android:textAppearance="@style/dark_20sp" />
+    </android.support.v7.widget.LinearLayoutCompat>
 </android.support.v7.widget.LinearLayoutCompat>

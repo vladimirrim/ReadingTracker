@@ -114,6 +114,8 @@
     <string name="manual_add">Ввести вручную</string>
     <string name="find">Найти</string>
     <string name="page_raw">Стр</string>
+    <string name="add_book_title">Добавить книгу</string>
+    <string name="add_book_description">Добавить можно лишь информацию о книге, которую вы читаете: название, автор, обложка.</string>
     <plurals name="january">
         <item quantity="many">Январь</item>
         <item quantity="one"> января</item>

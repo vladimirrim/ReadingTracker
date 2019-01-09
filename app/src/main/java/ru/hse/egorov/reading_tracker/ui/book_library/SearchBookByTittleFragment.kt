@@ -12,6 +12,7 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory
 import com.google.api.services.books.Books
 import com.google.api.services.books.BooksRequestInitializer
 import com.google.api.services.books.model.Volumes
+import kotlinx.android.synthetic.main.fragment_search_book_by_title.*
 import kotlinx.android.synthetic.main.fragment_search_book_by_title.view.*
 import ru.hse.egorov.reading_tracker.BuildConfig
 import ru.hse.egorov.reading_tracker.R
@@ -32,8 +33,10 @@ class SearchBookByTittleFragment : Fragment() {
         view.findButton.setOnClickListener {
             val query = view.title.text.toString()
             if (query != "") {
+                showProgressBar()
                 BookDownloader { _, books ->
                     libraryAdapter.clear()
+                    hideProgressBar()
                     libraryAdapter.set(convert(books))
                 }.execute(query)
             }
@@ -51,6 +54,16 @@ class SearchBookByTittleFragment : Fragment() {
         } else {
             ArrayList()
         }
+    }
+
+    private fun showProgressBar() {
+        findButton.visibility = View.INVISIBLE
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        progressBar.visibility = View.GONE
+        findButton.visibility = View.VISIBLE
     }
 
     private fun setUpAdapter(view: View) {
