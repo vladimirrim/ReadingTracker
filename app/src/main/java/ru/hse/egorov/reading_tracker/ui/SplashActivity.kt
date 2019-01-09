@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
                 for (book in it.documents) {
                     if (book["is deleted"] == null) {
                         libraryAdapter.add(LibraryFragment.Book(book["author"] as String?, book["title"] as String, book.id,
-                                book["media"] as String, null, book["last updated"] as Date, (book["page сount"] as Long?)?.toInt()))
+                                book["media"] as String, null, book["last updated"] as Date, (book["page count"] as Long?)?.toInt()))
                     }
                     bookMap[book.id] = Pair(book["author"] as String, book["title"] as String)
                 }

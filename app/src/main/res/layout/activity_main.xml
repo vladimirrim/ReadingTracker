@@ -11,7 +11,6 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +19,11 @@
 
         <FrameLayout
             android:id="@+id/temporaryFragment"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:background="@color/light"
             android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:background="@color/light"
+            android:visibility="gone"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:layout_editor_absoluteX="178dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -31,8 +31,9 @@
         <ru.hse.egorov.reading_tracker.ui.pager.FragmentViewPager
             android:id="@+id/fragmentPager"
             android:layout_width="match_parent"
-            android:background="@color/light"
             android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:background="@color/light"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:layout_editor_absoluteX="178dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -41,18 +42,18 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/colorPrimary"
             android:src="@drawable/ic_fab_background"
             android:visibility="gone"
-            app:fabCustomSize="60dp"/>
+            app:fabCustomSize="60dp" />
 
-        <android.support.design.widget.CoordinatorLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/placeSnackBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content" />
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -62,11 +63,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        app:itemIconTint="@drawable/navigation_item_color"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:itemIconTint ="@drawable/navigation_item_color"
-        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/navigation" />
 
 </android.support.constraint.ConstraintLayout>

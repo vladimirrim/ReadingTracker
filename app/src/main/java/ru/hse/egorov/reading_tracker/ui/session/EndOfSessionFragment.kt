@@ -1,9 +1,12 @@
 package ru.hse.egorov.reading_tracker.ui.session
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import com.google.firebase.firestore.DocumentReference
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_end_of_session.*
 import kotlinx.android.synthetic.main.fragment_end_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
@@ -14,6 +17,7 @@ import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
 import java.util.*
+import kotlin.collections.HashMap
 
 class EndOfSessionFragment : Fragment(), FragmentLauncher {
     private val dbManager = DatabaseManager()
@@ -32,13 +36,9 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         view.emotions.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.emotionHappy -> mood = Mood.HAPPY.toString().toLowerCase()
-
                 R.id.emotionNeutral -> mood = Mood.NEUTRAL.toString().toLowerCase()
-
                 R.id.emotionSad -> mood = Mood.SAD.toString().toLowerCase()
-
                 R.id.emotionVeryHappy -> mood = Mood.VERY_HAPPY.toString().replace("_", " ").toLowerCase()
-
                 R.id.emotionVerySad -> mood = Mood.VERY_SAD.toString().replace("_", " ").toLowerCase()
             }
         }
@@ -46,11 +46,8 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         view.locations.setOnCheckedChangeListener { _, i ->
             when (i) {
                 R.id.locationHome -> place = Place.HOME.toString().toLowerCase()
-
                 R.id.locationTransport -> place = Place.TRANSPORT.toString().toLowerCase()
-
                 R.id.locationWork -> place = Place.WORK.toString().toLowerCase()
-
                 R.id.locationThirdPlace -> place = Place.THIRD_PLACE.toString().replace("_", " ").toLowerCase()
             }
         }
@@ -60,18 +57,30 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
         menu?.clear()
         inflater?.inflate(R.menu.action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
-            val session = setSession()
-            progressBar.visibility = View.VISIBLE
-            dbManager.addSession(session).addOnSuccessListener { doc ->
-                (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
-                        + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).resetSession()
-                OverallStatisticsFragment.getAllSessions().add(statsManager.wrapSession(session, doc.id, arguments!!["author"] as String?,
-                        arguments!!["title"] as String))
-                openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
-                this@EndOfSessionFragment.setHasOptionsMenu(false)
+            if (startPage.text!!.isNotEmpty() && endPage.text!!.isNotEmpty()) {
+                val session = setSession()
+                progressBar.visibility = View.VISIBLE
+                dbManager.addSession(session).addOnSuccessListener { doc ->
+                    (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                            + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).resetSession()
+                    updateStatistics(session, doc)
+                    openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
+                    this@EndOfSessionFragment.setHasOptionsMenu(false)
+                }
+            } else {
+                Snackbar.make(activity!!.placeSnackBar, FILL_PAGES_MESSAGE, Snackbar.LENGTH_SHORT).show()
             }
             true
         }
+    }
+
+    private fun updateStatistics(session: HashMap<String, Any?>, doc: DocumentReference) {
+        OverallStatisticsFragment.getAllSessions().add(0, statsManager.wrapSession(session, doc.id, arguments!!["author"] as String?,
+                arguments!!["title"] as String))
+        OverallStatisticsFragment.getSessionsForPeriod().add(0, statsManager.wrapSession(session, doc.id, arguments!!["author"] as String?,
+                arguments!!["title"] as String))
+        (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                + PROFILE_FRAGMENT_POSITION) as OverallStatisticsFragment).updateStatistics()
     }
 
     private fun setSession(): HashMap<String, Any?> {
@@ -89,6 +98,8 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
     }
 
     companion object {
+        private const val FILL_PAGES_MESSAGE = "Заполните начальную и конечную страницы."
+
         fun newInstance() = EndOfSessionFragment()
 
         enum class Mood {

@@ -20,7 +20,7 @@ import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.profile.ProfileFragment
 
 
-class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher {
+class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher, StatisticsUpdater {
     private lateinit var pagerAdapter: ViewPagerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -68,7 +68,7 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
             true
         }
 
-        setTotalStatistics()
+        updateStatistics()
     }
 
     private fun setUpViewPager(view: View) {
@@ -86,6 +86,13 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
         activity.supportActionBar?.setCustomView(R.layout.statistics_action_bar)
     }
 
+    override fun updateStatistics() {
+        for (i in 0 until pagerAdapter.count) {
+            (pagerAdapter.getItem(i) as StatisticsUpdater).updateStatistics()
+        }
+        setTotalStatistics()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
         inflater?.inflate(R.menu.statistics_action_bar, menu)
@@ -101,10 +108,7 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher 
                 statisticsPeriod.text = data!!.getStringExtra("selectedPeriod")
                 timePeriod = statisticsPeriod.text.toString()
                 setSessionsForPeriod(data.getLongExtra("thresholdDate", 0))
-                for (i in 0 until pagerAdapter.count) {
-                    (pagerAdapter.getItem(i) as StatisticsUpdater).updateStatistics()
-                }
-                setTotalStatistics()
+                updateStatistics()
             }
         }
     }

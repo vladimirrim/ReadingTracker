@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_sessions_statistics.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
@@ -83,7 +84,7 @@ class SessionsStatisticsFragment : Fragment(), BitmapEncoder, StatisticsUpdater 
 
                 if (direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT) {
                     sessionsAdapter.removeItem(position)
-                    val snackbar = Snackbar.make(placeSnackBar,
+                    val snackbar = Snackbar.make(activity!!.placeSnackBar,
                             "Нажмите, чтобы восстановить", Snackbar.LENGTH_LONG)
                     snackbar.setAction("UNDO") {
                         sessionsAdapter.restoreItem(selectedSession, position)

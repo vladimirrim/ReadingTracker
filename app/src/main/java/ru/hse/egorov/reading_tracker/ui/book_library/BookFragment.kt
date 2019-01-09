@@ -23,7 +23,7 @@ abstract class BookFragment : Fragment(), BitmapEncoder {
         book["author"] = author.text.toString()
         book["title"] = title.text.toString()
         book["media"] = getMediaById(mediaSpinner.selectedItemId)
-        if (pageCount.text.toString().isNotEmpty()) book["pageCount"] = pageCount.text.toString().toInt()
+        if (pageCount.text.toString().isNotEmpty()) book["page count"] = pageCount.text.toString().toInt()
         book["last updated"] = Timestamp(Calendar.getInstance().time)
         return book
     }
