@@ -101,7 +101,7 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
         inflater?.inflate(R.menu.edit_session_action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
             EditSessionDialog().apply {
-                arguments = Bundle().apply {
+                arguments = Bundle(this@EditSessionFragment.arguments).apply {
                     this.putString("sessionId",
                             this@EditSessionFragment.arguments!!["sessionId"] as String)
                 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import kotlinx.android.synthetic.main.book.*
 import kotlinx.android.synthetic.main.fragment_manual_session_time_change.*
 import kotlinx.android.synthetic.main.fragment_manual_session_time_change.view.*
 import kotlinx.android.synthetic.main.session_time.view.*
@@ -61,12 +62,20 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
         }
 
         view.toSession.visibility = View.GONE
+        setBook()
+    }
+
+    private fun setBook() {
+        author.text = arguments!!["author"] as String
+        title.text = arguments!!["title"] as String
+        dbManager.getBookCover(arguments!!["bookId"] as String, context!!).into(cover)
+        book.visibility = View.VISIBLE
     }
 
     private fun setEndSessionButton() {
         endSessionButton.setOnClickListener {
             it.visibility = View.INVISIBLE
-            progressBar.visibility = View.VISIBLE
+            progressBarSave.visibility = View.VISIBLE
             dbManager.updateSession(gatherSessionInfo(), arguments!!["sessionId"] as String).addOnSuccessListener {
                 editSession()
                 openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
