@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -95,8 +96,11 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
                     (activity!!.library.adapter as LibraryAdapter).add(setUpNewBook(book["last updated"] as Timestamp, uploadedBook.id))
                     (activity!!.library.adapter as LibraryAdapter).sortByLastUpdated()
                     openPagerFragment(activity as AppCompatActivity, SESSION_FRAGMENT_POSITION)
-                }.addOnFailureListener {
-                    //TODO
+                }.addOnFailureListener { e ->
+                    Snackbar.make(activity!!.placeSnackBar,
+                            ADD_BOOK_FAILURE,
+                            Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, e.localizedMessage)
                 }
             }
             true
@@ -231,7 +235,9 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
         private const val ISBN_PREFIX = "isbn:"
         private const val API_KEY = "AIzaSyDyz5uPI7Bv-gZTosWKBPMHtVVXtWy_UEA"
         private const val ACTION_BAR_TITLE = "Новая книга"
-        const val ISBN_SCAN_FAILURE = "Не удалось распознать ISBN код."
+        private const val ISBN_SCAN_FAILURE = "Не удалось распознать ISBN код."
+        private const val ADD_BOOK_FAILURE = "Не удалось добавить книгу."
+        private const val TAG = "Add Book"
         const val REQUEST_IMAGE_GALLERY = 1
         const val REQUEST_IMAGE_CAMERA = 2
         const val REQUEST_SCAN_ISBN = 3

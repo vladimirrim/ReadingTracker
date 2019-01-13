@@ -2,11 +2,15 @@ package ru.hse.egorov.reading_tracker.ui.book_library
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.google.firebase.Timestamp
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_library.*
 import ru.hse.egorov.reading_tracker.R
@@ -68,8 +72,11 @@ class EditBookFragment : BookFragment(), FragmentLauncher {
                     (activity!!.library.adapter as LibraryAdapter).replaceItem(arguments!!["bookPosition"] as Int,
                             setUpNewBook(book["last updated"] as Timestamp, arguments!!["bookId"] as String))
                     openPagerFragment(activity as AppCompatActivity, LIBRARY_FRAGMENT_POSITION)
-                }.addOnFailureListener {
-                    //TODO
+                }.addOnFailureListener { e ->
+                    Snackbar.make(activity!!.placeSnackBar,
+                            EDIT_BOOK_FAILURE,
+                            Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, e.localizedMessage)
                 }
             }
             true
@@ -78,6 +85,8 @@ class EditBookFragment : BookFragment(), FragmentLauncher {
 
     companion object {
         private const val ACTION_BAR_TITLE = "Книга"
+        private const val EDIT_BOOK_FAILURE = "Не удалось изменить книгу."
+        private const val TAG = "Edit Book"
 
         fun newInstance() = EditBookFragment()
     }

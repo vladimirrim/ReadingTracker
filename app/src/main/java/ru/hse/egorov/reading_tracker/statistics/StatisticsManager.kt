@@ -16,10 +16,6 @@ import java.util.*
 class StatisticsManager {
     private val db = FirebaseFirestore.getInstance(authManager.app)
 
-    fun getSessions(): Task<QuerySnapshot> {
-        return db.collection("statistics").document("sessions").collection(authManager.uid as String).get()
-    }
-
     fun wrapSession(session: Map<String, Any?>, sessionId: String, author: String?, title: String): Session {
         val startTime = Calendar.getInstance()
         val endTime = Calendar.getInstance()
@@ -59,6 +55,10 @@ class StatisticsManager {
         bookStatistics.hours += bookStatistics.minutes / 60
         bookStatistics.minutes %= 60
         return bookStatistics
+    }
+
+    private fun getSessions(): Task<QuerySnapshot> {
+        return db.collection("statistics").document("sessions").collection(authManager.uid as String).get()
     }
 
     companion object {

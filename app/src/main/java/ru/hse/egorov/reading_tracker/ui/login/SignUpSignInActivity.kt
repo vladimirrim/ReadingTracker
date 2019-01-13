@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_sign_up_sign_in.*
 import ru.hse.egorov.reading_tracker.R
-import ru.hse.egorov.reading_tracker.database.DatabaseManager
 
 
 class SignUpSignInActivity : AppCompatActivity() {

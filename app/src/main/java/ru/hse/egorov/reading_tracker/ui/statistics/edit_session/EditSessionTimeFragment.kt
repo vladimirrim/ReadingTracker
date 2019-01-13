@@ -127,8 +127,8 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
                 val selectedDate = Calendar.getInstance()
                 date = data!!.getLongExtra("date", 0)
                 selectedDate.timeInMillis = date
-                val dateText = selectedDate.get(Calendar.DAY_OF_MONTH).toString() + " " + translateMonth(selectedDate.get(Calendar.MONTH), resources,
-                        DateTranslator.MONTH_GENITIVE)
+                val dateText = selectedDate.get(Calendar.DAY_OF_MONTH).toString() + " " + translateMonth(selectedDate.get(Calendar.MONTH),
+                        resources, DateTranslator.MONTH_GENITIVE)
                 sessionDate.text = dateText
             }
 

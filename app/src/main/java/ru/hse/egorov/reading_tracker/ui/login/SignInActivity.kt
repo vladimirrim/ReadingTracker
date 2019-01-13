@@ -17,7 +17,6 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity
-import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
