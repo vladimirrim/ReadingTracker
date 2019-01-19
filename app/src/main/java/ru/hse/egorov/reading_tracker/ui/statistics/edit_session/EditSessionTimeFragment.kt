@@ -88,8 +88,8 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
         var duration = endTimeMinutes - startTimeMinutes
         if (duration < 0) duration += 24 * 60
         map["duration"] = duration * 60
-        map["startTime"] = date + startTimeMinutes * 60 * 1000
-        map["endTime"] = date + startTimeMinutes * 60 * 1000 + duration * 60 * 1000
+        map["start time"] = Date(date + startTimeMinutes * 60 * 1000)
+        map["end time"] = Date(date + startTimeMinutes * 60 * 1000 + duration * 60 * 1000)
         return map
     }
 
