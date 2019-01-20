@@ -33,7 +33,9 @@ import kotlinx.android.synthetic.main.fragment_adding_book.view.*
 import kotlinx.android.synthetic.main.fragment_library.*
 import ru.hse.egorov.reading_tracker.BuildConfig
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ui.MainActivity
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
+import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.dialog.AddCoverDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
@@ -95,7 +97,9 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
                     setBookToSession(uploadedBook.id)
                     (activity!!.library.adapter as LibraryAdapter).add(setUpNewBook(book["last updated"] as Timestamp, uploadedBook.id))
                     (activity!!.library.adapter as LibraryAdapter).sortByLastUpdated()
-                    openPagerFragment(activity as AppCompatActivity, SESSION_FRAGMENT_POSITION)
+                    (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                            + MainActivity.LIBRARY_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(activity as AppCompatActivity)
+                    openPagerFragment(activity as AppCompatActivity, MainActivity.LIBRARY_FRAGMENT_POSITION)
                 }.addOnFailureListener { e ->
                     Snackbar.make(activity!!.placeSnackBar,
                             ADD_BOOK_FAILURE,

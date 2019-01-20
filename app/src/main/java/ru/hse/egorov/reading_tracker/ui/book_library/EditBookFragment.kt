@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_library.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.LIBRARY_FRAGMENT_POSITION
+import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.book_library.BookFragment.Companion.MediaType.Companion.getIdByName
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
@@ -71,6 +72,9 @@ class EditBookFragment : BookFragment(), FragmentLauncher {
                 dbManager.addBookCover(baos.toByteArray(), arguments!!["bookId"] as String).addOnSuccessListener {
                     (activity!!.library.adapter as LibraryAdapter).replaceItem(arguments!!["bookPosition"] as Int,
                             setUpNewBook(book["last updated"] as Timestamp, arguments!!["bookId"] as String))
+                    (activity!!.library.adapter as LibraryAdapter).sortByLastUpdated()
+                    (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
+                            + LIBRARY_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(activity as AppCompatActivity)
                     openPagerFragment(activity as AppCompatActivity, LIBRARY_FRAGMENT_POSITION)
                 }.addOnFailureListener { e ->
                     Snackbar.make(activity!!.placeSnackBar,
