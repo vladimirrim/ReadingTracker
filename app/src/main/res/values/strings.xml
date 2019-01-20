@@ -56,11 +56,23 @@
     <string name="page">Стр №</string>
     <string name="longest_session">Самое продолжительное чтение</string>
     <string name="all_sessions">Все записи о чтении</string>
-    <string name="sessions_count">подходов</string>
+    <plurals name="book_plurals">
+        <item quantity="zero">книг</item>
+        <item quantity="one">книга</item>
+        <item quantity="few">книги</item>
+        <item quantity="many">книг</item>
+        <item quantity="other">книг</item>
+    </plurals>
+    <plurals name="sessions_count_plurals">
+        <item quantity="zero">подходов</item>
+        <item quantity="one">подход</item>
+        <item quantity="few">подхода</item>
+        <item quantity="many">подходов</item>
+        <item quantity="other">подходов</item>
+    </plurals>
     <string name="most_sessions">Больше всего подходов</string>
     <string name="longest_reading_time">Дольше всего читаете</string>
     <string name="all_books">Все книги</string>
-    <string name="books_count_static">книг</string>
     <string name="statistics_title">Статистика</string>
     <string name="separator">:</string>
     <string name="dash">-</string>
@@ -115,6 +127,13 @@
     <string name="page_raw">Стр</string>
     <string name="add_book_title">Добавить книгу</string>
     <string name="add_book_description">Добавить можно лишь информацию о книге, которую вы читаете: название, автор, обложка.</string>
+    <plurals name="page_plurals">
+        <item quantity="zero">%1$d страниц</item>
+        <item quantity="one">%1$d страница</item>
+        <item quantity="few">%1$d страницы</item>
+        <item quantity="many">%1$d страниц</item>
+        <item quantity="other">%1$d страниц</item>
+    </plurals>
     <plurals name="january">
         <item quantity="many">Январь</item>
         <item quantity="one"> января</item>

@@ -26,7 +26,7 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
         return books
     }
 
-    fun clear(){
+    fun clear() {
         books.clear()
         notifyDataSetChanged()
     }
@@ -45,6 +45,7 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
         private val hours = itemView.hours
         private val minutes = itemView.minutes
         private val sessionsCount = itemView.sessionsCount
+        private val sessionCountStatic = itemView.sessionsCountStatic
 
         fun bind(book: BookStatistics) {
             title.text = book.title
@@ -52,6 +53,7 @@ class BookStatisticsAdapter : RecyclerView.Adapter<BookStatisticsAdapter.BookSta
             hours.text = book.hours.toString()
             minutes.text = book.minutes.toString()
             sessionsCount.text = book.sessionsCount.toString()
+            sessionCountStatic.text = title.resources.getQuantityString(R.plurals.sessions_count_plurals, book.sessionsCount)
         }
     }
 

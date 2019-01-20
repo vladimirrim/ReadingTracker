@@ -119,9 +119,11 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher,
         val booksCount = (pagerAdapter.getItem(1) as BooksStatisticsFragment).getBooksCount().toString()
 
         totalStatistics.booksCount.text = booksCount
+        totalStatistics.booksCountStatic.text = resources.getQuantityString(R.plurals.book_plurals, booksCount.toInt())
         totalStatistics.totalHours.text = (totalTime / 60 / 60).toString()
         totalStatistics.totalMinutes.text = ((totalTime / 60) % 60).toString()
         totalStatistics.totalSessionsCount.text = totalSessions
+        totalStatistics.totalSessionsStatic.text = resources.getQuantityString(R.plurals.sessions_count_plurals, sessionsForPeriod.size)
     }
 
     private fun setSessionsForPeriod(thresholdDate: Long) {

@@ -61,7 +61,8 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
             val startPage = arguments!!["startPage"] as Int
             val endPage = arguments!!["endPage"] as Int
             val pageCount = endPage - startPage
-            val pagesText = pageCount.toString() + " " + PAGES + ", " + startPage.toString() + " - " + endPage.toString()
+            val pagesText = resources.getQuantityString(R.plurals.page_plurals, pageCount, pageCount) +
+                    ", " + startPage.toString() + " - " + endPage.toString()
             readPages.text = pagesText
         } else {
             readPages.visibility = View.GONE
@@ -121,7 +122,6 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
     }
 
     companion object {
-        private const val PAGES = "страниц"
         private const val ACTION_BAR_TITLE = "Запись о чтении"
 
         fun newInstance() = EditSessionFragment()

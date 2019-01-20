@@ -59,7 +59,8 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater, BitmapEnco
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
         chartSessions.axisLeft.setValueFormatter { value, _ ->
-            return@setValueFormatter value.toInt().toString() + " подходов"
+            return@setValueFormatter value.toInt().toString() + " " +
+                    resources.getQuantityString(R.plurals.sessions_count_plurals, value.toInt())
         }
     }
 
@@ -77,7 +78,7 @@ class GraphsFragment : Fragment(), DateTranslator, StatisticsUpdater, BitmapEnco
             return@setValueFormatter data[value.toInt()].xAxisValue
         }
         chartPages.axisLeft.setValueFormatter { value, _ ->
-            return@setValueFormatter value.toInt().toString() + " страниц"
+            return@setValueFormatter resources.getQuantityString(R.plurals.page_plurals, value.toInt(), value.toInt())
         }
     }
 

@@ -28,7 +28,6 @@
         android:elevation="2dp"
         android:lineSpacingExtra="4sp"
         android:maxLines="1"
-        android:text="@string/books_count_static"
         android:textAppearance="@style/dark_18sp" />
 
     <android.support.v7.widget.AppCompatTextView
@@ -117,7 +116,6 @@
         android:elevation="2dp"
         android:lineSpacingExtra="4sp"
         android:maxLines="1"
-        android:text="@string/sessions_count"
         android:textAppearance="@style/dark_18sp_80alpha" />
 
     <android.support.v7.widget.AppCompatImageView

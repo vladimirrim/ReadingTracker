@@ -32,7 +32,6 @@
         android:background="@color/light"
         android:lineSpacingExtra="4sp"
         android:maxLines="1"
-        android:text="@string/sessions_count"
         android:textAppearance="@style/dark_18sp_80alpha"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toStartOf="@+id/hours"
