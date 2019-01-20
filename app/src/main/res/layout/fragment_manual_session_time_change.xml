@@ -8,6 +8,16 @@
     tools:context=".ui.session.session_inner_fragments.ManualSessionTimeChangeFragment">
 
     <include
+        android:id="@+id/book"
+        layout="@layout/book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
         android:id="@+id/startTime"
         layout="@layout/session_time"
         android:layout_width="wrap_content"
@@ -95,7 +105,7 @@
         android:textAppearance="@style/dark_14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/book" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/sessionTimeHours"
@@ -137,7 +147,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sessionTimeContainer" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarSave"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

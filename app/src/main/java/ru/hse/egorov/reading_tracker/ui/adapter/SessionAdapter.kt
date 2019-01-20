@@ -95,6 +95,8 @@ class SessionAdapter : RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() 
             if (hours.text == "0") {
                 itemView.hoursStatic.visibility = View.INVISIBLE
                 hours.text = ""
+            } else {
+                itemView.hoursStatic.visibility = View.VISIBLE
             }
             author.text = session.author
             title.text = session.title

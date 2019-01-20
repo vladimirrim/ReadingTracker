@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import kotlinx.android.synthetic.main.book.*
 import kotlinx.android.synthetic.main.fragment_manual_session_time_change.*
 import kotlinx.android.synthetic.main.fragment_manual_session_time_change.view.*
 import kotlinx.android.synthetic.main.session_time.view.*
@@ -61,12 +62,20 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
         }
 
         view.toSession.visibility = View.GONE
+        setBook()
+    }
+
+    private fun setBook() {
+        author.text = arguments!!["author"] as String
+        title.text = arguments!!["title"] as String
+        dbManager.getBookCover(arguments!!["bookId"] as String, context!!).into(cover)
+        book.visibility = View.VISIBLE
     }
 
     private fun setEndSessionButton() {
         endSessionButton.setOnClickListener {
             it.visibility = View.INVISIBLE
-            progressBar.visibility = View.VISIBLE
+            progressBarSave.visibility = View.VISIBLE
             dbManager.updateSession(gatherSessionInfo(), arguments!!["sessionId"] as String).addOnSuccessListener {
                 editSession()
                 openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
@@ -79,8 +88,8 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
         var duration = endTimeMinutes - startTimeMinutes
         if (duration < 0) duration += 24 * 60
         map["duration"] = duration * 60
-        map["startTime"] = date + startTimeMinutes * 60 * 1000
-        map["endTime"] = date + startTimeMinutes * 60 * 1000 + duration * 60 * 1000
+        map["start time"] = Date(date + startTimeMinutes * 60 * 1000)
+        map["end time"] = Date(date + startTimeMinutes * 60 * 1000 + duration * 60 * 1000)
         return map
     }
 
@@ -118,8 +127,8 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
                 val selectedDate = Calendar.getInstance()
                 date = data!!.getLongExtra("date", 0)
                 selectedDate.timeInMillis = date
-                val dateText = selectedDate.get(Calendar.DAY_OF_MONTH).toString() + " " + translateMonth(selectedDate.get(Calendar.MONTH), resources,
-                        DateTranslator.MONTH_GENITIVE)
+                val dateText = selectedDate.get(Calendar.DAY_OF_MONTH).toString() + " " + translateMonth(selectedDate.get(Calendar.MONTH),
+                        resources, DateTranslator.MONTH_GENITIVE)
                 sessionDate.text = dateText
             }
 
@@ -130,10 +139,16 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
                 if (duration < 0) duration += 24 * 60
                 sessionTimeHours.text = (duration / 60).toString()
                 sessionTimeMinutes.text = (duration % 60).toString()
+
                 startTime.hours.text = (startTimeMinutes / 60).toString()
-                startTime.minutes.text = (startTimeMinutes % 60).toString()
+                var startTimeMinutesText = (startTimeMinutes % 60).toString()
+                if (startTimeMinutesText.length == 1) startTimeMinutesText = "0$startTimeMinutesText"
+                startTime.minutes.text = startTimeMinutesText
+
                 endTime.hours.text = (endTimeMinutes / 60).toString()
-                endTime.minutes.text = (endTimeMinutes % 60).toString()
+                var endTimeMinutesText = (endTimeMinutes % 60).toString()
+                if (endTimeMinutesText.length == 1) endTimeMinutesText = "0$endTimeMinutesText"
+                endTime.minutes.text = endTimeMinutesText
             }
         }
     }

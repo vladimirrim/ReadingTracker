@@ -39,10 +39,17 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
         author.text = arguments!!["author"] as String
         title.text = arguments!!["title"] as String
         comment.text = arguments!!["comment"] as String
+
         startTime.hours.text = arguments!!["startTimeHours"] as String
-        startTime.minutes.text = arguments!!["startTimeMinutes"] as String
+        var startTimeMinutes = arguments!!["startTimeMinutes"] as String
+        if(startTimeMinutes.length == 1) startTimeMinutes = "0$startTimeMinutes"
+        startTime.minutes.text = startTimeMinutes
+
         endTime.hours.text = arguments!!["endTimeHours"] as String
-        endTime.minutes.text = arguments!!["endTimeMinutes"] as String
+        var endTimeMinutes = arguments!!["endTimeMinutes"] as String
+        if(endTimeMinutes.length == 1) endTimeMinutes = "0$endTimeMinutes"
+        endTime.minutes.text= endTimeMinutes
+
         hours.text = arguments!!["hours"] as String
         if (hours.text == "") hoursStatic.visibility = View.GONE
         minutes.text = arguments!!["minutes"] as String
@@ -61,7 +68,8 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
             val startPage = arguments!!["startPage"] as Int
             val endPage = arguments!!["endPage"] as Int
             val pageCount = endPage - startPage
-            val pagesText = pageCount.toString() + " " + PAGES + ", " + startPage.toString() + " - " + endPage.toString()
+            val pagesText = resources.getQuantityString(R.plurals.page_plurals, pageCount, pageCount) +
+                    ", " + startPage.toString() + " - " + endPage.toString()
             readPages.text = pagesText
         } else {
             readPages.visibility = View.GONE
@@ -101,7 +109,7 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
         inflater?.inflate(R.menu.edit_session_action_bar, menu)
         menu?.getItem(0)?.setOnMenuItemClickListener {
             EditSessionDialog().apply {
-                arguments = Bundle().apply {
+                arguments = Bundle(this@EditSessionFragment.arguments).apply {
                     this.putString("sessionId",
                             this@EditSessionFragment.arguments!!["sessionId"] as String)
                 }
@@ -121,7 +129,6 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
     }
 
     companion object {
-        private const val PAGES = "страниц"
         private const val ACTION_BAR_TITLE = "Запись о чтении"
 
         fun newInstance() = EditSessionFragment()

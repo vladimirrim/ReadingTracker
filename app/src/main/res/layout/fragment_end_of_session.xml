@@ -136,18 +136,18 @@
             app:layout_constraintTop_toBottomOf="@+id/sessionEmotion">
 
             <RadioButton
-                android:id="@+id/emotionVeryHappy"
+                android:id="@+id/emotionVerySad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/emotion_very_happy"
+                android:background="@drawable/emotion_very_sad"
                 android:button="@android:color/transparent" />
 
             <RadioButton
-                android:id="@+id/emotionHappy"
+                android:id="@+id/emotionSad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/emotion_happy"
+                android:background="@drawable/emotion_sad"
                 android:button="@android:color/transparent" />
 
             <RadioButton
@@ -160,18 +160,18 @@
                 android:button="@android:color/transparent" />
 
             <RadioButton
-                android:id="@+id/emotionSad"
+                android:id="@+id/emotionHappy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/emotion_sad"
+                android:background="@drawable/emotion_happy"
                 android:button="@android:color/transparent" />
 
             <RadioButton
-                android:id="@+id/emotionVerySad"
+                android:id="@+id/emotionVeryHappy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:background="@drawable/emotion_very_sad"
+                android:background="@drawable/emotion_very_happy"
                 android:button="@android:color/transparent" />
         </RadioGroup>
 

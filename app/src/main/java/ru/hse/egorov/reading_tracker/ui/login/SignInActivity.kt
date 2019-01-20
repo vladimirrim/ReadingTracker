@@ -17,7 +17,6 @@ import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity
-import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
@@ -61,7 +60,7 @@ class SignInActivity : AppCompatActivity() {
 
         signInGoogle.setOnClickListener {
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestIdToken(getString(R.string.web_client_id))
                     .requestEmail()
                     .build()
             googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -80,8 +79,7 @@ class SignInActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 Log.d(TAG, "signInWithCredential:success")
                 Snackbar.make(findViewById(android.R.id.content), "Authentication succeeded.", Snackbar.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                setUserDataAndStart()
             } else {
                 Log.w(TAG, "signInWithCredential:failure", task.exception)
                 Snackbar.make(findViewById(android.R.id.content), "Authentication Failed.Reason:${task.exception?.localizedMessage}",
@@ -105,8 +103,6 @@ class SignInActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account!!)
-                Snackbar.make(findViewById(android.R.id.content), "Authentication succeeded.", Snackbar.LENGTH_SHORT).show()
-                setUserDataAndStart()
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed", e)
             }
