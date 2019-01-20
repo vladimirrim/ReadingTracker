@@ -127,6 +127,7 @@
     <string name="page_raw">Стр</string>
     <string name="add_book_title">Добавить книгу</string>
     <string name="add_book_description">Добавить можно лишь информацию о книге, которую вы читаете: название, автор, обложка.</string>
+    <string name="search_book">Поиск книги</string>
     <plurals name="page_plurals">
         <item quantity="zero">%1$d страниц</item>
         <item quantity="one">%1$d страница</item>

@@ -4,7 +4,8 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.app.ActionBar
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +20,11 @@ import kotlinx.android.synthetic.main.fragment_search_book_by_title.*
 import kotlinx.android.synthetic.main.fragment_search_book_by_title.view.*
 import ru.hse.egorov.reading_tracker.BuildConfig
 import ru.hse.egorov.reading_tracker.R
-import ru.hse.egorov.reading_tracker.ui.adapter.GoogleBooksAdapter
+import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
+import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 
 
-class SearchBookByTittleFragment : Fragment() {
-    private val libraryAdapter = GoogleBooksAdapter()
+class SearchBookByTittleFragment : Fragment(), FragmentLauncher, ActionBarSetter {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_search_book_by_title, container, false)
@@ -31,24 +32,33 @@ class SearchBookByTittleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpAdapter(view)
+        setActionBar(view.context as AppCompatActivity)
 
         view.findButton.setOnClickListener {
             val query = view.title.text.toString()
             if (query != "") {
                 showProgressBar()
                 BookDownloader { _, books ->
-                    libraryAdapter.clear()
+                    val dispatchFragment = SearchResultsFragment.newInstance()
+                    val adapter = dispatchFragment.getAdapter()
+                    adapter.clear()
                     hideProgressBar()
-                    libraryAdapter.set(convert(books))
-                    if (libraryAdapter.itemCount == 0) {
+                    adapter.set(convert(books))
+                    if (adapter.itemCount == 0) {
                         Snackbar.make(activity!!.placeSnackBar,
                                 NO_BOOKS_FOUND,
                                 Toast.LENGTH_SHORT).show()
+                    } else {
+                        openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
                     }
                 }.execute(query)
             }
         }
+    }
+
+    override fun setActionBar(activity: AppCompatActivity) {
+        activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        activity.supportActionBar?.setCustomView(R.layout.search_action_bar)
     }
 
     private fun convert(volumes: Volumes?): ArrayList<LibraryFragment.Book> {
@@ -72,11 +82,6 @@ class SearchBookByTittleFragment : Fragment() {
     private fun hideProgressBar() {
         progressBar.visibility = View.GONE
         findButton.visibility = View.VISIBLE
-    }
-
-    private fun setUpAdapter(view: View) {
-        view.results.layoutManager = LinearLayoutManager(context)
-        view.results.adapter = libraryAdapter
     }
 
     private class BookDownloader(private val onDownloadFinish: (success: Boolean, Volumes) -> Unit) : AsyncTask<String, Unit, Volumes>() {
