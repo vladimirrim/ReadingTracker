@@ -2,16 +2,19 @@ package ru.hse.egorov.reading_tracker.ui.book_library
 
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.extensions.android.json.AndroidJsonFactory
 import com.google.api.services.books.Books
 import com.google.api.services.books.BooksRequestInitializer
 import com.google.api.services.books.model.Volumes
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_search_book_by_title.*
 import kotlinx.android.synthetic.main.fragment_search_book_by_title.view.*
 import ru.hse.egorov.reading_tracker.BuildConfig
@@ -38,6 +41,11 @@ class SearchBookByTittleFragment : Fragment() {
                     libraryAdapter.clear()
                     hideProgressBar()
                     libraryAdapter.set(convert(books))
+                    if (libraryAdapter.itemCount == 0) {
+                        Snackbar.make(activity!!.placeSnackBar,
+                                NO_BOOKS_FOUND,
+                                Toast.LENGTH_SHORT).show()
+                    }
                 }.execute(query)
             }
         }
@@ -90,6 +98,7 @@ class SearchBookByTittleFragment : Fragment() {
     }
 
     companion object {
+        private const val NO_BOOKS_FOUND = "Не удалось найти книгу."
         private const val API_KEY = "AIzaSyDyz5uPI7Bv-gZTosWKBPMHtVVXtWy_UEA"
 
         fun newInstance() = SearchBookByTittleFragment()
