@@ -139,10 +139,16 @@ class EditSessionTimeFragment : Fragment(), FragmentLauncher, DateTranslator {
                 if (duration < 0) duration += 24 * 60
                 sessionTimeHours.text = (duration / 60).toString()
                 sessionTimeMinutes.text = (duration % 60).toString()
+
                 startTime.hours.text = (startTimeMinutes / 60).toString()
-                startTime.minutes.text = (startTimeMinutes % 60).toString()
+                var startTimeMinutesText = (startTimeMinutes % 60).toString()
+                if (startTimeMinutesText.length == 1) startTimeMinutesText = "0$startTimeMinutesText"
+                startTime.minutes.text = startTimeMinutesText
+
                 endTime.hours.text = (endTimeMinutes / 60).toString()
-                endTime.minutes.text = (endTimeMinutes % 60).toString()
+                var endTimeMinutesText = (endTimeMinutes % 60).toString()
+                if (endTimeMinutesText.length == 1) endTimeMinutesText = "0$endTimeMinutesText"
+                endTime.minutes.text = endTimeMinutesText
             }
         }
     }
