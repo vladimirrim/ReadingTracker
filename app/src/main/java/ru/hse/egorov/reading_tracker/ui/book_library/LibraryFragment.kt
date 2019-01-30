@@ -20,6 +20,7 @@ import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
+import ru.hse.egorov.reading_tracker.ui.help.HelpFragment
 import java.util.*
 
 
@@ -46,10 +47,18 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
     }
 
     override fun setActionBar(activity: AppCompatActivity) {
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         setHasOptionsMenu(true)
         activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         activity.supportActionBar?.setCustomView(R.layout.library_action_bar)
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_help_button)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item!!.itemId == android.R.id.home) {
+            openTemporaryFragment(activity as AppCompatActivity, HelpFragment.newInstance(), R.id.temporaryFragment)
+        }
+        return true
     }
 
     private fun enableSwipe(library: RecyclerView, libraryAdapter: LibraryAdapter) {
