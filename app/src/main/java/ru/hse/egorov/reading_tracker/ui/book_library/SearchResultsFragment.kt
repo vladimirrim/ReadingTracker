@@ -33,6 +33,7 @@ class SearchResultsFragment : Fragment(), ActionBarSetter, FragmentLauncher {
     override fun setActionBar(activity: AppCompatActivity) {
         setHasOptionsMenu(true)
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_back)
     }
 
     private fun setUpAdapter(view: View) {
