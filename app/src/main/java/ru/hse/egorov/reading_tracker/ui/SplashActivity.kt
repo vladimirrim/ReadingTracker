@@ -9,6 +9,9 @@ import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.login.SignUpSignInActivity
+import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
+import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -21,6 +24,7 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
         setTheme(R.style.SplashScreenTheme)
         super.onCreate(savedInstanceState)
 
+        clearData()
         chooseActivity()
     }
 
@@ -50,5 +54,13 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun clearData() {
+        OverallStatisticsFragment.getAllSessions().clear()
+        LibraryFragment.getAdapter().clear()
+        OverallStatisticsFragment.getSessionsForPeriod().clear()
+        SessionsStatisticsFragment.getAdapter().clear()
+        BooksStatisticsFragment.getAdapter().clear()
     }
 }

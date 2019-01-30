@@ -110,11 +110,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun setUserDataAndStart() {
-        OverallStatisticsFragment.getAllSessions().clear()
-        LibraryFragment.getAdapter().clear()
-        OverallStatisticsFragment.getSessionsForPeriod().clear()
-        SessionsStatisticsFragment.getAdapter().clear()
-        BooksStatisticsFragment.getAdapter().clear()
+        clearData()
 
         dbManager.getLibrary().addOnSuccessListener {
             val bookMap = HashMap<String, Pair<String, String>>()
@@ -132,6 +128,14 @@ class SignInActivity : AppCompatActivity() {
             }
             libraryAdapter.sortByLastUpdated()
         }
+    }
+
+    private fun clearData() {
+        OverallStatisticsFragment.getAllSessions().clear()
+        LibraryFragment.getAdapter().clear()
+        OverallStatisticsFragment.getSessionsForPeriod().clear()
+        SessionsStatisticsFragment.getAdapter().clear()
+        BooksStatisticsFragment.getAdapter().clear()
     }
 
     companion object {
