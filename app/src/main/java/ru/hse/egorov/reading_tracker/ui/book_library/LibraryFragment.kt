@@ -20,7 +20,7 @@ import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
-import ru.hse.egorov.reading_tracker.ui.help.HelpFragment
+import ru.hse.egorov.reading_tracker.ui.help.LibraryHelpFragment
 import java.util.*
 
 
@@ -56,7 +56,8 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item!!.itemId == android.R.id.home) {
-            openTemporaryFragment(activity as AppCompatActivity, HelpFragment.newInstance(), R.id.temporaryFragment)
+            activity?.fab?.hide()
+            openTemporaryFragment(activity as AppCompatActivity, LibraryHelpFragment.newInstance(), R.id.temporaryFragment)
         }
         return true
     }
