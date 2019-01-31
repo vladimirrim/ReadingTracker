@@ -209,8 +209,11 @@
                 android:id="@+id/locationHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/location_home"
-                android:button="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/location_home"
+                android:text="@string/home"
+                android:textColor="@color/location_color" />
 
             <RadioButton
                 android:id="@+id/locationTransport"
@@ -218,23 +221,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:background="@drawable/location_transport"
-                android:button="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/location_transport"
+                android:text="@string/transport"
+                android:textColor="@color/location_color" />
 
             <RadioButton
                 android:id="@+id/locationWork"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/location_work"
-                android:button="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/location_work"
+                android:text="@string/work"
+                android:textColor="@color/location_color" />
 
             <RadioButton
                 android:id="@+id/locationThirdPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:background="@drawable/location_third_place"
-                android:button="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:button="@android:color/transparent"
+                android:drawableTop="@drawable/location_third_place"
+                android:text="@string/third_place"
+                android:textColor="@color/location_color" />
         </RadioGroup>
 
         <ProgressBar

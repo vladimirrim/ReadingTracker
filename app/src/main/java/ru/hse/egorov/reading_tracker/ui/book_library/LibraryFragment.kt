@@ -14,6 +14,7 @@ import android.view.*
 import com.google.api.services.books.model.Volume
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_library.view.*
+import kotlinx.android.synthetic.main.statistics_action_bar.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
@@ -48,18 +49,14 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
 
     override fun setActionBar(activity: AppCompatActivity) {
         setHasOptionsMenu(true)
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        activity.supportActionBar?.setCustomView(R.layout.library_action_bar)
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_help_button)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item!!.itemId == android.R.id.home) {
-            activity?.fab?.hide()
-            openTemporaryFragment(activity as AppCompatActivity, LibraryHelpFragment.newInstance(), R.id.temporaryFragment)
+        val view = activity.layoutInflater.inflate(R.layout.library_action_bar, null)
+        view.helpButton.setOnClickListener {
+            activity.fab.hide()
+            openTemporaryFragment(activity, LibraryHelpFragment.newInstance(), R.id.temporaryFragment)
         }
-        return true
+        activity.supportActionBar?.customView = view
     }
 
     private fun enableSwipe(library: RecyclerView, libraryAdapter: LibraryAdapter) {

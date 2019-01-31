@@ -131,6 +131,12 @@
     <string name="delete_book_help">Чтобы удалить книгу, свайпните её вправо.</string>
     <string name="undo_delete_book_help">Нажмите UNDO, чтобы отменить удаление книги.</string>
     <string name="edit_book_help">Чтобы изменить книгу, свайпните её влево.</string>
+    <string name="edit_session_help">Чтобы редактировать сессию, нажмите на неё.</string>
+    <string name="delete_session_help">Чтобы удалить сессию, свайпните её в сторону.</string>
+    <string name="home">Дом</string>
+    <string name="transport">Дорога</string>
+    <string name="work">Работа</string>
+    <string name="third_place">Другое</string>
     <plurals name="page_plurals">
         <item quantity="zero">%1$d страниц</item>
         <item quantity="one">%1$d страница</item>

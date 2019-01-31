@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_help_image.*
 import ru.hse.egorov.reading_tracker.R
 
-class EditSessionHelpFragment : Fragment() {
+class DeleteSessionHelpFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_help_image, container, false)
@@ -16,11 +16,11 @@ class EditSessionHelpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tip.setText(R.string.edit_session_help)
-        image.setImageResource(R.drawable.help_edit_session)
+        tip.setText(R.string.delete_session_help)
+        image.setImageResource(R.drawable.delete_session_help)
     }
 
     companion object {
-        fun newInstance() = EditSessionHelpFragment()
+        fun newInstance() = DeleteSessionHelpFragment()
     }
 }
