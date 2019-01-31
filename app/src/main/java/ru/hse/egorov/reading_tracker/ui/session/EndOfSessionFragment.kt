@@ -91,6 +91,7 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
     private fun updateActionBar(activity: AppCompatActivity) {
         activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_action_back)
         activity.supportActionBar?.title = ACTION_BAR_TITLE
     }
 

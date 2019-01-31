@@ -14,11 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="4" />
-                            <entry key="outputName" value="ic_kebab_horizontal" />
+                            <entry key="height" value="36" />
+                            <entry key="outputName" value="ic_book_truck_logo" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\kebab_horizontal.svg" />
-                            <entry key="width" value="16" />
+                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\book_truck_logo.svg" />
+                            <entry key="width" value="250" />
                           </map>
                         </option>
                       </PersistentState>

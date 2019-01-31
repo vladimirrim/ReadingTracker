@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_overall_statistics.*
 import kotlinx.android.synthetic.main.fragment_overall_statistics.view.*
+import kotlinx.android.synthetic.main.statistics_action_bar.view.*
 import kotlinx.android.synthetic.main.total_statistics.view.*
 import ru.hse.egorov.reading_tracker.R
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
@@ -17,6 +18,7 @@ import ru.hse.egorov.reading_tracker.ui.adapter.SessionAdapter.Companion.Session
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
 import ru.hse.egorov.reading_tracker.ui.dialog.StatisticsPeriodDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
+import ru.hse.egorov.reading_tracker.ui.help.StatisticsHelpFragment
 import ru.hse.egorov.reading_tracker.ui.profile.ProfileFragment
 
 
@@ -83,7 +85,14 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher,
         setHasOptionsMenu(true)
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        activity.supportActionBar?.setCustomView(R.layout.statistics_action_bar)
+        val view = activity.layoutInflater.inflate(R.layout.statistics_action_bar, null)
+        view.helpButton.setOnClickListener {
+            openTemporaryFragment(activity, StatisticsHelpFragment.newInstance(), R.id.temporaryFragment)
+        }
+        view.toProfile.setOnClickListener {
+            openTemporaryFragment(activity, ProfileFragment.newInstance(), R.id.temporaryFragment)
+        }
+        activity.supportActionBar?.customView = view
     }
 
     override fun updateStatistics() {
@@ -95,11 +104,6 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher,
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         menu?.clear()
-        inflater?.inflate(R.menu.statistics_action_bar, menu)
-        menu?.getItem(0)?.setOnMenuItemClickListener {
-            openTemporaryFragment(activity as AppCompatActivity, ProfileFragment.newInstance(), R.id.temporaryFragment)
-            true
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -24,7 +24,6 @@
             android:layout_marginBottom="16dp"
             android:background="@color/light"
             android:visibility="gone"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:layout_editor_absoluteX="178dp"
             tools:layout_editor_absoluteY="0dp" />
 
@@ -34,7 +33,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
             android:background="@color/light"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:layout_editor_absoluteX="178dp"
             tools:layout_editor_absoluteY="0dp" />
 

@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/reading_tracker_logo" />
+        app:srcCompat="@drawable/book_truck_logo" />
 
     <Button
         android:id="@+id/signUpWithCode"

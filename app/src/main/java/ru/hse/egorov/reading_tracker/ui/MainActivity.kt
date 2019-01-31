@@ -65,9 +65,9 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
     }
 
     private fun setUpViewPager() {
-        adapter.addFragment(OverallStatisticsFragment.newInstance(), "profile")
-        adapter.addFragment(StartOfSessionFragment.newInstance(), "session")
         adapter.addFragment(LibraryFragment.newInstance(), "library")
+        adapter.addFragment(StartOfSessionFragment.newInstance(), "session")
+        adapter.addFragment(OverallStatisticsFragment.newInstance(), "profile")
         fragmentPager.adapter = adapter
         fragmentPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {}
@@ -92,8 +92,8 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
     }
 
     companion object {
-        const val PROFILE_FRAGMENT_POSITION = 0
+        const val PROFILE_FRAGMENT_POSITION = 2
         const val SESSION_FRAGMENT_POSITION = 1
-        const val LIBRARY_FRAGMENT_POSITION = 2
+        const val LIBRARY_FRAGMENT_POSITION = 0
     }
 }
