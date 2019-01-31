@@ -14,11 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="16" />
-                            <entry key="outputName" value="ic_action_back" />
+                            <entry key="height" value="36" />
+                            <entry key="outputName" value="ic_book_truck_logo" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\action_back.svg" />
-                            <entry key="width" value="16" />
+                            <entry key="sourceFile" value="C:\Users\vladi\Downloads\book_truck_logo.svg" />
+                            <entry key="width" value="250" />
                           </map>
                         </option>
                       </PersistentState>

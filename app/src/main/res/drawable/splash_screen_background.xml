@@ -3,13 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <item android:drawable="@color/colorPrimary" />
-    <!-- Set the Background Image-->
     <item
-        android:gravity="center"
-        android:bottom="@dimen/activity_vertical_margin">
+        android:gravity="fill"
+        android:drawable="@color/white" />
+
+    <item>
+        <bitmap
+            android:gravity="fill"
+            android:src="@drawable/loading_background" />
+    </item>
+
+    <item
+        android:bottom="@dimen/activity_vertical_margin"
+        android:gravity="center">
         <bitmap
             android:gravity="fill_horizontal|fill_vertical"
-            android:src="@drawable/reading_tracker_logo" />
+            android:src="@drawable/book_truck_logo" />
     </item>
+
 </layer-list>

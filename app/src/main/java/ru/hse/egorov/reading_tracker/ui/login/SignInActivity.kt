@@ -31,8 +31,6 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ACTION_BAR_TITLE
 
         signInEmail.setOnClickListener {
@@ -66,6 +64,12 @@ class SignInActivity : AppCompatActivity() {
             googleSignInClient = GoogleSignIn.getClient(this, gso)
             signIn()
         }
+
+        toSignUp.setOnClickListener {
+            val intent = Intent(this,
+                    ChooseSignUpWayActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun signIn() {
@@ -86,13 +90,6 @@ class SignInActivity : AppCompatActivity() {
                         Snackbar.LENGTH_SHORT).show()
             }
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item!!.itemId == android.R.id.home) {
-            super.onBackPressed()
-        }
-        return true
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -116,8 +113,10 @@ class SignInActivity : AppCompatActivity() {
             val bookMap = HashMap<String, Pair<String, String>>()
             val libraryAdapter = LibraryFragment.getAdapter()
             for (book in it.documents) {
-                libraryAdapter.add(LibraryFragment.Book(book["author"] as String?, book["title"] as String, book.id,
-                        book["media"] as String, null, book["last updated"] as Date, (book["page сount"] as Long?)?.toInt()))
+                if (book["is deleted"] == null) {
+                    libraryAdapter.add(LibraryFragment.Book(book["author"] as String?, book["title"] as String, book.id,
+                            book["media"] as String, null, book["last updated"] as Date, (book["page сount"] as Long?)?.toInt()))
+                }
                 bookMap[book.id] = Pair(book["author"] as String, book["title"] as String)
             }
             statsManager.setUpSessions(bookMap) {

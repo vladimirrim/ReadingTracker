@@ -8,7 +8,7 @@ import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.statistics.StatisticsManager
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
-import ru.hse.egorov.reading_tracker.ui.login.SignUpSignInActivity
+import ru.hse.egorov.reading_tracker.ui.login.SignInActivity
 import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
@@ -50,7 +50,7 @@ class SplashActivity : AppCompatActivity(), BitmapEncoder {
             }
         } else {
             val intent = Intent(this,
-                    SignUpSignInActivity::class.java)
+                    SignInActivity::class.java)
             startActivity(intent)
             finish()
         }
