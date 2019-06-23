@@ -1,0 +1,206 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Book Truck</string>
+    <string name="title_activity_sign_in">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="action_sign_in">Вход</string>
+    <string name="action_sign_up">Регистрация</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="title_activity_sign_up">Sign up</string>
+    <string name="email">Адрес электронной почты</string>
+    <string name="sign_up_action">Зарегистрироваться</string>
+    <string name="rate_session">Оцените чтение</string>
+    <string name="password">Пароль</string>
+    <string name="participation_code">Код участника</string>
+    <string name="sing_up_with_email">Логин и пароль</string>
+    <string name="sign_in_action">Войти</string>
+    <string name="confirm_password">Подтверждение пароля</string>
+    <string name="title_activity_start_of_session">StartOfSessionActivity</string>
+    <string name="title_home">Home</string>
+    <string name="book_title">Книга</string>
+    <string name="edit_book_failure">Не удалось изменить книгу.</string>
+    <string name="new_book">Новая книга</string>
+    <string name="isbn_scan_failure">Не удалось распознать ISBN код.</string>
+    <string name="add_book_failure">Не удалось добавить книгу.</string>
+    <string name="no_book_found">Не удалось найти книгу.</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Профиль читателя</string>
+    <string name="title_session">Новая запись о чтении</string>
+    <string name="title_library">library</string>
+    <string name="cover">cover</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_session">Начать чтение</string>
+    <string name="start_session_add_book">Для начала добавьте книгу, которую сейчас читаете</string>
+    <string name="done">done</string>
+    <string name="author_name">Автор</string>
+    <string name="book_name">Название книги</string>
+    <string name="to_manual_time_change">Указать время вручную</string>
+    <string name="to_session">Вернуться к таймеру</string>
+    <string name="session_comment">Комментарий к прочитанному</string>
+    <string name="session_emotion">Эмоция от чтения</string>
+    <string name="fill_pages_message">Заполните начальную и конечную страницы.</string>
+    <string name="session_location">Место чтения</string>
+    <string name="library_welcome">Для начала добавьте книги, которые сейчас читаете</string>
+    <string name="library_title">Книги</string>
+    <string name="cover_header">Обложка</string>
+    <string name="start_page"><font size="14">Начало</font></string>
+    <string name="end_page"><font size="14">Конец</font></string>
+    <string name="camera">Камера</string>
+    <string name="gallery">Галлерея</string>
+    <string name="isbn">Сканировать ISBN</string>
+    <string name="all_time">Всё время</string>
+    <string name="hours_static">час</string>
+    <string name="minutes_static">мин</string>
+    <string name="page">Стр №</string>
+    <string name="longest_session">Самое продолжительное чтение</string>
+    <string name="all_sessions">Все записи о чтении</string>
+    <plurals name="book_plurals">
+        <item quantity="zero">книг</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">книга</item>
+        <item quantity="few">книги</item>
+        <item quantity="many">книг</item>
+        <item quantity="other">книг</item>
+    </plurals>
+    <plurals name="sessions_count_plurals">
+        <item quantity="zero">подходов</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">подход</item>
+        <item quantity="few">подхода</item>
+        <item quantity="many">подходов</item>
+        <item quantity="other">подходов</item>
+    </plurals>
+    <string name="most_sessions">Больше всего подходов</string>
+    <string name="longest_reading_time">Дольше всего читаете</string>
+    <string name="all_books">Все книги</string>
+    <string name="statistics_title">Статистика</string>
+    <string name="separator">:</string>
+    <string name="dash">-</string>
+    <string name="questionnaire">Заполнить анкету читателя</string>
+    <string name="exit">Выход</string>
+    <string name="settings">Настройки</string>
+    <string name="about_us">О приложении</string>
+    <string name="questionnaire_code">Код участника исследования: 123456</string>
+    <string name="edit_session_title">Запись о чтении</string>
+    <string name="change_time">Изменить время</string>
+    <string name="change_rating">Изменить оценку</string>
+    <string name="end_session">Закончить</string>
+    <plurals name="monday" tools:ignore="MissingQuantity">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Понедельник</item>
+        <item quantity="other">Пн</item>
+    </plurals>
+    <plurals name="tuesday" tools:ignore="MissingQuantity">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Вторник</item>
+        <item quantity="other">Вт</item>
+    </plurals>
+    <plurals name="wednesday" tools:ignore="MissingQuantity">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Среда</item>
+        <item quantity="other">Ср</item>
+    </plurals>
+    <plurals name="thursday" tools:ignore="MissingQuantity">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Четверг</item>
+        <item quantity="other">Чт</item>
+    </plurals>
+    <plurals name="friday" tools:ignore="MissingQuantity">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Пятница</item>
+        <item quantity="other">Пт</item>
+    </plurals>
+    <plurals name="saturday" tools:ignore="MissingQuantity">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Суббота</item>
+        <item quantity="other">Сб</item>
+    </plurals>
+    <plurals name="sunday" tools:ignore="MissingQuantity">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Воскресенье</item>
+        <item quantity="other">Вс</item>
+    </plurals>
+    <string name="session_date_title">Дата чтения</string>
+    <string name="session_time_title">Период чтения</string>
+    <string name="save_session">Записать</string>
+    <string name="year">Год</string>
+    <string name="month">Месяц</string>
+    <string name="week">Неделя</string>
+    <string name="day">День</string>
+    <string name="find_by_isbn">Найти по штрихкоду</string>
+    <string name="find_by_name">Найти по названию</string>
+    <string name="manual_add">Ввести вручную</string>
+    <string name="find">Найти</string>
+    <string name="page_raw">Стр</string>
+    <string name="add_book_title">Добавить книгу</string>
+    <string name="add_book_description">Добавить можно лишь информацию о книге, которую вы читаете: название, автор, обложка.</string>
+    <string name="search_book">Поиск книги</string>
+    <string name="delete_book_help">Чтобы удалить книгу, свайпните её вправо.</string>
+    <string name="undo_delete_book_help">Нажмите UNDO, чтобы отменить удаление книги.</string>
+    <string name="edit_book_help">Чтобы изменить книгу, свайпните её влево.</string>
+    <string name="edit_session_help">Чтобы редактировать сессию, нажмите на неё.</string>
+    <string name="delete_session_help">Чтобы удалить сессию, свайпните её в сторону.</string>
+    <string name="home">Дом</string>
+    <string name="transport">Дорога</string>
+    <string name="work">Работа</string>
+    <string name="third_place">Другое</string>
+    <plurals name="page_plurals">
+        <item quantity="zero">%1$d страниц</item>
+        <item quantity="one">%1$d страница</item>
+        <item quantity="few">%1$d страницы</item>
+        <item quantity="many">%1$d страниц</item>
+        <item quantity="other">%1$d страниц</item>
+    </plurals>
+    <plurals name="january" tools:ignore="MissingQuantity">
+        <item quantity="many">Январь</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> января</item>
+        <item quantity="other"> Янв</item>
+    </plurals>
+    <plurals name="february" tools:ignore="MissingQuantity">
+        <item quantity="many">Февраль</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> февраля</item>
+        <item quantity="other"> Фев</item>
+    </plurals>
+    <plurals name="march" tools:ignore="MissingQuantity">
+        <item quantity="many">Март</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> марта</item>
+        <item quantity="other"> Мар</item>
+    </plurals>
+    <plurals name="april" tools:ignore="MissingQuantity">
+        <item quantity="many">Апрель</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> апреля</item>
+        <item quantity="other"> Апр</item>
+    </plurals>
+    <plurals name="may" tools:ignore="MissingQuantity">
+        <item quantity="many">Май</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> мая</item>
+        <item quantity="other"> Май</item>
+    </plurals>
+    <plurals name="june" tools:ignore="MissingQuantity">
+        <item quantity="many">Июнь</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> июня</item>
+        <item quantity="other"> Июн</item>
+    </plurals>
+    <plurals name="july" tools:ignore="MissingQuantity">
+        <item quantity="many">Июль</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> июля</item>
+        <item quantity="other"> Июл</item>
+    </plurals>
+    <plurals name="august" tools:ignore="MissingQuantity">
+        <item quantity="many">Август</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> августа</item>
+        <item quantity="other"> Авг</item>
+    </plurals>
+    <plurals name="september" tools:ignore="MissingQuantity">
+        <item quantity="many">Сентябрь</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> сентября</item>
+        <item quantity="other"> Сен</item>
+    </plurals>
+    <plurals name="october" tools:ignore="MissingQuantity">
+        <item quantity="many">Октябрь</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> октября</item>
+        <item quantity="other"> Окт</item>
+    </plurals>
+    <plurals name="november" tools:ignore="MissingQuantity">
+        <item quantity="many">Ноябрь</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> ноября</item>
+        <item quantity="other"> Ноя</item>
+    </plurals>
+    <plurals name="december" tools:ignore="MissingQuantity">
+        <item quantity="many">Декабрь</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity"> декабря</item>
+        <item quantity="other"> Дек</item>
+    </plurals>
+
+</resources>

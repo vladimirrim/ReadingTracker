@@ -24,10 +24,15 @@ class EditSessionInfoFragment : Fragment(), FragmentLauncher {
     private val dbManager = DatabaseManager()
     private var place: String? = null
     private var mood: String? = null
+    private lateinit var FILL_PAGES_MESSAGE: String
+    private lateinit var ACTION_BAR_TITLE: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_end_of_session, container, false)
+                              savedInstanceState: Bundle?): View? {
+        FILL_PAGES_MESSAGE = resources.getString(R.string.fill_pages_message)
+        ACTION_BAR_TITLE = resources.getString(R.string.rate_session)
+        return inflater.inflate(R.layout.fragment_end_of_session, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -116,9 +121,6 @@ class EditSessionInfoFragment : Fragment(), FragmentLauncher {
     }
 
     companion object {
-        private const val FILL_PAGES_MESSAGE = "Заполните начальную и конечную страницы."
-        private const val ACTION_BAR_TITLE = "Оценка чтения"
-
         fun newInstance() = EditSessionInfoFragment()
     }
 }

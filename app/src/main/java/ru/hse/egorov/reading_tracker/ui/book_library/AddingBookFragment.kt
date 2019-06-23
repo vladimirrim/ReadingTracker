@@ -44,9 +44,13 @@ import java.io.ByteArrayOutputStream
 
 
 class AddingBookFragment : BookFragment(), FragmentLauncher {
+    private lateinit var ISBN_SCAN_FAILURE: String
+    private lateinit var ADD_BOOK_FAILURE: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
+        ISBN_SCAN_FAILURE = resources.getString(R.string.isbn_scan_failure)
+        ADD_BOOK_FAILURE = resources.getString(R.string.add_book_failure)
         return inflater.inflate(R.layout.fragment_adding_book, container, false)
     }
 
@@ -81,7 +85,7 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
 
     private fun updateActionBar(activity: AppCompatActivity) {
         activity.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_TITLE
-        activity.supportActionBar?.title = ACTION_BAR_TITLE
+        activity.supportActionBar?.title = resources.getString(R.string.new_book)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -238,9 +242,6 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
     companion object {
         private const val ISBN_PREFIX = "isbn:"
         private const val API_KEY = "AIzaSyDyz5uPI7Bv-gZTosWKBPMHtVVXtWy_UEA"
-        private const val ACTION_BAR_TITLE = "Новая книга"
-        private const val ISBN_SCAN_FAILURE = "Не удалось распознать ISBN код."
-        private const val ADD_BOOK_FAILURE = "Не удалось добавить книгу."
         private const val TAG = "Add Book"
         const val REQUEST_IMAGE_GALLERY = 1
         const val REQUEST_IMAGE_CAMERA = 2

@@ -23,6 +23,7 @@ import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
  */
 class SignUpEmailActivity : AppCompatActivity() {
     private val dbManager = DatabaseManager()
+    private val ACTION_BAR_TITLE = resources.getString(R.string.sign_up_action)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +91,5 @@ class SignUpEmailActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "SIGN UP"
-        private const val ACTION_BAR_TITLE = "Регистрация"
     }
 }

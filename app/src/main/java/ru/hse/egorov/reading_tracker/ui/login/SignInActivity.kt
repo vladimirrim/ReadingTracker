@@ -31,7 +31,7 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-        supportActionBar?.title = ACTION_BAR_TITLE
+        supportActionBar?.title = resources.getString(R.string.action_sign_in)
 
         signInEmail.setOnClickListener {
             if (email.text.toString() != "" && password.text.toString() != "") {
@@ -140,6 +140,5 @@ class SignInActivity : AppCompatActivity() {
     companion object {
         private const val RC_SIGN_IN = 1
         private const val TAG = "Sign in"
-        private const val ACTION_BAR_TITLE = "Вход"
     }
 }

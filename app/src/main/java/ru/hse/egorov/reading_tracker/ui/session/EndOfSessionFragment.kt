@@ -26,10 +26,15 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
     private val statsManager = StatisticsManager()
     private var place: String? = null
     private var mood: String? = null
+    private lateinit var ACTION_BAR_TITLE: String
+    private lateinit var FILL_PAGES_MESSAGE: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_end_of_session, container, false)
+                              savedInstanceState: Bundle?): View? {
+        ACTION_BAR_TITLE = resources.getString(R.string.sign_up_action)
+        FILL_PAGES_MESSAGE = resources.getString(R.string.fill_pages_message)
+        return inflater.inflate(R.layout.fragment_end_of_session, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -119,8 +124,6 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
     }
 
     companion object {
-        private const val FILL_PAGES_MESSAGE = "Заполните начальную и конечную страницы."
-        private const val ACTION_BAR_TITLE = "Оцените чтение"
 
         fun newInstance() = EndOfSessionFragment()
 

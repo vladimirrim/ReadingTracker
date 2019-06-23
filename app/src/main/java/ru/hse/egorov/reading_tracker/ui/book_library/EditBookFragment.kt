@@ -22,8 +22,12 @@ import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import java.io.ByteArrayOutputStream
 
 class EditBookFragment : BookFragment(), FragmentLauncher {
+    private lateinit var ACTION_BAR_TITLE: String
+    private lateinit var EDIT_BOOK_FAILURE: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        ACTION_BAR_TITLE = resources.getString(R.string.book_title)
+        EDIT_BOOK_FAILURE = resources.getString(R.string.edit_book_failure)
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_adding_book, container, false)
     }
@@ -88,8 +92,6 @@ class EditBookFragment : BookFragment(), FragmentLauncher {
     }
 
     companion object {
-        private const val ACTION_BAR_TITLE = "Книга"
-        private const val EDIT_BOOK_FAILURE = "Не удалось изменить книгу."
         private const val TAG = "Edit Book"
 
         fun newInstance() = EditBookFragment()

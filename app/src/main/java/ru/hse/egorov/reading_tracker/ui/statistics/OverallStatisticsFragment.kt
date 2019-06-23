@@ -25,8 +25,10 @@ import ru.hse.egorov.reading_tracker.ui.profile.ProfileFragment
 class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher, StatisticsUpdater {
     private lateinit var pagerAdapter: ViewPagerAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_overall_statistics, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        timePeriod = resources.getString(R.string.all_time)
+        return inflater.inflate(R.layout.fragment_overall_statistics, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -143,7 +145,7 @@ class OverallStatisticsFragment : Fragment(), ActionBarSetter, FragmentLauncher,
         private const val STATISTICS_PERIOD_RC = 1
         private val allSessions = ArrayList<Session>()
         private val sessionsForPeriod = ArrayList<Session>()
-        private var timePeriod = "Всё время"
+        private lateinit var timePeriod: String
 
         fun newInstance() = OverallStatisticsFragment()
 

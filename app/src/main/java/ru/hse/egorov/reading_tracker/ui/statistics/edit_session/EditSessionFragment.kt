@@ -20,10 +20,13 @@ import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
 
 class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
     private val dbManager = DatabaseManager()
+    private lateinit var ACTION_BAR_TITLE: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_edit_session, container, false)
+                              savedInstanceState: Bundle?): View? {
+        ACTION_BAR_TITLE = resources.getString(R.string.edit_session_title)
+        return inflater.inflate(R.layout.fragment_edit_session, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,13 +45,13 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
 
         startTime.hours.text = arguments!!["startTimeHours"] as String
         var startTimeMinutes = arguments!!["startTimeMinutes"] as String
-        if(startTimeMinutes.length == 1) startTimeMinutes = "0$startTimeMinutes"
+        if (startTimeMinutes.length == 1) startTimeMinutes = "0$startTimeMinutes"
         startTime.minutes.text = startTimeMinutes
 
         endTime.hours.text = arguments!!["endTimeHours"] as String
         var endTimeMinutes = arguments!!["endTimeMinutes"] as String
-        if(endTimeMinutes.length == 1) endTimeMinutes = "0$endTimeMinutes"
-        endTime.minutes.text= endTimeMinutes
+        if (endTimeMinutes.length == 1) endTimeMinutes = "0$endTimeMinutes"
+        endTime.minutes.text = endTimeMinutes
 
         hours.text = arguments!!["hours"] as String
         if (hours.text == "") hoursStatic.visibility = View.GONE
@@ -130,8 +133,6 @@ class EditSessionFragment : Fragment(), ActionBarSetter, FragmentLauncher {
     }
 
     companion object {
-        private const val ACTION_BAR_TITLE = "Запись о чтении"
-
         fun newInstance() = EditSessionFragment()
     }
 }

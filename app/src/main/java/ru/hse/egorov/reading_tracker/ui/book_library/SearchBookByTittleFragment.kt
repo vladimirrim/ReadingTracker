@@ -25,9 +25,12 @@ import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 
 
 class SearchBookByTittleFragment : Fragment(), FragmentLauncher, ActionBarSetter {
+    private lateinit var NO_BOOKS_FOUND: String
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_search_book_by_title, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        NO_BOOKS_FOUND = resources.getString(R.string.no_book_found)
+        return inflater.inflate(R.layout.fragment_search_book_by_title, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -103,7 +106,6 @@ class SearchBookByTittleFragment : Fragment(), FragmentLauncher, ActionBarSetter
     }
 
     companion object {
-        private const val NO_BOOKS_FOUND = "Не удалось найти книгу."
         private const val API_KEY = "AIzaSyDyz5uPI7Bv-gZTosWKBPMHtVVXtWy_UEA"
 
         fun newInstance() = SearchBookByTittleFragment()
