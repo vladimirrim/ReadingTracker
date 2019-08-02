@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "117932132458-h2jh5f761r6dd5j0rujij3todetaph9n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.hse.egorov.reading_tracker",
+            "certificate_hash": "8600eff120313b51a6a7241e34a98345e69f6d5c"
+          }
+        },
+        {
+          "client_id": "117932132458-bp9lbjvpogg4feg4pvo90lncq0jr8av4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.hse.egorov.reading_tracker",
+            "certificate_hash": "c2f7bf9fc3945942119abca96315e08ec3ae7319"
+          }
+        },
+        {
           "client_id": "117932132458-ghdqgmcbevhegc4br7u2upn5n6vukcme.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
