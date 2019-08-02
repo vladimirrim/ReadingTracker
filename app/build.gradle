@@ -62,8 +62,11 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.google.apis:google-api-services-books:v1-rev104-1.25.0'
     implementation 'com.google.http-client:google-http-client-android:1.22.0'
+    implementation 'com.google.firebase:firebase-analytics:16.0.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
