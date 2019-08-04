@@ -25,7 +25,7 @@ import javax.inject.Inject
  */
 class SignUpEmailActivity : AppCompatActivity() {
     private val dbManager = DatabaseManager()
-    private val ACTION_BAR_TITLE = resources.getString(R.string.sign_up_action)
+    private lateinit var ACTION_BAR_TITLE: String
     @Inject
     lateinit var library: LibraryAdapter
 
@@ -33,6 +33,7 @@ class SignUpEmailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_email)
 
+        ACTION_BAR_TITLE = resources.getString(R.string.sign_up_action)
         (application as ReadingTrackerApplication).appComponent.inject(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ACTION_BAR_TITLE
