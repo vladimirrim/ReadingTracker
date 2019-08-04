@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_library.view.*
 import kotlinx.android.synthetic.main.statistics_action_bar.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ReadingTrackerApplication
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
 import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
@@ -23,13 +24,18 @@ import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.help.LibraryHelpFragment
 import java.util.*
+import javax.inject.Inject
 
 
 class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSetter {
     private val dbManager = DatabaseManager()
+    @Inject
+    lateinit var library: LibraryAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_library, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        (activity!!.application as ReadingTrackerApplication).appComponent.inject(this)
+        return inflater.inflate(R.layout.fragment_library, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,8 +49,8 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
 
     private fun setUpLibrary(view: View) {
         view.library.layoutManager = LinearLayoutManager(context)
-        enableSwipe(view.library, libraryAdapter)
-        view.library.adapter = libraryAdapter
+        enableSwipe(view.library, library)
+        view.library.adapter = library
     }
 
     override fun setActionBar(activity: AppCompatActivity) {
@@ -143,11 +149,8 @@ class LibraryFragment : Fragment(), BitmapEncoder, FragmentLauncher, ActionBarSe
 
     companion object {
         private const val TAG = "Library"
-        private val libraryAdapter = LibraryAdapter()
 
         fun newInstance() = LibraryFragment()
-
-        fun getAdapter() = libraryAdapter
     }
 
     data class Book(var author: String?, var name: String, var id: String, var mediaType: String, val cover: String?, var lastUpdated: Date,

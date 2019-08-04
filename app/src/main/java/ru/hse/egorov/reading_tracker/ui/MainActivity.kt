@@ -6,7 +6,9 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ReadingTrackerApplication
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
+import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.adapter.ViewPagerAdapter
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryWelcomeFragment
@@ -14,9 +16,12 @@ import ru.hse.egorov.reading_tracker.ui.dialog.AddBookDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity(), FragmentLauncher {
+    @Inject
+    lateinit var library: LibraryAdapter
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -33,7 +38,7 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
                 fab.hide()
             }
             R.id.navigation_library -> {
-                if (LibraryFragment.getAdapter().itemCount == 0) {
+                if (library.itemCount == 0) {
                     openTemporaryFragment(this, LibraryWelcomeFragment.newInstance(), R.id.temporaryFragment)
                 } else {
                     openPagerFragment(this, LIBRARY_FRAGMENT_POSITION)
@@ -51,6 +56,8 @@ class MainActivity : AppCompatActivity(), FragmentLauncher {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        (application as ReadingTrackerApplication).appComponent.inject(this)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.menu.getItem(1).isChecked = true

@@ -10,7 +10,7 @@ android {
         applicationId "ru.hse.egorov.reading_tracker"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 2
+        versionCode 3
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -57,13 +57,18 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.7.1'
     implementation "com.github.bumptech.glide:okhttp3-integration:4.6.1"
     implementation 'com.github.bumptech.glide:annotations:4.8.0'
-    implementation 'com.google.dagger:dagger:2.19'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.19'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.google.apis:google-api-services-books:v1-rev104-1.25.0'
     implementation 'com.google.http-client:google-http-client-android:1.22.0'
     implementation 'com.google.firebase:firebase-analytics:16.0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    def daggerVer = 2.19
+
+    implementation "com.google.dagger:dagger:$daggerVer"
+    implementation "com.google.dagger:dagger-android-support:$daggerVer"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVer"
+    kapt "com.google.dagger:dagger-compiler:$daggerVer"
 }
 
 apply plugin: 'com.google.gms.google-services'

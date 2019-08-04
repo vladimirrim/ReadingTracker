@@ -8,28 +8,33 @@ import android.view.*
 import kotlinx.android.synthetic.main.fragment_start_of_session.*
 import kotlinx.android.synthetic.main.fragment_start_of_session.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ReadingTrackerApplication
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.LIBRARY_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
+import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.bitmap.BitmapEncoder
-import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.dialog.AddBookDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.session_inner_fragments.AutoSessionTimeChangeFragment
+import javax.inject.Inject
 
 
 class StartOfSessionFragment : Fragment(), FragmentLauncher, BitmapEncoder, ActionBarSetter {
     private val dbManager = DatabaseManager()
+    @Inject
+    lateinit var library: LibraryAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_start_of_session, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        (activity!!.application as ReadingTrackerApplication).appComponent.inject(this)
+        return inflater.inflate(R.layout.fragment_start_of_session, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val libraryAdapter = LibraryFragment.getAdapter()
-        if (libraryAdapter.itemCount != 0) {
-            val book = libraryAdapter.get(0)
+        if (library.itemCount != 0) {
+            val book = library.get(0)
             setBook(book.author, book.name, book.id)
         }
 

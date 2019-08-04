@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.fragment_manual_session_time_change.*
 import kotlinx.android.synthetic.main.fragment_manual_session_time_change.view.*
 import kotlinx.android.synthetic.main.session_time.view.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ReadingTrackerApplication
+import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator
 import ru.hse.egorov.reading_tracker.ui.date.DateTranslator.Companion.MONTH_GENITIVE
@@ -20,16 +22,21 @@ import ru.hse.egorov.reading_tracker.ui.dialog.SessionTimeDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
 import java.util.*
+import javax.inject.Inject
 
 
 class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher, DateTranslator {
     private var startTimeMinutes = 0
     private var endTimeMinutes = 0
     private var date = Calendar.getInstance().timeInMillis
+    @Inject
+    lateinit var library: LibraryAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_manual_session_time_change, container, false)
+                              savedInstanceState: Bundle?): View? {
+        (activity!!.application as ReadingTrackerApplication).appComponent.inject(this)
+        return inflater.inflate(R.layout.fragment_manual_session_time_change, container, false)
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,7 +77,7 @@ class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher, DateTransl
             dispatchFragment.arguments = setBundle()
             openTemporaryFragment(activity as AppCompatActivity, dispatchFragment, R.id.temporaryFragment)
         }
-        endSessionButton.isEnabled = LibraryFragment.getAdapter().itemCount != 0
+        endSessionButton.isEnabled = library.itemCount != 0
     }
 
     private fun setBundle(): Bundle {
@@ -78,7 +85,7 @@ class ManualSessionTimeChangeFragment : Fragment(), FragmentLauncher, DateTransl
         var duration = endTimeMinutes - startTimeMinutes
         if (duration < 0) duration += 24 * 60
         bundle.putLong("duration", duration * 60L)
-        bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
+        bundle.putString("bookId", library.get(0).id)
         bundle.putLong("startTime", date + startTimeMinutes * 60 * 1000)
         bundle.putLong("endTime", date + startTimeMinutes * 60 * 1000 + duration * 60 * 1000)
         bundle.putString("author", arguments!!["author"] as String?)

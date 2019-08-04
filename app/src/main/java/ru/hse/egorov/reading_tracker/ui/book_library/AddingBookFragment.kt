@@ -30,9 +30,9 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_adding_book.*
 import kotlinx.android.synthetic.main.fragment_adding_book.view.*
-import kotlinx.android.synthetic.main.fragment_library.*
 import ru.hse.egorov.reading_tracker.BuildConfig
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ReadingTrackerApplication
 import ru.hse.egorov.reading_tracker.ui.MainActivity
 import ru.hse.egorov.reading_tracker.ui.MainActivity.Companion.SESSION_FRAGMENT_POSITION
 import ru.hse.egorov.reading_tracker.ui.action_bar.ActionBarSetter
@@ -41,17 +41,25 @@ import ru.hse.egorov.reading_tracker.ui.dialog.AddCoverDialog
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import java.io.ByteArrayOutputStream
+import javax.inject.Inject
 
 
 class AddingBookFragment : BookFragment(), FragmentLauncher {
     private lateinit var ISBN_SCAN_FAILURE: String
     private lateinit var ADD_BOOK_FAILURE: String
+    @Inject
+    lateinit var library: LibraryAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         ISBN_SCAN_FAILURE = resources.getString(R.string.isbn_scan_failure)
         ADD_BOOK_FAILURE = resources.getString(R.string.add_book_failure)
         return inflater.inflate(R.layout.fragment_adding_book, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity!!.application as ReadingTrackerApplication).appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,8 +107,8 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
             dbManager.addBookToLibrary(book).addOnSuccessListener { uploadedBook ->
                 dbManager.addBookCover(baos.toByteArray(), uploadedBook.id).addOnSuccessListener {
                     setBookToSession(uploadedBook.id)
-                    (activity!!.library.adapter as LibraryAdapter).add(setUpNewBook(book["last updated"] as Timestamp, uploadedBook.id))
-                    (activity!!.library.adapter as LibraryAdapter).sortByLastUpdated()
+                    library.add(setUpNewBook(book["last updated"] as Timestamp, uploadedBook.id))
+                    library.sortByLastUpdated()
                     (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
                             + MainActivity.LIBRARY_FRAGMENT_POSITION) as ActionBarSetter).setActionBar(activity as AppCompatActivity)
                     openPagerFragment(activity as AppCompatActivity, MainActivity.LIBRARY_FRAGMENT_POSITION)

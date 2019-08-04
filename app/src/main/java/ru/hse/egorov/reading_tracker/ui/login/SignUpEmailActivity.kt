@@ -10,12 +10,14 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_sign_up_email.*
 import ru.hse.egorov.reading_tracker.R
+import ru.hse.egorov.reading_tracker.ReadingTrackerApplication
 import ru.hse.egorov.reading_tracker.database.DatabaseManager
 import ru.hse.egorov.reading_tracker.ui.MainActivity
-import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.statistics.BooksStatisticsFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.OverallStatisticsFragment
 import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
+import javax.inject.Inject
 
 
 /**
@@ -24,11 +26,14 @@ import ru.hse.egorov.reading_tracker.ui.statistics.SessionsStatisticsFragment
 class SignUpEmailActivity : AppCompatActivity() {
     private val dbManager = DatabaseManager()
     private val ACTION_BAR_TITLE = resources.getString(R.string.sign_up_action)
+    @Inject
+    lateinit var library: LibraryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_email)
 
+        (application as ReadingTrackerApplication).appComponent.inject(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ACTION_BAR_TITLE
         signUpEmail.setOnClickListener {
@@ -76,7 +81,7 @@ class SignUpEmailActivity : AppCompatActivity() {
 
     private fun clearPreviousData() {
         OverallStatisticsFragment.getAllSessions().clear()
-        LibraryFragment.getAdapter().clear()
+        library.clear()
         OverallStatisticsFragment.getSessionsForPeriod().clear()
         SessionsStatisticsFragment.getAdapter().clear()
         BooksStatisticsFragment.getAdapter().clear()

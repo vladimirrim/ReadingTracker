@@ -9,9 +9,11 @@ import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.StartOfSessionFragment
 import java.util.*
+import javax.inject.Inject
 
 
-class LibraryAdapter : BookAdapter(), FragmentLauncher {
+class LibraryAdapter @Inject constructor(): BookAdapter(), FragmentLauncher {
+
     override fun bindContainer(container: View, book: LibraryFragment.Book) {
         container.setOnClickListener {
             ((it.context as AppCompatActivity).supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
@@ -20,7 +22,7 @@ class LibraryAdapter : BookAdapter(), FragmentLauncher {
             book.lastUpdated = Calendar.getInstance().time
             (it.context as AppCompatActivity).fab.hide()
             openPagerFragment(container.context as AppCompatActivity, SESSION_FRAGMENT_POSITION)
-            LibraryFragment.getAdapter().sortByLastUpdated()
+            sortByLastUpdated()
         }
     }
 }

@@ -10,18 +10,24 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_auto_session_time_change.*
 import kotlinx.android.synthetic.main.fragment_auto_session_time_change.view.*
 import ru.hse.egorov.reading_tracker.R
-import ru.hse.egorov.reading_tracker.ui.book_library.LibraryFragment
+import ru.hse.egorov.reading_tracker.ReadingTrackerApplication
+import ru.hse.egorov.reading_tracker.ui.adapter.LibraryAdapter
 import ru.hse.egorov.reading_tracker.ui.fragment.FragmentLauncher
 import ru.hse.egorov.reading_tracker.ui.session.EndOfSessionFragment
 import java.util.*
+import javax.inject.Inject
 
 class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     private var isChronometerRunning = false
     private var startTime: Long = System.currentTimeMillis()
+    @Inject
+    lateinit var library: LibraryAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_auto_session_time_change, container, false)
+                              savedInstanceState: Bundle?): View? {
+        (activity!!.application as ReadingTrackerApplication).appComponent.inject(this)
+        return inflater.inflate(R.layout.fragment_auto_session_time_change, container, false)
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,8 +37,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
         setChronometerListener(view)
         setEndSessionButton()
 
-        val libraryAdapter = LibraryFragment.getAdapter()
-        if (libraryAdapter.itemCount == 0) {
+        if (library.itemCount == 0) {
             view.startSession.isEnabled = false
         }
         view.toManualTimeChange.setOnClickListener {
@@ -44,8 +49,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     override fun onResume() {
         super.onResume()
 
-        val libraryAdapter = LibraryFragment.getAdapter()
-        if (libraryAdapter.itemCount == 0) {
+        if (library.itemCount == 0) {
             startSession.isEnabled = false
         }
     }
@@ -62,7 +66,7 @@ class AutoSessionTimeChangeFragment : Fragment(), FragmentLauncher {
     private fun setBundle(): Bundle {
         val bundle = Bundle()
         bundle.putLong("duration", hours.text.toString().toInt() * 60L + minutes.text.toString().toInt())
-        bundle.putString("bookId", LibraryFragment.getAdapter().get(0).id)
+        bundle.putString("bookId", library.get(0).id)
         bundle.putLong("startTime", startTime)
         bundle.putLong("endTime", Calendar.getInstance().time.time)
         bundle.putString("author", arguments!!["author"] as String?)
