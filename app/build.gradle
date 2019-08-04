@@ -10,8 +10,8 @@ android {
         applicationId "ru.hse.egorov.reading_tracker"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.1"
+        versionCode 4
+        versionName "1.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
