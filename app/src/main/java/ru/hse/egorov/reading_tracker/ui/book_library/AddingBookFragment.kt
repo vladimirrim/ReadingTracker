@@ -154,24 +154,32 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
                     for (barcode in barcodes) {
                         if (barcode.valueType == FirebaseVisionBarcode.TYPE_ISBN) {
                             val isbn = barcode.rawValue!!
-                            BookDownloader { _, volumes ->
-                                setBook(LibraryFragment.Book(volumes.items[0].volumeInfo))
+                            BookDownloader { success, volumes ->
+                                if (success) {
+                                    volumes?.items?.get(0)?.volumeInfo?.let {
+                                        setBook(LibraryFragment.Book(it))
+                                    }
+                                } else {
+                                    onIsbnFailure()
+                                }
                                 hideProgressBar()
                             }.execute(isbn)
                         }
                         return@addOnSuccessListener
                     }
                     hideProgressBar()
-                    Snackbar.make(activity!!.placeSnackBar,
-                            ISBN_SCAN_FAILURE,
-                            Toast.LENGTH_SHORT).show()
+                    onIsbnFailure()
                 }
                 .addOnFailureListener {
                     hideProgressBar()
-                    Snackbar.make(activity!!.placeSnackBar,
-                            ISBN_SCAN_FAILURE,
-                            Toast.LENGTH_SHORT).show()
+                    onIsbnFailure()
                 }
+    }
+
+    private fun onIsbnFailure() {
+        Snackbar.make(activity!!.placeSnackBar,
+                ISBN_SCAN_FAILURE,
+                Toast.LENGTH_SHORT).show()
     }
 
     private fun setBook(bundle: Bundle) {
@@ -229,7 +237,7 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
         }
     }
 
-    private class BookDownloader(private val onDownloadFinish: (success: Boolean, Volumes) -> Unit) : AsyncTask<String, Unit, Volumes>() {
+    private class BookDownloader(private val onDownloadFinish: (success: Boolean, Volumes?) -> Unit) : AsyncTask<String, Unit, Volumes>() {
 
         override fun doInBackground(vararg isbn: String?): Volumes {
             val books = Books.Builder(AndroidHttp.newCompatibleTransport(), AndroidJsonFactory.getDefaultInstance(), null)
@@ -243,7 +251,7 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
         }
 
         override fun onPostExecute(result: Volumes?) {
-            onDownloadFinish(true, result!!)
+            onDownloadFinish(result == null, result)
         }
     }
 
