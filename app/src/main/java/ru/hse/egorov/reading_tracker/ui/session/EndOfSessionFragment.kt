@@ -71,7 +71,7 @@ class EndOfSessionFragment : Fragment(), FragmentLauncher {
                 progressBar.visibility = View.VISIBLE
                 dbManager.addSession(session).addOnSuccessListener { doc ->
                     (activity?.supportFragmentManager?.findFragmentByTag("android:switcher:" + R.id.fragmentPager + ":"
-                            + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment).resetSession()
+                            + SESSION_FRAGMENT_POSITION) as StartOfSessionFragment?)?.resetSession()
                     updateStatistics(session, doc)
                     openPagerFragment(activity as AppCompatActivity, PROFILE_FRAGMENT_POSITION)
                     this@EndOfSessionFragment.setHasOptionsMenu(false)
