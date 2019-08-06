@@ -154,9 +154,9 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
                     for (barcode in barcodes) {
                         if (barcode.valueType == FirebaseVisionBarcode.TYPE_ISBN) {
                             val isbn = barcode.rawValue!!
-                            BookDownloader { success, volumes ->
-                                if (success) {
-                                    volumes?.items?.get(0)?.volumeInfo?.let {
+                            BookDownloader { failure, volumes ->
+                                if (!failure) {
+                                    volumes!!.items.get(0).volumeInfo.let {
                                         setBook(LibraryFragment.Book(it))
                                     }
                                 } else {
@@ -237,21 +237,20 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
         }
     }
 
-    private class BookDownloader(private val onDownloadFinish: (success: Boolean, Volumes?) -> Unit) : AsyncTask<String, Unit, Volumes>() {
+    private class BookDownloader(private val onDownloadFinish: (failure: Boolean, Volumes?) -> Unit) : AsyncTask<String, Unit, Volumes>() {
 
         override fun doInBackground(vararg isbn: String?): Volumes {
             val books = Books.Builder(AndroidHttp.newCompatibleTransport(), AndroidJsonFactory.getDefaultInstance(), null)
                     .setApplicationName(BuildConfig.APPLICATION_ID)
                     .setGoogleClientRequestInitializer(BooksRequestInitializer(API_KEY))
                     .build()
-
             val list = books.volumes().list(ISBN_PREFIX + isbn[0])
             list.fields = "totalItems,items(volumeInfo(title,authors,pageCount,imageLinks/smallThumbnail),id)"
             return list.execute()
         }
 
         override fun onPostExecute(result: Volumes?) {
-            onDownloadFinish(result == null, result)
+            onDownloadFinish(result?.items == null || result.items.isEmpty(), result)
         }
     }
 
