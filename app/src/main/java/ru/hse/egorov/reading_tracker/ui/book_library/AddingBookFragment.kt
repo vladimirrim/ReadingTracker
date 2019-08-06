@@ -239,14 +239,18 @@ class AddingBookFragment : BookFragment(), FragmentLauncher {
 
     private class BookDownloader(private val onDownloadFinish: (failure: Boolean, Volumes?) -> Unit) : AsyncTask<String, Unit, Volumes>() {
 
-        override fun doInBackground(vararg isbn: String?): Volumes {
+        override fun doInBackground(vararg isbn: String?): Volumes? {
             val books = Books.Builder(AndroidHttp.newCompatibleTransport(), AndroidJsonFactory.getDefaultInstance(), null)
                     .setApplicationName(BuildConfig.APPLICATION_ID)
                     .setGoogleClientRequestInitializer(BooksRequestInitializer(API_KEY))
                     .build()
-            val list = books.volumes().list(ISBN_PREFIX + isbn[0])
-            list.fields = "totalItems,items(volumeInfo(title,authors,pageCount,imageLinks/smallThumbnail),id)"
-            return list.execute()
+            return try {
+                val list = books.volumes().list(ISBN_PREFIX + isbn[0])
+                list.fields = "totalItems,items(volumeInfo(title,authors,pageCount,imageLinks/smallThumbnail),id)"
+                list.execute()
+            } catch (e: Exception) {
+                null
+            }
         }
 
         override fun onPostExecute(result: Volumes?) {
